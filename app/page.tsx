@@ -1,280 +1,236 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, PieChart, Pie, Cell, Legend,
-} from 'recharts';
+import { useState, useEffect } from 'react';
+import ClimateEnergyTab from './components/ClimateEnergyTab';
 
-// ── Slug → indicator name map ─────────────────────────────────────────────
-const SLUG_MAP: Record<string, string> = {
-  'total-ghg-emissions':        'Total GHG Emissions',
-  'per-capita-ghg-footprint':   'Per-capita GHG footprint',
-  'final-energy-consumption':   'Final Energy Consumption',
-  'renewable-electricity-share':'Renewable Electricity Share',
+// ── Types ──────────────────────────────────────────────────────────────────
+interface Indicator {
+  indicator: string;
+  description: string | null;
+  unit: string | null;
+  target_value: number | null;
+  target_year: number | null;
+  latest_value: number | null;
+  latest_value_year: number | null;
+  target_context: string | null;
+  status: string | null;
+  trend: string | null;
+  policy: string | null;
+  policy_url: string | null;
+  data_source: string | null;
+  data_source_url: string | null;
+  notes: string | null;
+  consequences: string | null;
+  responsible: string | null;
+}
+
+interface TopicData { topic: string; indicators: Indicator[]; }
+interface EnvData   { topics: Record<string, TopicData>; historical: any; }
+
+// ── Topic configuration ────────────────────────────────────────────────────
+const TOPIC_CONFIG: Record<string, { label: string; color: string; emoji: string }> = {
+  climate_energy:      { label: 'Climate & Energy',     color: '#f97316', emoji: '🌡️' },
+  nature_biodiversity: { label: 'Nature & Biodiversity', color: '#22c55e', emoji: '🌿' },
+  circularity_waste:   { label: 'Circularity & Waste',  color: '#06b6d4', emoji: '♻️' },
+  water_soil:          { label: 'Water & Soil',          color: '#3b82f6', emoji: '💧' },
+  air_quality:         { label: 'Air Quality',           color: '#8b5cf6', emoji: '💨' },
+  mobility_transport:  { label: 'Mobility & Transport',  color: '#ec4899', emoji: '🚗' },
 };
-
-// ── Chart data (same as ClimateEnergyTab) ─────────────────────────────────
-const ENERGY_MIX = [
-  { name: 'Oil & petroleum',     value: 38, color: '#ef4444' },
-  { name: 'Natural gas',         value: 23, color: '#f97316' },
-  { name: 'Coal & solid fuels',  value: 5,  color: '#78716c' },
-  { name: 'Nuclear electricity', value: 7,  color: '#8b5cf6' },
-  { name: 'Other electricity',   value: 11, color: '#6366f1' },
-  { name: 'Biomass & bioenergy', value: 6,  color: '#22c55e' },
-  { name: 'Wind',                value: 4,  color: '#06b6d4' },
-  { name: 'Solar PV',            value: 2,  color: '#fbbf24' },
-  { name: 'Other',               value: 4,  color: '#d1d5db' },
-];
-
-const RENEWABLES_MIX = [
-  { name: 'Biomass & bioenergy', value: 60, color: '#16a34a' },
-  { name: 'Offshore wind',       value: 17, color: '#0369a1' },
-  { name: 'Onshore wind',        value: 9,  color: '#38bdf8' },
-  { name: 'Solar PV',            value: 9,  color: '#fbbf24' },
-  { name: 'Heat pumps',          value: 4,  color: '#f97316' },
-  { name: 'Hydro',               value: 1,  color: '#06b6d4' },
-];
-
-const FOOTPRINT_CATEGORIES = [
-  { name: 'Housing',    value: 31.4, color: '#dc2626' },
-  { name: 'Equipment',  value: 23.3, color: '#f97316' },
-  { name: 'Transport',  value: 19.9, color: '#eab308' },
-  { name: 'Food',       value: 15.0, color: '#22c55e' },
-  { name: 'Services',   value: 7.3,  color: '#06b6d4' },
-  { name: 'Other',      value: 3.1,  color: '#9ca3af' },
-];
-
-const GHG_SECTORS = [
-  { name: 'Industry & construction', value: 28.3, color: '#dc2626' },
-  { name: 'Transport',               value: 25.4, color: '#f97316' },
-  { name: 'Buildings (heating)',     value: 17.8, color: '#eab308' },
-  { name: 'Energy industries',       value: 16.0, color: '#8b5cf6' },
-  { name: 'Agriculture',             value: 11.6, color: '#22c55e' },
-  { name: 'Other',                   value: 1.9,  color: '#9ca3af' },
-];
 
 const STATUS_CFG: Record<string, { color: string; bg: string; label: string }> = {
-  'Achieved':          { color: '#065f46', bg: '#d1fae5', label: '✅ Achieved'  },
-  'On track':          { color: '#14532d', bg: '#bbf7d0', label: '🟢 On track'  },
-  'Off track':         { color: '#7f1d1d', bg: '#fee2e2', label: '🔴 Off track' },
-  'Insufficient data': { color: '#374151', bg: '#f3f4f6', label: '⚪ No data'   },
+  'Achieved':          { color: '#065f46', bg: '#d1fae5', label: '✅ Achieved'         },
+  'On track':          { color: '#14532d', bg: '#bbf7d0', label: '🟢 On track'         },
+  'Off track':         { color: '#7f1d1d', bg: '#fee2e2', label: '🔴 Off track'        },
+  'Insufficient data': { color: '#374151', bg: '#f3f4f6', label: '⚪ Insufficient data' },
 };
 
-function fmt(v: any, unit: string | null) {
+const TREND_ICON: Record<string, string> = { Improving: '↑', Stable: '→', Worsening: '↓' };
+
+function fmt(v: number | null | undefined, unit: string | null): string {
   if (v == null) return '—';
   const n = typeof v === 'number' ? v : parseFloat(String(v));
   if (isNaN(n)) return String(v);
   return `${n.toLocaleString('en-BE', { maximumFractionDigits: 2 })}${unit ? ' ' + unit : ''}`;
 }
 
-function InfoRow({ label, children }: { label: string; children: React.ReactNode }) {
+function getProgress(latest: number | null, target: number | null): number | null {
+  if (latest == null || target == null) return null;
+  const l = typeof latest === 'number' ? latest : parseFloat(String(latest));
+  const t = typeof target === 'number' ? target : parseFloat(String(target));
+  if (isNaN(l) || isNaN(t) || t === 0) return null;
+  return Math.min(100, t > l ? (l / t) * 100 : (t / l) * 100);
+}
+
+function IndicatorCard({ ind, topicColor }: { ind: Indicator; topicColor: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const sc  = STATUS_CFG[ind.status ?? ''] ?? STATUS_CFG['Insufficient data'];
+  const pct = getProgress(ind.latest_value, ind.target_value);
+
   return (
-    <div className="detail-info-row">
-      <div className="detail-label">{label}</div>
-      <div className="detail-value">{children}</div>
+    <div className="card" style={{ '--topic-color': topicColor } as React.CSSProperties}>
+      <div className="card-accent" />
+      <div className="card-inner">
+        <div className="card-top">
+          <span className="status-badge" style={{ color: sc.color, background: sc.bg }}>{sc.label}</span>
+          <span className="trend">{TREND_ICON[ind.trend ?? ''] ?? '—'} {ind.trend ?? '—'}</span>
+        </div>
+        <h3 className="card-title">{ind.indicator}</h3>
+        {ind.description && <p className="card-desc">{ind.description}</p>}
+        <div className="card-values">
+          <div className="value-block">
+            <span className="value-label">Latest</span>
+            <span className="value-num">{fmt(ind.latest_value, ind.unit)}</span>
+            {ind.latest_value_year && <span className="value-year">{ind.latest_value_year}</span>}
+          </div>
+          {ind.target_value != null && (
+            <div className="value-block">
+              <span className="value-label">Target</span>
+              <span className="value-num">{fmt(ind.target_value, ind.unit)}</span>
+              {ind.target_year && <span className="value-year">by {ind.target_year}</span>}
+            </div>
+          )}
+        </div>
+        {pct != null && (
+          <div className="progress-wrap">
+            <div className="progress-bar">
+              <div className="progress-fill" style={{ width: `${pct}%`, background: topicColor }} />
+            </div>
+            <span className="progress-label">{pct.toFixed(0)}% of the way to target</span>
+          </div>
+        )}
+        <button className="expand-btn" onClick={() => setExpanded(!expanded)}>
+          {expanded ? 'Show less ↑' : 'Show more ↓'}
+        </button>
+        {expanded && (
+          <div className="card-detail">
+            {ind.target_context && <div className="detail-row"><strong>Context</strong><p>{ind.target_context}</p></div>}
+            {ind.notes && <div className="detail-row"><strong>Notes</strong><p>{ind.notes}</p></div>}
+            {ind.consequences && <div className="detail-row"><strong>Consequences if missed</strong><p>{ind.consequences}</p></div>}
+            {ind.responsible && <div className="detail-row"><strong>Responsible government</strong><p>{ind.responsible}</p></div>}
+            {ind.data_source && (
+              <div className="detail-row">
+                <strong>Data source</strong>
+                {ind.data_source_url
+                  ? <a href={ind.data_source_url} target="_blank" rel="noopener noreferrer">{ind.data_source}</a>
+                  : <p>{ind.data_source}</p>}
+              </div>
+            )}
+            {ind.policy && (
+              <div className="detail-row">
+                <strong>Policy / Agreement</strong>
+                {ind.policy_url
+                  ? <a href={ind.policy_url} target="_blank" rel="noopener noreferrer">{ind.policy}</a>
+                  : <p>{ind.policy}</p>}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
-function PieChartBlock({ data, title, source }: {
-  data: { name: string; value: number; color: string }[];
-  title: string;
-  source: string;
-}) {
-  return (
-    <div className="detail-chart-block">
-      <div className="detail-chart-title">{title}</div>
-      <ResponsiveContainer width="100%" height={320}>
-        <PieChart>
-          <Pie data={data} cx="50%" cy="45%" outerRadius={110} dataKey="value" labelLine={false}>
-            {data.map((e, i) => <Cell key={i} fill={e.color} stroke="white" strokeWidth={2} />)}
-          </Pie>
-          <Tooltip
-            formatter={(v: any, n: any) => [`${v}%`, n]}
-            contentStyle={{ background: '#1a1a1a', color: '#fff', border: 'none', borderRadius: 8, fontSize: 13 }}
-          />
-          <Legend iconType="circle" iconSize={9}
-            formatter={v => <span style={{ fontSize: 12, color: '#4b5563' }}>{v}</span>}
-          />
-        </PieChart>
-      </ResponsiveContainer>
-      <p className="detail-chart-source">{source}</p>
-    </div>
-  );
-}
-
-function LineChartBlock({ data }: { data: { year: number; value: number }[] }) {
-  return (
-    <div className="detail-chart-block">
-      <div className="detail-chart-title">Total GHG Emissions — Belgium 1990–2023 (MtCO₂eq)</div>
-      <ResponsiveContainer width="100%" height={320}>
-        <LineChart data={data} margin={{ top: 8, right: 24, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-          <XAxis dataKey="year" tick={{ fontSize: 11, fill: '#9ca3af' }} tickLine={false} interval={4} />
-          <YAxis tick={{ fontSize: 11, fill: '#9ca3af' }} tickLine={false} axisLine={false} width={45} />
-          <Tooltip
-            contentStyle={{ background: '#1a1a1a', color: '#fff', border: 'none', borderRadius: 8, fontSize: 13 }}
-            formatter={(v: any) => [`${v} MtCO₂eq`, 'GHG Emissions']}
-            labelStyle={{ fontWeight: 700 }}
-          />
-          <Line type="monotone" dataKey="value" stroke="#f97316" strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: '#f97316' }} />
-        </LineChart>
-      </ResponsiveContainer>
-      <p className="detail-chart-source">Source: National Climate Commission / indicators.be</p>
-    </div>
-  );
-}
-
-export default function ClimateDetailPage() {
-  const { slug } = useParams<{ slug: string }>();
-  const [data, setData] = useState<any>(null);
+export default function Home() {
+  const [data, setData]          = useState<EnvData | null>(null);
+  const [activeTopic, setActive] = useState('climate_energy');
 
   useEffect(() => {
     fetch('/data/belgium_environment_data.json')
       .then(r => r.json())
-      .then(setData);
+      .then(setData)
+      .catch(err => console.error('Failed to load data:', err));
   }, []);
 
-  if (!data) return <div className="loading">Loading…</div>;
+  if (!data) return <div className="loading">Loading data…</div>;
 
-  const indicatorName = SLUG_MAP[slug];
-  if (!indicatorName) return (
-    <div style={{ padding: 40, textAlign: 'center' }}>
-      <p>Indicator not found.</p>
-      <Link href="/">← Back to overview</Link>
-    </div>
-  );
+  const allIndicators = Object.values(data.topics).flatMap(t => t.indicators);
+  const stats = {
+    achieved: allIndicators.filter(i => i.status === 'Achieved').length,
+    onTrack:  allIndicators.filter(i => i.status === 'On track').length,
+    offTrack: allIndicators.filter(i => i.status === 'Off track').length,
+    noData:   allIndicators.filter(i => i.status === 'Insufficient data').length,
+  };
 
-  const ind = data.topics.climate_energy?.indicators?.find(
-    (i: any) => i.indicator === indicatorName
-  );
+  const activeCfg        = TOPIC_CONFIG[activeTopic];
+  const activeIndicators = data.topics[activeTopic]?.indicators ?? [];
 
-  const historicalGHG: { year: number; value: number }[] =
+  const historicalGHG =
     data.historical?.climate_energy?.series?.['Total GHG Emissions']?.map(
-      (d: any) => ({ year: d.year, value: d.value })
+      (d: any) => ({ year: d.year, value: d.value, unit: d.unit })
     ) ?? [];
 
-  const sc = STATUS_CFG[ind?.status ?? ''] ?? STATUS_CFG['Insufficient data'];
-
-  // Which chart to show
-  let chartNode: React.ReactNode = null;
-  if (slug === 'total-ghg-emissions') {
-    chartNode = <LineChartBlock data={historicalGHG} />;
-  } else if (slug === 'per-capita-ghg-footprint') {
-    chartNode = (
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, flexWrap: 'wrap' }}>
-        <PieChartBlock
-          data={FOOTPRINT_CATEGORIES}
-          title="Consumption-based footprint by lifestyle category (~15.7 t/cap, 2019)"
-          source="Source: UCLouvain (2021)"
-        />
-        <PieChartBlock
-          data={GHG_SECTORS}
-          title="Territorial emissions by sector (% of 97.9 MtCO₂eq, 2023)"
-          source="Source: National Climate Commission (2025)"
-        />
-      </div>
-    );
-  } else if (slug === 'final-energy-consumption') {
-    chartNode = (
-      <PieChartBlock
-        data={ENERGY_MIX}
-        title="Energy mix — % of Final Energy Consumption (2022)"
-        source="Source: IEA World Energy Balances / Eurostat"
-      />
-    );
-  } else if (slug === 'renewable-electricity-share') {
-    chartNode = (
-      <PieChartBlock
-        data={RENEWABLES_MIX}
-        title="Renewables breakdown — % of total renewable energy (2023)"
-        source="Source: IRENA Belgium Profile / Eurostat SHARES"
-      />
-    );
-  }
-
   return (
-    <div className="detail-page">
-      {/* Header */}
-      <div className="detail-header" style={{ background: '#1a1a1a' }}>
-        <div className="detail-header-inner">
-          <Link href="/" className="back-link">← Back to overview</Link>
-          <p className="header-eyebrow" style={{ marginTop: 16 }}>🇧🇪 Climate & Energy</p>
-          <h1 className="detail-title">{indicatorName}</h1>
-          <div style={{ display: 'flex', gap: 12, marginTop: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-            <span className="status-badge" style={{ color: sc.color, background: sc.bg, padding: '5px 14px' }}>
-              {sc.label}
-            </span>
-            {ind?.trend && (
-              <span style={{ color: '#b0b0b0', fontSize: '0.9rem', fontWeight: 600 }}>
-                {ind.trend === 'Improving' ? '↑' : ind.trend === 'Worsening' ? '↓' : '→'} {ind.trend}
-              </span>
-            )}
+    <main>
+      <header>
+        <div className="flag-stripe black" />
+        <div className="flag-stripe yellow" />
+        <div className="flag-stripe red" />
+        <div className="header-content">
+          <div className="header-text">
+            <p className="header-eyebrow">🇧🇪 Belgium</p>
+            <h1>Environment Tracker</h1>
+            <p className="header-sub">Tracking Belgium's progress on climate &amp; environment objectives</p>
+          </div>
+          <div className="header-stats">
+            <div className="stat-pill achieved">✅ {stats.achieved} Achieved</div>
+            <div className="stat-pill ontrack">🟢 {stats.onTrack} On track</div>
+            <div className="stat-pill offtrack">🔴 {stats.offTrack} Off track</div>
+            {stats.noData > 0 && <div className="stat-pill nodata">⚪ {stats.noData} No data</div>}
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className="detail-body">
+      <nav className="tabs" aria-label="Topics">
+        {Object.entries(TOPIC_CONFIG).map(([key, cfg]) => {
+          const inds     = data.topics[key]?.indicators ?? [];
+          const offTrack = inds.filter(i => i.status === 'Off track').length;
+          return (
+            <button
+              key={key}
+              className={`tab ${activeTopic === key ? 'active' : ''}`}
+              style={{ '--tab-color': cfg.color } as React.CSSProperties}
+              onClick={() => setActive(key)}
+              aria-current={activeTopic === key ? 'page' : undefined}
+            >
+              <span className="tab-emoji">{cfg.emoji}</span>
+              <span className="tab-label">{cfg.label}</span>
+              {offTrack > 0 && <span className="tab-badge">{offTrack}</span>}
+            </button>
+          );
+        })}
+      </nav>
 
-        {/* Key figures */}
-        <div className="detail-figures">
-          <div className="figure-card">
-            <div className="figure-label">Latest value</div>
-            <div className="figure-number">{fmt(ind?.latest_value, ind?.unit)}</div>
-            <div className="figure-year">{ind?.latest_value_year}</div>
-          </div>
-          {ind?.target_value != null && (
-            <div className="figure-card">
-              <div className="figure-label">Target</div>
-              <div className="figure-number">{fmt(ind?.target_value, ind?.unit)}</div>
-              <div className="figure-year">by {ind?.target_year}</div>
+      <section className="topic-section">
+        {activeTopic === 'climate_energy' ? (
+          <ClimateEnergyTab indicators={activeIndicators} historicalGHG={historicalGHG} />
+        ) : (
+          <>
+            <div className="topic-header" style={{ borderColor: activeCfg.color }}>
+              <h2>{activeCfg.emoji} {activeCfg.label}</h2>
+              <div className="topic-meta">
+                <span>{activeIndicators.length} indicators tracked</span>
+                <span style={{ color: '#dc2626' }}>
+                  {activeIndicators.filter(i => i.status === 'Off track').length} off track
+                </span>
+                <span style={{ color: '#16a34a' }}>
+                  {activeIndicators.filter(i =>
+                    i.status === 'On track' || i.status === 'Achieved'
+                  ).length} on track / achieved
+                </span>
+              </div>
             </div>
-          )}
-          {ind?.target_context && (
-            <div className="figure-card figure-card-wide">
-              <div className="figure-label">Target context</div>
-              <div className="figure-text">{ind.target_context}</div>
+            <div className="cards-grid">
+              {activeIndicators.map((ind, i) => (
+                <IndicatorCard key={i} ind={ind} topicColor={activeCfg.color} />
+              ))}
             </div>
-          )}
-        </div>
+          </>
+        )}
+      </section>
 
-        {/* Charts */}
-        {chartNode && <div className="detail-charts">{chartNode}</div>}
-
-        {/* Detail information */}
-        <div className="detail-info">
-          {ind?.description && (
-            <InfoRow label="Description">{ind.description}</InfoRow>
-          )}
-          {ind?.notes && (
-            <InfoRow label="Notes">{ind.notes}</InfoRow>
-          )}
-          {ind?.consequences && (
-            <InfoRow label="Consequences if missed">{ind.consequences}</InfoRow>
-          )}
-          {ind?.responsible && (
-            <InfoRow label="Government responsibility">{ind.responsible}</InfoRow>
-          )}
-          {ind?.policy && (
-            <InfoRow label="Policy / Legal basis">
-              {ind.policy_url
-                ? <a href={ind.policy_url} target="_blank" rel="noopener noreferrer" className="detail-link">{ind.policy} ↗</a>
-                : ind.policy}
-            </InfoRow>
-          )}
-          {ind?.data_source && (
-            <InfoRow label="Data source">
-              {ind.data_source_url
-                ? <a href={ind.data_source_url} target="_blank" rel="noopener noreferrer" className="detail-link">{ind.data_source} ↗</a>
-                : ind.data_source}
-            </InfoRow>
-          )}
-        </div>
-
-      </div>
-    </div>
+      <footer>
+        <p>Data sourced from EEA, Eurostat, VMM, ISSeP and other official sources. Last updated March 2026.</p>
+      </footer>
+    </main>
   );
 }
