@@ -62,6 +62,15 @@ function getProgress(latest: number | null, target: number | null, status?: stri
   return Math.min(100, (t / l) * 100);
 }
 
+function progressColor(pct: number): string {
+  if (pct >= 100) return '#166534';
+  if (pct >= 80)  return '#16a34a';
+  if (pct >= 60)  return '#86efac';
+  if (pct >= 40)  return '#f97316';
+  if (pct >= 20)  return '#ef4444';
+  return '#b91c1c';
+}
+
 function IndicatorCard({ ind, topicColor }: { ind: Indicator; topicColor: string }) {
   const [expanded, setExpanded] = useState(false);
   const sc  = STATUS_CFG[ind.status ?? ''] ?? STATUS_CFG['Insufficient data'];
@@ -93,7 +102,7 @@ function IndicatorCard({ ind, topicColor }: { ind: Indicator; topicColor: string
         {p != null && (
           <div className="progress-wrap">
             <div className="progress-bar">
-              <div className="progress-fill" style={{ width: `${p}%`, background: topicColor }} />
+              <div className="progress-fill" style={{ width: `${p}%`, background: progressColor(p) }} />
             </div>
             <span className="progress-label">{p === 100 ? '100% of the way to target! 🎉' : `${p.toFixed(0)}% of the way to target`}</span>
           </div>
