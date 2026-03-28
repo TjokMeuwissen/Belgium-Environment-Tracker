@@ -156,7 +156,11 @@ function WideCard({
           <span className="trend">{TREND_ICON[ind.trend ?? ''] ?? '—'} {ind.trend ?? '—'}</span>
         </div>
         <h3 className="card-title" style={{ marginTop: 10, fontSize: '1.1rem' }}>{ind.indicator}</h3>
-        {ind.description && <p className="card-desc" style={{ WebkitLineClamp: 3 }}>{ind.description}</p>}
+        {ind.description && (
+          <p className="card-desc">
+            {(ind as any).short_description || ind.description}
+          </p>
+        )}
         <div className="card-values" style={{ marginTop: 12 }}>
           <div className="value-block">
             <span className="value-label">Latest</span>
