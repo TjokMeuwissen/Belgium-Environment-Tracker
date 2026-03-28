@@ -660,104 +660,79 @@
       "topic": "Mobility & Transport",
       "indicators": [
         {
-          "topic": "Mobility & Transport",
-          "indicator": "Zero-emission new car registrations (BEV/FCEV share)",
+          "description": "Description",
+          "latest_value": "Latest Value",
+          "unit": "Unit",
+          "target_value": "Target Value",
+          "target_year": "Target Year",
+          "status": "Status",
+          "trend": "Trend",
+          "previous_value": "Previous Value",
+          "previous_year": "Previous Year",
+          "change": "Change",
+          "eu_average": "EU Average",
+          "belgium_vs_eu": "Belgium vs EU",
+          "notes": "Notes"
+        },
+        {
           "description": "Share of new passenger car registrations that are battery-electric or fuel-cell electric vehicles. Belgium target: 100% zero-emission by 2035 per EU Regulation 2023/851.",
+          "latest_value": 35,
           "unit": "% of new registrations",
           "target_value": 100,
           "target_year": 2035,
-          "latest_value": 35,
-          "latest_value_year": 2025,
-          "target_context": "100% zero-emission new cars by 2035 (EU Reg. 2023/851). Belgium at 35% in 2025 — well above EU average (14%), driven by company car tax reform. 89% of BEVs are company cars.",
           "status": "On track",
-          "trend": "Improving",
-          "policy": "EU Regulation 2023/851 (CO2 standards cars & vans); Belgian company car tax reform Dec 2021",
-          "policy_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32023R0851",
-          "data_source": "EAFO / Statbel / EV Belgium",
-          "data_source_url": "https://www.eafo.eu/countries/belgium",
-          "notes": "Strong momentum but private buyer uptake low (~13%). Used BEV market underdeveloped. Flanders subsidy discontinued late 2024.",
-          "consequences": "EU Regulation 2023/851 is directly applicable and binding on manufacturers — from 2035, no new ICE-only cars may be registered in the EU. Penalties fall on manufacturers (€95/g/km excess CO₂ per vehicle), not Belgium directly. Belgium's fiscal policy must support compliance; if reversed, BEV uptake would stall.",
-          "responsible": "Shared — Federal + 3 Regions. Vehicle fiscal policy (company car tax reform, BEV deductibility): Federal (FPS Finance). Charging infrastructure (AFIR): Regional. Low Emission Zones: Regional (Brussels, Antwerp, Ghent). Vehicle registration: Federal (DIV/Statbel).",
+          "trend": "↑ Improving",
           "previous_value": 28.5,
           "previous_year": 2024,
           "change": "+6.5 pp",
           "eu_average": 14,
-          "belgium_vs_eu": "Belgium well above EU avg (14%); driven by company car tax reform (Dec 2021). 89% of BEVs are company cars. 2025: 35% share (145,170 units)."
+          "belgium_vs_eu": "Belgium well above EU avg (14%); driven by company car tax reform (Dec 2021). 89% of BEVs are company cars. 2025: 35% share (145,170 units).",
+          "notes": "Strong momentum but private buyer uptake low (~13%). Used BEV market underdeveloped. Flanders subsidy discontinued late 2024."
         },
         {
-          "topic": "Mobility & Transport",
-          "indicator": "Average CO₂ emissions of new passenger cars",
           "description": "Fleet-average CO₂ emissions of newly registered passenger cars (WLTP test procedure). EU target: 93.6 g/km by 2025–2029; 49.5 g/km by 2030; 0 g/km by 2035.",
+          "latest_value": null,
           "unit": "g CO₂/km (WLTP)",
           "target_value": 93.6,
           "target_year": 2029,
-          "latest_value": null,
-          "latest_value_year": 2024,
-          "target_context": "EU fleet target: 93.6 g/km (WLTP) by 2025–2029; 49.5 g/km by 2030; 0 g/km by 2035 (Reg. 2019/631 amended by 2023/851). EU average ~107 g/km in 2024. Series break: NEDC until 2020, WLTP from 2021 — values not directly comparable.",
           "status": "On track",
-          "trend": "Improving",
-          "policy": "EU Regulation 2019/631 (CO2 standards); amended by 2023/851",
-          "policy_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019R0631",
-          "data_source": "EEA Monitoring of CO₂ from passenger cars (annual); Statbel / FEBIAC",
-          "data_source_url": "https://www.eea.europa.eu/en/analysis/indicators/average-co2-emissions-from-new-passenger",
-          "notes": "IMPORTANT – series break: 2008–2020 values are NEDC; 2021 onwards WLTP. These are NOT directly comparable. NEDC values approx. 20–25% lower than WLTP for same vehicle.",
-          "consequences": "Penalties under Reg. 2019/631 fall on manufacturers, not Belgium directly (€95 per g/km excess per vehicle registered). Belgium's company car fiscal policy is a key enabler of fleet compliance. If BEV adoption stalls, manufacturers may face penalties and could lobby for policy reversal.",
-          "responsible": "Shared — Federal + 3 Regions. CO₂ fleet standards enforced by the Commission against manufacturers. Belgium's company car fiscal policy: Federal (FPS Finance). Charging infrastructure: Regional. Vehicle registration data: Federal (DIV/Statbel).",
+          "trend": "↓ Improving",
           "previous_value": 117,
           "previous_year": 2021,
           "change": "N/A – series break",
           "eu_average": 107,
-          "belgium_vs_eu": "EU avg ~107 g/km (2024). Belgium data available from EEA monitoring dataset. 2021 value (WLTP): ~117 g/km (Statista/NEDC converted). Sharp drop expected post-2024 with stricter 2025 targets."
+          "belgium_vs_eu": "EU avg ~107 g/km (2024). Belgium data available from EEA monitoring dataset. 2021 value (WLTP): ~117 g/km (Statista/NEDC converted). Sharp drop expected post-2024 with stricter 2025 targets.",
+          "notes": "IMPORTANT – series break: 2008–2020 values are NEDC; 2021 onwards WLTP. These are NOT directly comparable. NEDC values approx. 20–25% lower than WLTP for same vehicle."
         },
         {
-          "topic": "Mobility & Transport",
-          "indicator": "Share of public transport in inland passenger-km (rail + bus)",
           "description": "Share of rail and bus/coach in total inland passenger transport (car + bus/coach + rail), measured in passenger-kilometres. EU Sustainable & Smart Mobility Strategy targets significant modal shift to collective transport.",
+          "latest_value": 15,
           "unit": "% of inland passenger-km",
           "target_value": null,
           "target_year": 2030,
-          "latest_value": 15,
-          "latest_value_year": 2021,
-          "target_context": "No legally binding EU modal share target. EU SSMS goal: double rail passengers by 2030 (not binding). Belgium non-car share: 15% vs EU average ~29%. Car share 85% — one of the highest in EU, driven by company car culture and dispersed settlement patterns.",
           "status": "Off track",
-          "trend": "Stable",
-          "policy": "EU Sustainable & Smart Mobility Strategy (COM/2020/789)",
-          "policy_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=COM:2020:789:FIN",
-          "data_source": "Eurostat tran_hv_psmod / EC DG MOVE",
-          "data_source_url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Passenger_transport_statistics",
-          "notes": "Belgian data excludes tram & metro (Eurostat methodology). Car dominance unchanged since 2010. EU SSMS goal: double rail passengers by 2030 (not a binding % target).",
-          "consequences": "No direct EU infringement risk for modal split — the SSMS is a policy communication, not a binding regulation. However, failure to shift modes contributes to ESR non-compliance (transport is Belgium's 2nd largest GHG sector). EU TEN-T Regulation (2024/1679) sets binding rail investment targets; failure risks loss of EU co-funding.",
-          "responsible": "Shared — Federal + 3 Regions. National rail (SNCB/NMBS + Infrabel): Federal public enterprises. Regional: De Lijn (Flanders), TEC (Wallonia), STIB/MIVB (Brussels). Coordination via Interministerial Conference on Mobility and Public Works.",
+          "trend": "→ Stagnant",
           "previous_value": 15,
           "previous_year": 2019,
           "change": "~0 pp",
           "eu_average": 20.5,
-          "belgium_vs_eu": "Belgium car share ~85%; EU average car share ~71% (2022). Belgium significantly more car-dependent than EU avg. No legally binding EU target for overall public transport share."
+          "belgium_vs_eu": "Belgium car share ~85%; EU average car share ~71% (2022). Belgium significantly more car-dependent than EU avg. No legally binding EU target for overall public transport share.",
+          "notes": "Belgian data excludes tram & metro (Eurostat methodology). Car dominance unchanged since 2010. EU SSMS goal: double rail passengers by 2030 (not a binding % target)."
         },
         {
-          "topic": "Mobility & Transport",
-          "indicator": "Road freight modal share (inland: road + rail + waterway)",
           "description": "Share of road transport in total inland freight (road + rail + inland waterway), measured in tonne-kilometres. Belgian target: ≤63.7% by 2030 (Federal Long-Term Strategic Vision for SD).",
+          "latest_value": 75,
           "unit": "% of inland freight tonne-km",
           "target_value": 63.7,
           "target_year": 2030,
-          "latest_value": 75,
-          "latest_value_year": 2022,
-          "target_context": "Belgian Federal Long-Term Strategic Vision for SD (2013): ≤63.7% road freight share by 2030. EU SSMS: +50% rail freight by 2030. Belgium at ~75% in 2022 — at EU average but road share has been rising, not falling.",
           "status": "Off track",
-          "trend": "Worsening",
-          "policy": "Belgian Federal LT Strategic Vision for SD (2013); EU SSMS: +50% rail freight by 2030",
-          "policy_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=COM:2020:789:FIN",
-          "data_source": "EC DG MOVE / indicators.be / Eurostat tran_hv_frmod",
-          "data_source_url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Freight_transport_statistics_-_modal_split",
-          "notes": "Target derived from Belgian Federal LT Vision 2013; linear interpolation 74% (2015) → target 63.7% by 2030. Maritime excluded from inland modal split. Note: Belgian rail freight data estimated by Eurostat 2012–2022.",
-          "consequences": "The Belgian Federal Long-Term Strategic Vision is a policy communication — no direct financial penalty for missing the 63.7% target. However, failure to decarbonise freight contributes to ESR non-compliance. EU TEN-T Regulation and CEF co-funding may be conditioned on investment progress.",
-          "responsible": "Shared — Federal + 3 Regions. Rail freight infrastructure (Infrabel): Federal. Inland waterways: Flemish waterways (De Vlaamse Waterweg), Walloon waterways (SPW), Scheldt (federal). Port infrastructure: Regional. Road freight regulation: Federal (vehicle standards).",
+          "trend": "↗ Worsening",
           "previous_value": 74,
           "previous_year": 2015,
           "change": "+1.0 pp",
           "eu_average": 75,
-          "belgium_vs_eu": "Belgium broadly at EU average (~75%). Rail ~16.8%, Waterway ~8.2% (inland only, 2022). Road share increasing despite targets. Belgium is 1 of 3 EU MS that increased rail+waterway share 2010–2023."
+          "belgium_vs_eu": "Belgium broadly at EU average (~75%). Rail ~16.8%, Waterway ~8.2% (inland only, 2022). Road share increasing despite targets. Belgium is 1 of 3 EU MS that increased rail+waterway share 2010–2023.",
+          "notes": "Target derived from Belgian Federal LT Vision 2013; linear interpolation 74% (2015) → target 63.7% by 2030. Maritime excluded from inland modal split. Note: Belgian rail freight data estimated by Eurostat 2012–2022."
         }
       ]
     }
@@ -2397,5 +2372,403 @@
         ]
       }
     }
+  },
+  "nature_supplementary": {
+    "eu_protected_land_comparison": [
+      {
+        "country": "Luxembourg",
+        "natura2000_pct": null,
+        "national_pct": null,
+        "total_pct": null,
+        "eu_target": null,
+        "gap_to_target": null,
+        "status": null,
+        "notes": null
+      },
+      {
+        "country": "Slovenia",
+        "natura2000_pct": 37.9,
+        "national_pct": 2.7,
+        "total_pct": 40.6,
+        "eu_target": 30,
+        "gap_to_target": -10.6,
+        "status": "Achieved",
+        "notes": null
+      },
+      {
+        "country": "Poland",
+        "natura2000_pct": 19.7,
+        "national_pct": 19.9,
+        "total_pct": 39.6,
+        "eu_target": 30,
+        "gap_to_target": -9.6,
+        "status": "Achieved",
+        "notes": "Large national parks and landscape parks complement Natura 2000"
+      },
+      {
+        "country": "Germany",
+        "natura2000_pct": 15.4,
+        "national_pct": 23.1,
+        "total_pct": 38.5,
+        "eu_target": 30,
+        "gap_to_target": -8.5,
+        "status": "Achieved",
+        "notes": "Extensive national park system"
+      },
+      {
+        "country": "Bulgaria",
+        "natura2000_pct": 34.9,
+        "national_pct": 3.5,
+        "total_pct": 38.4,
+        "eu_target": 30,
+        "gap_to_target": -8.4,
+        "status": "Achieved",
+        "notes": "High Natura 2000 coverage from late EU accession"
+      },
+      {
+        "country": "Slovakia",
+        "natura2000_pct": 29.6,
+        "national_pct": 6.1,
+        "total_pct": 35.7,
+        "eu_target": 30,
+        "gap_to_target": -5.7,
+        "status": "Achieved",
+        "notes": null
+      },
+      {
+        "country": "Croatia",
+        "natura2000_pct": 36.7,
+        "national_pct": 0.5,
+        "total_pct": 37.2,
+        "eu_target": 30,
+        "gap_to_target": -7.2,
+        "status": "Achieved",
+        "notes": "High Natura 2000 coverage from late EU accession"
+      },
+      {
+        "country": "Greece",
+        "natura2000_pct": 28,
+        "national_pct": 5.8,
+        "total_pct": 33.8,
+        "eu_target": 30,
+        "gap_to_target": -3.8,
+        "status": "Achieved",
+        "notes": null
+      },
+      {
+        "country": "Cyprus",
+        "natura2000_pct": 28,
+        "national_pct": 3.2,
+        "total_pct": 31.2,
+        "eu_target": 30,
+        "gap_to_target": -1.2,
+        "status": "Achieved",
+        "notes": null
+      },
+      {
+        "country": "Romania",
+        "natura2000_pct": 22.8,
+        "national_pct": 5.1,
+        "total_pct": 27.9,
+        "eu_target": 30,
+        "gap_to_target": 2.1,
+        "status": "Close",
+        "notes": null
+      },
+      {
+        "country": "Hungary",
+        "natura2000_pct": 21.4,
+        "national_pct": 5.5,
+        "total_pct": 26.9,
+        "eu_target": 30,
+        "gap_to_target": 3.1,
+        "status": "Close",
+        "notes": null
+      },
+      {
+        "country": "Spain",
+        "natura2000_pct": 27.3,
+        "national_pct": 0.3,
+        "total_pct": 27.6,
+        "eu_target": 30,
+        "gap_to_target": 2.4,
+        "status": "Close",
+        "notes": null
+      },
+      {
+        "country": "Italy",
+        "natura2000_pct": 19.2,
+        "national_pct": 7.8,
+        "total_pct": 27,
+        "eu_target": 30,
+        "gap_to_target": 3,
+        "status": "Close",
+        "notes": null
+      },
+      {
+        "country": "Austria",
+        "natura2000_pct": 14.7,
+        "national_pct": 11.8,
+        "total_pct": 26.5,
+        "eu_target": 30,
+        "gap_to_target": 3.5,
+        "status": "Close",
+        "notes": null
+      },
+      {
+        "country": "EU-27 average",
+        "natura2000_pct": 18.6,
+        "national_pct": 7.8,
+        "total_pct": 26.4,
+        "eu_target": 30,
+        "gap_to_target": 3.6,
+        "status": "Close",
+        "notes": "EU average; 9 MS already at 30%"
+      },
+      {
+        "country": "France",
+        "natura2000_pct": 12.8,
+        "national_pct": 12.7,
+        "total_pct": 25.5,
+        "eu_target": 30,
+        "gap_to_target": 4.5,
+        "status": "Close",
+        "notes": null
+      },
+      {
+        "country": "Portugal",
+        "natura2000_pct": 21.1,
+        "national_pct": 3.7,
+        "total_pct": 24.8,
+        "eu_target": 30,
+        "gap_to_target": 5.2,
+        "status": "Close",
+        "notes": null
+      },
+      {
+        "country": "Lithuania",
+        "natura2000_pct": 15,
+        "national_pct": 7.2,
+        "total_pct": 22.2,
+        "eu_target": 30,
+        "gap_to_target": 7.8,
+        "status": "Close",
+        "notes": null
+      },
+      {
+        "country": "Czechia",
+        "natura2000_pct": 14.1,
+        "national_pct": 7.7,
+        "total_pct": 21.8,
+        "eu_target": 30,
+        "gap_to_target": 8.2,
+        "status": "Close",
+        "notes": null
+      },
+      {
+        "country": "Estonia",
+        "natura2000_pct": 20,
+        "national_pct": 1.8,
+        "total_pct": 21.8,
+        "eu_target": 30,
+        "gap_to_target": 8.2,
+        "status": "Close",
+        "notes": null
+      },
+      {
+        "country": "Ireland",
+        "natura2000_pct": 15.9,
+        "national_pct": 4.5,
+        "total_pct": 20.4,
+        "eu_target": 30,
+        "gap_to_target": 9.6,
+        "status": "Close",
+        "notes": null
+      },
+      {
+        "country": "Netherlands",
+        "natura2000_pct": 12.7,
+        "national_pct": 7.1,
+        "total_pct": 19.8,
+        "eu_target": 30,
+        "gap_to_target": 10.2,
+        "status": "Off track",
+        "notes": null
+      },
+      {
+        "country": "Latvia",
+        "natura2000_pct": 12,
+        "national_pct": 7,
+        "total_pct": 19,
+        "eu_target": 30,
+        "gap_to_target": 11,
+        "status": "Off track",
+        "notes": null
+      },
+      {
+        "country": "Malta",
+        "natura2000_pct": 12.9,
+        "national_pct": 4.9,
+        "total_pct": 17.8,
+        "eu_target": 30,
+        "gap_to_target": 12.2,
+        "status": "Off track",
+        "notes": "Small island — land area constraints"
+      },
+      {
+        "country": "Sweden",
+        "natura2000_pct": 13.8,
+        "national_pct": 1.2,
+        "total_pct": 15,
+        "eu_target": 30,
+        "gap_to_target": 15,
+        "status": "Off track",
+        "notes": "Large forests managed sustainably but not formally protected"
+      },
+      {
+        "country": "Belgium",
+        "natura2000_pct": 12.7,
+        "national_pct": 2,
+        "total_pct": 14.7,
+        "eu_target": 30,
+        "gap_to_target": 15.3,
+        "status": "Off track",
+        "notes": "Nearly unchanged since 2012; needs 47x faster designation rate"
+      },
+      {
+        "country": "Finland",
+        "natura2000_pct": 12.4,
+        "national_pct": 1,
+        "total_pct": 13.4,
+        "eu_target": 30,
+        "gap_to_target": 16.6,
+        "status": "Off track",
+        "notes": "Large boreal forests with informal conservation but low formal designation"
+      },
+      {
+        "country": "Denmark",
+        "natura2000_pct": 8.3,
+        "national_pct": 0.4,
+        "total_pct": 8.7,
+        "eu_target": 30,
+        "gap_to_target": 21.3,
+        "status": "Off track",
+        "notes": "Lowest in EU; significant gap"
+      }
+    ],
+    "habitat_conservation_status": [
+      {
+        "habitat_type": "Heath and scrub",
+        "pct_bad": 100,
+        "pct_good": 0,
+        "main_pressures": "Agricultural intensification, nitrogen deposition, land abandonment",
+        "notes": "100% of heath/scrub assessments rated Bad — complete conservation failure for this habitat type in Belgium."
+      },
+      {
+        "habitat_type": "Bogs, mires and fens",
+        "pct_bad": 91.6,
+        "pct_good": 0,
+        "main_pressures": "Drainage, peat extraction, nitrogen deposition (eutrophication), climate change",
+        "notes": "91.6% Bad status. Highly sensitive to nitrogen deposition — Belgium's intensive agriculture is a key driver."
+      },
+      {
+        "habitat_type": "Grasslands",
+        "pct_bad": "Not extracted from summary sources — data available in EEA Art. 17 database",
+        "pct_good": "Not extracted from summary sources — data available in EEA Art. 17 database",
+        "main_pressures": "Agricultural intensification, fertiliser use, abandonment of extensive farming",
+        "notes": "46% of EU agricultural habitat assessments (incl. grasslands) rated Bad. Belgium figures expected similar or worse. Exact % not confirmed."
+      },
+      {
+        "habitat_type": "Forests",
+        "pct_bad": "Not extracted from summary sources — data available in EEA Art. 17 database",
+        "pct_good": "Not extracted from summary sources — data available in EEA Art. 17 database",
+        "main_pressures": "Silviculture intensification, loss of deadwood, game pressure, invasive species",
+        "notes": "Forests show the most improving trends in the EU overall, but Belgium's dense, managed forests still face pressures. Exact % not confirmed."
+      },
+      {
+        "habitat_type": "Coastal and inland dunes",
+        "pct_bad": 16.9,
+        "pct_good": "Not extracted from summary sources — data available in EEA Art. 17 database",
+        "main_pressures": "Coastal development, nitrogen deposition, invasive species, sea level rise",
+        "notes": "Dunes are one of the larger habitat groups in Belgium's protected areas network (16.9% of protected habitats). Status predominantly unfavourable."
+      }
+    ],
+    "species_group_conservation": [
+      {
+        "species_group": "Vascular plants",
+        "pct_bad": 55.5,
+        "notes": "Highest proportion of Bad status among species groups in Belgium. Driven by habitat loss, nitrogen deposition, invasive plants."
+      },
+      {
+        "species_group": "Fish",
+        "pct_bad": 50,
+        "notes": "50% of fish species assessments in Bad status. Water quality (eutrophication, chemical pollution), hydrological changes, barriers to migration."
+      },
+      {
+        "species_group": "Birds (farmland bird index proxy)",
+        "pct_bad": "Not extracted from summary sources — data available in EEA Art. 17 database",
+        "notes": "See Section 1 Goal 8 — farmland bird index fell from 100 (1990) to 50.9 (2023). Birds assessed separately under Birds Directive (Art. 12), not directly comparable."
+      },
+      {
+        "species_group": "Mammals",
+        "pct_bad": "Not extracted from summary sources — data available in EEA Art. 17 database",
+        "notes": "21% of mammal species threatened in Belgium (OECD). Exact Art. 17 Bad status % not confirmed from available data."
+      },
+      {
+        "species_group": "Reptiles",
+        "pct_bad": "Not extracted from summary sources — data available in EEA Art. 17 database",
+        "notes": "Reptiles have highest proportion of Good status across EU. Belgium data not confirmed separately."
+      }
+    ],
+    "invasive_alien_species": [
+      {
+        "common_name": "American Bullfrog",
+        "scientific_name": "Lithobates catesbeianus",
+        "origin": "North America",
+        "first_recorded": "1990s",
+        "eu_status": "EU Regulation 1143/2014 — Union List species of concern",
+        "establishment": "Established (Flanders — Grote Nete valley + isolated populations)",
+        "impact": "Predates on native frogs, newts, fish and invertebrates. Carries and spreads chytrid fungus (Batrachochytrium dendrobatidis), a pathogen responsible for catastrophic amphibian declines globally. Has caused local extinction of native amphibian populations in Flanders. Listed among the 100 worst invasive species worldwide (IUCN).",
+        "management": "Active eradication programme in Flanders since 2010 (INBO/ANB). Fyke nets used to capture bullfrogs; captured animals humanely killed. EU-funded Interreg INVEXO and RINSE projects. Management ongoing — full eradication not yet achieved.",
+        "source": "INBO / Belgian Forum on Invasive Species / IUCN",
+        "source_url": "https://ias.biodiversity.be/"
+      },
+      {
+        "common_name": "Japanese Knotweed",
+        "scientific_name": "Fallopia japonica",
+        "origin": "East Asia (Japan, China, Korea)",
+        "first_recorded": "Late 19th century (ornamental plant)",
+        "eu_status": "Not on EU Union List — managed at regional level",
+        "establishment": "Established across Belgium — widespread along rivers, roadsides, railway embankments",
+        "impact": "Forms dense monocultures up to 3–4 m tall that completely suppress all native vegetation. Highly allelopathic — releases chemicals that inhibit growth of other plants. Extremely difficult to eradicate: rhizomes penetrate up to 3 m deep and 7 m laterally; a fragment as small as 0.7 g can regenerate a new plant. Causes structural damage to building foundations, walls, drainage systems and flood defences. Drastically reduces biodiversity in invaded areas.",
+        "management": "No coordinated national programme. Regional management by waterway authorities (De Vlaamse Waterweg, SPW). Herbicide treatment most effective but requires multiple years. Mechanical removal alone ineffective without follow-up. Biological control (Aphalara itadori psyllid) under investigation in UK but not deployed in Belgium.",
+        "source": "INBO / VMM / Belgian Biodiversity Platform",
+        "source_url": "https://ias.biodiversity.be/"
+      },
+      {
+        "common_name": "Asian Hornet",
+        "scientific_name": "Vespa velutina nigrithorax",
+        "origin": "Southeast Asia",
+        "first_recorded": "2016 (first confirmed nest); now established",
+        "eu_status": "EU Regulation 1143/2014 — Union List species of concern",
+        "establishment": "Established and rapidly expanding — detected in all Belgian provinces by 2023",
+        "impact": "Specialist predator of honeybees (Apis mellifera) and native bumblebees. A single nest can consume up to 11 kg of insects per season, devastating local honeybee colonies and disrupting pollination services. Also predates on native wasps, hoverflies and other pollinators. Threatens both wild and managed bee populations and the agricultural services they provide. Spreads rapidly — a queen can found a new colony up to 100 km from origin.",
+        "management": "Mandatory nest destruction programme in all three regions. Citizens report sightings via Vespawatch platform (INBO). Professional pest controllers remove nests. EU-funded research into trapping and early detection. Annual nest counts published by INBO.",
+        "source": "INBO Vespawatch / Belgian Forum on Invasive Species",
+        "source_url": "https://vespawatch.be/"
+      },
+      {
+        "common_name": "American Mink",
+        "scientific_name": "Neovison vison",
+        "origin": "North America",
+        "first_recorded": "1950s–1960s (escapes from fur farms)",
+        "eu_status": "EU Regulation 1143/2014 — Union List species of concern",
+        "establishment": "Established — present along rivers and waterways in Flanders and Wallonia",
+        "impact": "Highly effective semi-aquatic predator that decimates populations of water voles, native crayfish, fish, ground-nesting birds and waterfowl. Has driven near-extinction of the European water vole (Arvicola amphibius) in many areas of Belgium and northwest Europe. Outcompetes and displaces the native European polecat (Mustela putorius). Carries Aleutian disease (parvovirus) which can infect native mustelids. Causes significant losses in fish farms and conservation wetlands.",
+        "management": "Trapping programmes coordinated by waterway managers and nature reserves. No fully coordinated national eradication programme. Regional programmes exist in Flanders (VMM/ANB). Full eradication considered very difficult given dispersal capacity.",
+        "source": "INBO / Belgian Forum on Invasive Species / NOBANIS",
+        "source_url": "https://ias.biodiversity.be/"
+      }
+    ]
   }
 }
