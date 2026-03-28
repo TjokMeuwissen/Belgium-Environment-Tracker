@@ -48,8 +48,8 @@ header {
   max-width: 1200px; margin: 0 auto;
   /* left padding increased to clear the 54px flag */
   padding: 48px 32px 40px 72px;
-  display: flex; flex-direction: column;
-  align-items: flex-start; gap: 16px; flex-wrap: wrap;
+  display: flex; align-items: flex-end;
+  justify-content: space-between; gap: 32px; flex-wrap: wrap;
 }
 
 .header-eyebrow {
@@ -157,7 +157,7 @@ header h1 {
 .detail-row a:hover { text-decoration: underline; }
 
 /* ── Climate & Energy tab ─────────────────────────────────────────────────── */
-.climate-tab { display: flex; gap: 70px; align-items: flex-start; }
+.climate-tab { display: flex; gap: 28px; align-items: flex-start; }
 
 /* Sticky sidebar */
 .climate-sidebar {
@@ -324,4 +324,128 @@ footer { background: #1a1a1a; color: #666; text-align: center; padding: 24px 32p
   .cards-grid { grid-template-columns: 1fr; }
   .wide-card { grid-template-columns: 5px 1fr; }
   .detail-figures { flex-direction: column; }
+}
+
+/* ── Nature & Biodiversity — Habitat status panel ─────────────────────── */
+.habitat-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 0;
+}
+
+.habitat-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.habitat-icon-wrap {
+  flex-shrink: 0;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.habitat-info { flex: 1; min-width: 0; }
+
+.habitat-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 5px;
+}
+
+.habitat-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.habitat-bar {
+  flex: 1;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.habitat-bar-fill {
+  height: 100%;
+  background: #dc2626;
+  border-radius: 999px;
+}
+
+.habitat-pct {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #dc2626;
+  white-space: nowrap;
+}
+
+.habitat-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ── Nature & Biodiversity — Invasive species panel ───────────────────── */
+.ias-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.ias-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border-left: 3px solid #dc2626;
+}
+
+.ias-emoji {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.ias-info { flex: 1; min-width: 0; }
+
+.ias-name {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.ias-sci {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.ias-impact {
+  font-size: 0.78rem;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 3px;
+}
+
+.ias-meta {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
 }
