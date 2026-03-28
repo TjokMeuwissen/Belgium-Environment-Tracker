@@ -73,7 +73,7 @@ function IndicatorCard({ ind, topicColor }: { ind: Indicator; topicColor: string
           <span className="trend">{TREND_ICON[ind.trend ?? ''] ?? '—'} {ind.trend ?? '—'}</span>
         </div>
         <h3 className="card-title">{ind.indicator}</h3>
-        {ind.description && <p className="card-desc">{ind.description}</p>}
+        {ind.description && <p className="card-desc">{(ind as any).short_description || ind.description}</p>}
         <div className="card-values">
           <div className="value-block">
             <span className="value-label">Latest</span>
