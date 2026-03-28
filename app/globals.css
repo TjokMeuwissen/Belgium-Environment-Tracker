@@ -25,16 +25,43 @@ body {
 /* ── Header ───────────────────────────────────────────────────────────────── */
 header { position: relative; background: #1a1a1a; color: white; overflow: hidden; }
 
-.flag-stripe { position: absolute; top: 0; bottom: 0; width: 18px; }
+.flag-stripe { position: absolute; top: 0; bottom: 0; width: 18px; z-index: 2; }
 .flag-stripe.black  { left: 0;    background: #1a1a1a; border-right: 1px solid #333; }
 .flag-stripe.yellow { left: 18px; background: #FAE042; }
 .flag-stripe.red    { left: 36px; background: #EF3340; }
 
-/* Stack title and stats vertically */
+/* Two-column layout: text left, image right */
+.header-layout {
+  display: flex;
+  align-items: stretch;
+  min-height: 280px;
+}
+
 .header-content {
-  max-width: 1200px; margin: 0 auto;
+  flex: 0 0 auto;
   padding: 48px 32px 40px 72px;
   display: flex; flex-direction: column; align-items: flex-start; gap: 16px;
+  min-width: 380px;
+}
+
+/* Image panel with black bands top and bottom (10% each via flex ratio 1:8:1) */
+.header-image-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #1a1a1a;
+  min-height: 280px;
+}
+
+.header-image-band { flex: 1; background: #1a1a1a; }
+
+.header-image {
+  flex: 8;
+  width: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+  display: block;
 }
 
 .header-eyebrow { font-family: 'Epilogue', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #FAE042; margin-bottom: 8px; }
@@ -54,7 +81,7 @@ header h1 { font-family: 'Roboto', sans-serif; font-size: clamp(2rem, 5vw, 3.2re
 .tabs { display: flex; background: #2e2e2e; overflow-x: auto; scrollbar-width: none; border-bottom: 3px solid #3a3a3a; position: sticky; top: 0; z-index: 100; }
 .tabs::-webkit-scrollbar { display: none; }
 
-.tab { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 14px 20px; flex: 1; background: none; border: none; color: #aaa; font-family: 'Epilogue', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: color 0.2s, background 0.2s; border-bottom: 3px solid transparent; margin-bottom: -3px; }
+.tab { display: flex; align-items: center; gap: 7px; padding: 14px 20px; background: none; border: none; color: #aaa; font-family: 'Epilogue', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: color 0.2s, background 0.2s; border-bottom: 3px solid transparent; margin-bottom: -3px; }
 .tab:hover { color: #fff; background: rgba(255,255,255,0.1); }
 .tab.active { color: #fff; border-bottom-color: var(--tab-color); }
 .tab-emoji { font-size: 1rem; }
@@ -217,7 +244,7 @@ footer { background: #1a1a1a; color: #666; text-align: center; padding: 24px 32p
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 1100px) { .climate-sidebar { display: none; } .climate-tab { display: block; } }
 @media (max-width: 900px) { .wide-card { grid-template-columns: 5px 1fr; } .wide-card-left { border-right: none; border-bottom: 1px solid var(--border); } .ias-detail-grid { grid-template-columns: 1fr; } }
-@media (max-width: 640px) { .header-content { padding: 32px 20px 28px 64px; } .header-stats { display: none; } .tab-label { display: none; } .tab { padding: 14px 16px; } .tab-emoji { font-size: 1.2rem; } .topic-section { padding: 24px 16px 48px; } .cards-grid { grid-template-columns: 1fr; } .wide-card { grid-template-columns: 5px 1fr; } .detail-figures { flex-direction: column; } }
+@media (max-width: 640px) { .header-content { padding: 32px 20px 28px 64px; min-width: 0; } .header-image-wrap { display: none; } .header-stats { display: none; } .tab-label { display: none; } .tab { padding: 14px 16px; } .tab-emoji { font-size: 1.2rem; } .topic-section { padding: 24px 16px 48px; } .cards-grid { grid-template-columns: 1fr; } .wide-card { grid-template-columns: 5px 1fr; } .detail-figures { flex-direction: column; } }
 
 /* ── Detail page — new section cards ─────────────────────────────────────── */
 
