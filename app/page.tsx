@@ -95,7 +95,7 @@ function IndicatorCard({ ind, topicColor }: { ind: Indicator; topicColor: string
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: `${p}%`, background: topicColor }} />
             </div>
-            <span className="progress-label">{p.toFixed(0)}% of the way to target</span>
+            <span className="progress-label">{p === 100 ? '100% of the way to target! 🎉' : `${p.toFixed(0)}% of the way to target`}</span>
           </div>
         )}
         <button className="expand-btn" onClick={() => setExpanded(!expanded)}>
