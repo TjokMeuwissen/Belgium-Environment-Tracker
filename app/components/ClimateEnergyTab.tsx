@@ -182,7 +182,7 @@ function WideCard({
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: `${pct}%`, background: accentColor }} />
             </div>
-            <span className="progress-label">{pct.toFixed(0)}% of the way to target</span>
+            <span className="progress-label">{pct === 100 ? '100% of the way to target! 🎉' : `${pct.toFixed(0)}% of the way to target`}</span>
           </div>
         )}
         <Link
