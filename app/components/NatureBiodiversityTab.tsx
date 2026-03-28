@@ -391,12 +391,12 @@ function GroupHeader({ emoji, title, subtitle }: { emoji: string; title: string;
 
 // ── Main component ─────────────────────────────────────────────────────────
 const SHOWN = [
-  'Protected land area (terrestrial)',
-  'Marine protected areas',
-  'Species & habitats in favourable conservation status',
-  'Organic farming share',
+  'Protected Land Area — terrestrial',
+  'Marine Protected Areas',
+  'Species & Habitats in Favourable Conservation Status',
+  'Organic Farming Share (% of agricultural area)',
   'Farmland Bird Population Index',
-  'Invasive alien species threatening red-listed species',
+  'Invasive Alien Species Threatening Red-Listed Species',
 ];
 
 export default function NatureBiodiversityTab({ indicators, historicalOrganic, historicalBirds, invasiveSpecies }: Props) {
@@ -436,10 +436,10 @@ export default function NatureBiodiversityTab({ indicators, historicalOrganic, h
 
         <GroupHeader emoji="🌍" title="Land & Habitat Protection" subtitle="Protecting Belgium's terrestrial and marine ecosystems against biodiversity loss" />
 
-        {byName['Protected land area (terrestrial)'] && (
+        {byName['Protected Land Area — terrestrial'] && (
           <WideCard
             id="protected-land-area-terrestrial"
-            ind={byName['Protected land area (terrestrial)']}
+            ind={byName['Protected Land Area — terrestrial']}
             accentColor={COLOR}
             chartTitle="Protected land area — all EU member states (% of land area, 2023)"
             chartSource="Source: EEA — Designated terrestrial protected areas in Europe (2025)"
@@ -448,10 +448,10 @@ export default function NatureBiodiversityTab({ indicators, historicalOrganic, h
           />
         )}
 
-        {byName['Marine protected areas'] && (
+        {byName['Marine Protected Areas'] && (
           <WideCard
             id="marine-protected-areas"
-            ind={byName['Marine protected areas']}
+            ind={byName['Marine Protected Areas']}
             accentColor={COLOR}
             chartTitle="Marine protected areas"
             chart={<MarinePlaceholder />}
@@ -459,10 +459,10 @@ export default function NatureBiodiversityTab({ indicators, historicalOrganic, h
           />
         )}
 
-        {byName['Species & habitats in favourable conservation status'] && (
+        {byName['Species & Habitats in Favourable Conservation Status'] && (
           <WideCard
             id="species-habitats-in-favourable-conservation-status"
-            ind={byName['Species & habitats in favourable conservation status']}
+            ind={byName['Species & Habitats in Favourable Conservation Status']}
             accentColor={COLOR}
             chartTitle="Conservation status — selected habitats & species groups (Belgium, 2019)"
             chartSource="Source: EEA Art. 17 Habitats Directive reporting"
@@ -473,10 +473,10 @@ export default function NatureBiodiversityTab({ indicators, historicalOrganic, h
 
         <GroupHeader emoji="🌱" title="Species & Ecological Health" subtitle="Tracking the health of Belgium's species, agricultural ecosystems and invasive threats" />
 
-        {byName['Organic farming share'] && (
+        {byName['Organic Farming Share (% of agricultural area)'] && (
           <WideCard
             id="organic-farming-share"
-            ind={byName['Organic farming share']}
+            ind={byName['Organic Farming Share (% of agricultural area)']}
             accentColor={COLOR}
             chartTitle="Organic farming share — Belgium 2000–2023 (% of utilised agricultural area)"
             chartSource="Source: Eurostat / Statbel"
@@ -497,10 +497,10 @@ export default function NatureBiodiversityTab({ indicators, historicalOrganic, h
           />
         )}
 
-        {byName['Invasive alien species threatening red-listed species'] && (
+        {byName['Invasive Alien Species Threatening Red-Listed Species'] && (
           <WideCard
             id="invasive-alien-species-threatening-red-listed-species"
-            ind={byName['Invasive alien species threatening red-listed species']}
+            ind={byName['Invasive Alien Species Threatening Red-Listed Species']}
             accentColor={COLOR}
             chartTitle="Four key invasive alien species threatening Belgian biodiversity"
             chartSource="Source: INBO / Belgian Forum on Invasive Species"
