@@ -157,7 +157,7 @@ header h1 {
 .detail-row a:hover { text-decoration: underline; }
 
 /* ── Climate & Energy tab ─────────────────────────────────────────────────── */
-.climate-tab { display: flex; gap: 40px; align-items: flex-start; }
+.climate-tab { display: flex; gap: 70px; align-items: flex-start; }
 
 /* Sticky sidebar */
 .climate-sidebar {
