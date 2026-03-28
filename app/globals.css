@@ -31,10 +31,10 @@ body {
 
 header { position: relative; background: #1a1a1a; color: white; overflow: hidden; }
 
-.flag-stripe { position: absolute; top: 0; bottom: 0; width: 6px; }
+.flag-stripe { position: absolute; top: 0; bottom: 0; width: 12px; }
 .flag-stripe.black  { left: 0;    background: #1a1a1a; border-right: 1px solid #333; }
-.flag-stripe.yellow { left: 6px;  background: #FAE042; }
-.flag-stripe.red    { left: 12px; background: #EF3340; }
+.flag-stripe.yellow { left: 12px;  background: #FAE042; }
+.flag-stripe.red    { left: 24px; background: #EF3340; }
 
 .header-content {
   max-width: 1200px; margin: 0 auto;
@@ -44,7 +44,7 @@ header { position: relative; background: #1a1a1a; color: white; overflow: hidden
 }
 
 .header-eyebrow {
-  font-family: 'Epilogue', sans-serif; font-size: 0.85rem;
+  font-family: 'Epilogue', sans-serif; font-size: 1rem;
   font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
   color: #FAE042; margin-bottom: 8px;
 }
