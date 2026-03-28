@@ -395,7 +395,7 @@ const SHOWN = [
   'Marine protected areas',
   'Species & habitats in favourable conservation status',
   'Organic farming share',
-  'Pollinator decline reversal (farmland bird index proxy)',
+  'Farmland Bird Population Index',
   'Invasive alien species threatening red-listed species',
 ];
 
@@ -426,7 +426,7 @@ export default function NatureBiodiversityTab({ indicators, historicalOrganic, h
     return () => observers.forEach(o => o.disconnect());
   }, []);
 
-  const birds = byName['Pollinator decline reversal (farmland bird index proxy)'];
+  const birds = byName['Farmland Bird Population Index'];
   const birdsDisplay = birds ? { ...birds, indicator: 'Farmland Bird Population Index' } : null;
 
   return (
