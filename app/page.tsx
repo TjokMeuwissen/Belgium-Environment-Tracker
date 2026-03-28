@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import ClimateEnergyTab from './components/ClimateEnergyTab';
+import NatureBiodiversityTab from './components/NatureBiodiversityTab';
 
-// ── Types ──────────────────────────────────────────────────────────────────
 interface Indicator {
   indicator: string;
   description: string | null;
@@ -25,9 +25,8 @@ interface Indicator {
 }
 
 interface TopicData { topic: string; indicators: Indicator[]; }
-interface EnvData   { topics: Record<string, TopicData>; historical: any; }
+interface EnvData   { topics: Record<string, TopicData>; historical: any; nature_supplementary: any; }
 
-// ── Topic configuration ────────────────────────────────────────────────────
 const TOPIC_CONFIG: Record<string, { label: string; color: string; emoji: string }> = {
   climate_energy:      { label: 'Climate & Energy',     color: '#f97316', emoji: '🌡️' },
   nature_biodiversity: { label: 'Nature & Biodiversity', color: '#22c55e', emoji: '🌿' },
@@ -64,8 +63,7 @@ function getProgress(latest: number | null, target: number | null): number | nul
 function IndicatorCard({ ind, topicColor }: { ind: Indicator; topicColor: string }) {
   const [expanded, setExpanded] = useState(false);
   const sc  = STATUS_CFG[ind.status ?? ''] ?? STATUS_CFG['Insufficient data'];
-  const pct = getProgress(ind.latest_value, ind.target_value);
-
+  const p   = getProgress(ind.latest_value, ind.target_value);
   return (
     <div className="card" style={{ '--topic-color': topicColor } as React.CSSProperties}>
       <div className="card-accent" />
@@ -90,12 +88,12 @@ function IndicatorCard({ ind, topicColor }: { ind: Indicator; topicColor: string
             </div>
           )}
         </div>
-        {pct != null && (
+        {p != null && (
           <div className="progress-wrap">
             <div className="progress-bar">
-              <div className="progress-fill" style={{ width: `${pct}%`, background: topicColor }} />
+              <div className="progress-fill" style={{ width: `${p}%`, background: topicColor }} />
             </div>
-            <span className="progress-label">{pct.toFixed(0)}% of the way to target</span>
+            <span className="progress-label">{p.toFixed(0)}% of the way to target</span>
           </div>
         )}
         <button className="expand-btn" onClick={() => setExpanded(!expanded)}>
@@ -117,7 +115,7 @@ function IndicatorCard({ ind, topicColor }: { ind: Indicator; topicColor: string
             )}
             {ind.policy && (
               <div className="detail-row">
-                <strong>Policy / Agreement</strong>
+                <strong>Policy</strong>
                 {ind.policy_url
                   ? <a href={ind.policy_url} target="_blank" rel="noopener noreferrer">{ind.policy}</a>
                   : <p>{ind.policy}</p>}
@@ -159,6 +157,18 @@ export default function Home() {
       (d: any) => ({ year: d.year, value: d.value, unit: d.unit })
     ) ?? [];
 
+  const historicalOrganic =
+    data.historical?.nature_biodiversity?.series?.['Organic farming share']?.map(
+      (d: any) => ({ year: d.year, value: d.value })
+    ) ?? [];
+
+  const historicalBirds =
+    data.historical?.nature_biodiversity?.series?.['Farmland bird population index']?.map(
+      (d: any) => ({ year: d.year, value: d.value })
+    ) ?? [];
+
+  const invasiveSpecies = data.nature_supplementary?.invasive_alien_species ?? [];
+
   return (
     <main>
       <header>
@@ -190,7 +200,6 @@ export default function Home() {
               className={`tab ${activeTopic === key ? 'active' : ''}`}
               style={{ '--tab-color': cfg.color } as React.CSSProperties}
               onClick={() => setActive(key)}
-              aria-current={activeTopic === key ? 'page' : undefined}
             >
               <span className="tab-emoji">{cfg.emoji}</span>
               <span className="tab-label">{cfg.label}</span>
@@ -203,6 +212,13 @@ export default function Home() {
       <section className="topic-section">
         {activeTopic === 'climate_energy' ? (
           <ClimateEnergyTab indicators={activeIndicators} historicalGHG={historicalGHG} />
+        ) : activeTopic === 'nature_biodiversity' ? (
+          <NatureBiodiversityTab
+            indicators={activeIndicators}
+            historicalOrganic={historicalOrganic}
+            historicalBirds={historicalBirds}
+            invasiveSpecies={invasiveSpecies}
+          />
         ) : (
           <>
             <div className="topic-header" style={{ borderColor: activeCfg.color }}>
