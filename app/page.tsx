@@ -52,18 +52,20 @@ function fmt(v: number | null | undefined, unit: string | null): string {
   return `${n.toLocaleString('en-BE', { maximumFractionDigits: 2 })}${unit ? ' ' + unit : ''}`;
 }
 
-function getProgress(latest: number | null, target: number | null): number | null {
+function getProgress(latest: number | null, target: number | null, status?: string | null): number | null {
   if (latest == null || target == null) return null;
   const l = typeof latest === 'number' ? latest : parseFloat(String(latest));
   const t = typeof target === 'number' ? target : parseFloat(String(target));
   if (isNaN(l) || isNaN(t) || t === 0) return null;
-  return Math.min(100, t > l ? (l / t) * 100 : (t / l) * 100);
+  if (status === 'Achieved') return 100;
+  if (l < t) return Math.min(100, (l / t) * 100);
+  return Math.min(100, (t / l) * 100);
 }
 
 function IndicatorCard({ ind, topicColor }: { ind: Indicator; topicColor: string }) {
   const [expanded, setExpanded] = useState(false);
   const sc  = STATUS_CFG[ind.status ?? ''] ?? STATUS_CFG['Insufficient data'];
-  const p   = getProgress(ind.latest_value, ind.target_value);
+  const p   = getProgress(ind.latest_value, ind.target_value, ind.status);
   return (
     <div className="card" style={{ '--topic-color': topicColor } as React.CSSProperties}>
       <div className="card-accent" />
