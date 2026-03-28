@@ -1,13 +1,12 @@
-
 'use client';
 
 import Link from 'next/link';
+import { useState, useEffect, useRef } from 'react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, PieChart, Pie, Cell, Legend,
 } from 'recharts';
 
-// ── Types ──────────────────────────────────────────────────────────────────
 export interface Indicator {
   indicator: string;
   description: string | null;
@@ -35,8 +34,7 @@ interface Props {
   historicalGHG: HistoricalPoint[];
 }
 
-// ── Supplementary chart data (from Excel Sections 2, 3, 4) ────────────────
-
+// ── Chart data ─────────────────────────────────────────────────────────────
 const ENERGY_MIX = [
   { name: 'Oil & petroleum',     value: 38,  color: '#ef4444' },
   { name: 'Natural gas',         value: 23,  color: '#f97316' },
@@ -75,9 +73,25 @@ const STATUS_CFG: Record<string, { color: string; bg: string; label: string }> =
   'Insufficient data': { color: '#374151', bg: '#f3f4f6', label: '⚪ No data'  },
 };
 
-const TREND_ICON: Record<string, string> = {
-  Improving: '↑', Stable: '→', Worsening: '↓',
-};
+const TREND_ICON: Record<string, string> = { Improving: '↑', Stable: '→', Worsening: '↓' };
+
+// ── Sidebar config ─────────────────────────────────────────────────────────
+const SIDEBAR_GROUPS = [
+  {
+    label: '🌡️ Climate',
+    items: [
+      { id: 'total-ghg-emissions',      label: 'Total GHG Emissions' },
+      { id: 'per-capita-ghg-footprint', label: 'Per-capita GHG Footprint' },
+    ],
+  },
+  {
+    label: '⚡ Energy',
+    items: [
+      { id: 'final-energy-consumption',    label: 'Final Energy Consumption' },
+      { id: 'renewable-electricity-share', label: 'Renewable Electricity Share' },
+    ],
+  },
+];
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function fmt(v: number | null | undefined, unit: string | null): string {
@@ -99,28 +113,31 @@ function indicatorSlug(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
 }
 
-// ── Custom tooltip for line chart ──────────────────────────────────────────
+// ── Tooltip styles — white background, readable ────────────────────────────
+const TOOLTIP_STYLE = {
+  background: '#ffffff',
+  color: '#1a1a1a',
+  border: '1px solid #e5e3da',
+  borderRadius: 8,
+  fontSize: 14,
+  boxShadow: '0 4px 16px rgba(0,0,0,0.12)',
+};
+
 const GHGTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
-    <div style={{
-      background: '#1a1a1a', color: '#fff', padding: '8px 12px',
-      borderRadius: 8, fontSize: 13, boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
-    }}>
+    <div style={{ ...TOOLTIP_STYLE, padding: '8px 12px' }}>
       <div style={{ fontWeight: 700, marginBottom: 2 }}>{label}</div>
       <div>{payload[0].value} MtCO₂eq</div>
     </div>
   );
 };
 
-// ── Wide indicator card ────────────────────────────────────────────────────
+// ── Wide card ──────────────────────────────────────────────────────────────
 function WideCard({
-  ind,
-  chart,
-  chartTitle,
-  chartSource,
-  accentColor,
+  id, ind, chart, chartTitle, chartSource, accentColor,
 }: {
+  id: string;
   ind: Indicator;
   chart: React.ReactNode;
   chartTitle: string;
@@ -131,31 +148,15 @@ function WideCard({
   const pct = progress(ind.latest_value, ind.target_value);
 
   return (
-    <div className="wide-card" style={{ '--topic-color': accentColor } as React.CSSProperties}>
-      {/* Accent bar */}
+    <div id={id} className="wide-card" style={{ '--topic-color': accentColor } as React.CSSProperties}>
       <div className="wide-card-accent" />
-
-      {/* Left: indicator info */}
       <div className="wide-card-left">
         <div className="card-top">
-          <span className="status-badge" style={{ color: sc.color, background: sc.bg }}>
-            {sc.label}
-          </span>
-          <span className="trend">
-            {TREND_ICON[ind.trend ?? ''] ?? '—'} {ind.trend ?? '—'}
-          </span>
+          <span className="status-badge" style={{ color: sc.color, background: sc.bg }}>{sc.label}</span>
+          <span className="trend">{TREND_ICON[ind.trend ?? ''] ?? '—'} {ind.trend ?? '—'}</span>
         </div>
-
-        <h3 className="card-title" style={{ marginTop: 10, fontSize: '1.1rem' }}>
-          {ind.indicator}
-        </h3>
-
-        {ind.description && (
-          <p className="card-desc" style={{ WebkitLineClamp: 3 }}>
-            {ind.description}
-          </p>
-        )}
-
+        <h3 className="card-title" style={{ marginTop: 10, fontSize: '1.1rem' }}>{ind.indicator}</h3>
+        {ind.description && <p className="card-desc" style={{ WebkitLineClamp: 3 }}>{ind.description}</p>}
         <div className="card-values" style={{ marginTop: 12 }}>
           <div className="value-block">
             <span className="value-label">Latest</span>
@@ -170,7 +171,6 @@ function WideCard({
             </div>
           )}
         </div>
-
         {pct != null && (
           <div className="progress-wrap" style={{ marginTop: 12 }}>
             <div className="progress-bar">
@@ -179,7 +179,6 @@ function WideCard({
             <span className="progress-label">{pct.toFixed(0)}% of the way to target</span>
           </div>
         )}
-
         <Link
           href={`/climate-energy/${indicatorSlug(ind.indicator)}`}
           className="read-more-btn"
@@ -188,8 +187,6 @@ function WideCard({
           Read more →
         </Link>
       </div>
-
-      {/* Right: chart */}
       <div className="wide-card-right">
         <div className="chart-header">
           <span className="chart-title">{chartTitle}</span>
@@ -208,28 +205,10 @@ function GHGLineChart({ data }: { data: HistoricalPoint[] }) {
     <ResponsiveContainer width="100%" height={240}>
       <LineChart data={filtered} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-        <XAxis
-          dataKey="year"
-          tick={{ fontSize: 11, fill: '#9ca3af' }}
-          tickLine={false}
-          interval={4}
-        />
-        <YAxis
-          tick={{ fontSize: 11, fill: '#9ca3af' }}
-          tickLine={false}
-          axisLine={false}
-          width={40}
-        />
+        <XAxis dataKey="year" tick={{ fontSize: 13, fill: '#6b6b6b' }} tickLine={false} interval={4} />
+        <YAxis tick={{ fontSize: 13, fill: '#6b6b6b' }} tickLine={false} axisLine={false} width={44} />
         <Tooltip content={<GHGTooltip />} />
-        <Line
-          type="monotone"
-          dataKey="value"
-          stroke="#f97316"
-          strokeWidth={2.5}
-          dot={false}
-          activeDot={{ r: 5, fill: '#f97316' }}
-        />
-        {/* 2030 target reference line — drawn as a separate data point annotation */}
+        <Line type="monotone" dataKey="value" stroke="#f97316" strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: '#f97316' }} />
       </LineChart>
     </ResponsiveContainer>
   );
@@ -237,32 +216,23 @@ function GHGLineChart({ data }: { data: HistoricalPoint[] }) {
 
 function SimplePieChart({ data }: { data: { name: string; value: number; color: string }[] }) {
   return (
-    <ResponsiveContainer width="100%" height={260}>
+    <ResponsiveContainer width="100%" height={280}>
       <PieChart>
-        <Pie
-          data={data}
-          cx="50%"
-          cy="45%"
-          outerRadius={90}
-          dataKey="value"
-          labelLine={false}
-        >
+        <Pie data={data} cx="50%" cy="45%" outerRadius={90} dataKey="value" labelLine={false}>
           {data.map((entry, i) => (
             <Cell key={i} fill={entry.color} stroke="white" strokeWidth={2} />
           ))}
         </Pie>
         <Tooltip
           formatter={(value: any, name: any) => [`${value}%`, name]}
-          contentStyle={{
-            background: '#1a1a1a', color: '#fff', border: 'none',
-            borderRadius: 8, fontSize: 12,
-          }}
+          contentStyle={TOOLTIP_STYLE}
+          itemStyle={{ color: '#1a1a1a' }}
         />
         <Legend
           iconType="circle"
-          iconSize={8}
+          iconSize={10}
           formatter={(value) => (
-            <span style={{ fontSize: 11, color: '#4b5563' }}>{value}</span>
+            <span style={{ fontSize: 13, color: '#4b5563' }}>{value}</span>
           )}
         />
       </PieChart>
@@ -271,9 +241,7 @@ function SimplePieChart({ data }: { data: { name: string; value: number; color: 
 }
 
 // ── Group header ───────────────────────────────────────────────────────────
-function GroupHeader({ emoji, title, subtitle }: {
-  emoji: string; title: string; subtitle: string;
-}) {
+function GroupHeader({ emoji, title, subtitle }: { emoji: string; title: string; subtitle: string }) {
   return (
     <div className="group-header">
       <div className="group-header-inner">
@@ -287,6 +255,29 @@ function GroupHeader({ emoji, title, subtitle }: {
   );
 }
 
+// ── Sticky sidebar ─────────────────────────────────────────────────────────
+function Sidebar({ activeId }: { activeId: string }) {
+  return (
+    <aside className="climate-sidebar">
+      {SIDEBAR_GROUPS.map((group, gi) => (
+        <div key={gi}>
+          {gi > 0 && <div className="sidebar-divider" />}
+          <div className="sidebar-group-label">{group.label}</div>
+          {group.items.map(item => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className={`sidebar-link ${activeId === item.id ? 'active' : ''}`}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      ))}
+    </aside>
+  );
+}
+
 // ── Main component ─────────────────────────────────────────────────────────
 const KEEP = [
   'Total GHG Emissions',
@@ -295,76 +286,100 @@ const KEEP = [
   'Renewable Electricity Share',
 ];
 
-const COLOR = '#f97316'; // orange — Climate & Energy accent
+const COLOR = '#f97316';
 
 export default function ClimateEnergyTab({ indicators, historicalGHG }: Props) {
   const byName = Object.fromEntries(
-    indicators
-      .filter(i => KEEP.includes(i.indicator))
-      .map(i => [i.indicator, i])
+    indicators.filter(i => KEEP.includes(i.indicator)).map(i => [i.indicator, i])
   );
+
+  // Track which card is currently in view for the sidebar highlight
+  const [activeId, setActiveId] = useState('total-ghg-emissions');
+
+  useEffect(() => {
+    const ids = ['total-ghg-emissions', 'per-capita-ghg-footprint', 'final-energy-consumption', 'renewable-electricity-share'];
+    const observers: IntersectionObserver[] = [];
+
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveId(id); },
+        { threshold: 0.4 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => observers.forEach(o => o.disconnect());
+  }, []);
 
   return (
     <div className="climate-tab">
 
-      {/* ── Group 1: Climate ─────────────────────────────────────────── */}
-      <GroupHeader
-        emoji="🌡️"
-        title="Climate Objectives"
-        subtitle="Greenhouse gas emissions and Belgium's progress toward Paris Agreement targets"
-      />
+      {/* Sticky sidebar */}
+      <Sidebar activeId={activeId} />
 
-      {/* Total GHG Emissions + Line chart */}
-      {byName['Total GHG Emissions'] && (
-        <WideCard
-          ind={byName['Total GHG Emissions']}
-          accentColor={COLOR}
-          chartTitle="GHG Emissions 1990–2023 (MtCO₂eq)"
-          chartSource="Source: National Climate Commission / indicators.be"
-          chart={<GHGLineChart data={historicalGHG} />}
+      {/* Main content */}
+      <div className="climate-main">
+
+        <GroupHeader
+          emoji="🌡️"
+          title="Climate Objectives"
+          subtitle="Greenhouse gas emissions and Belgium's progress toward Paris Agreement targets"
         />
-      )}
 
-      {/* Per-capita GHG + Pie chart (consumption categories) */}
-      {byName['Per-capita GHG footprint'] && (
-        <WideCard
-          ind={byName['Per-capita GHG footprint']}
-          accentColor={COLOR}
-          chartTitle="Consumption-based footprint by category (~15.7 t/cap, 2019)"
-          chartSource="Source: UCLouvain (2021)"
-          chart={<SimplePieChart data={FOOTPRINT_CATEGORIES} />}
+        {byName['Total GHG Emissions'] && (
+          <WideCard
+            id="total-ghg-emissions"
+            ind={byName['Total GHG Emissions']}
+            accentColor={COLOR}
+            chartTitle="GHG Emissions 1990–2023 (MtCO₂eq)"
+            chartSource="Source: National Climate Commission / indicators.be"
+            chart={<GHGLineChart data={historicalGHG} />}
+          />
+        )}
+
+        {byName['Per-capita GHG footprint'] && (
+          <WideCard
+            id="per-capita-ghg-footprint"
+            ind={byName['Per-capita GHG footprint']}
+            accentColor={COLOR}
+            chartTitle="Consumption-based footprint by category (~15.7 t/cap, 2019)"
+            chartSource="Source: UCLouvain (2021)"
+            chart={<SimplePieChart data={FOOTPRINT_CATEGORIES} />}
+          />
+        )}
+
+        <GroupHeader
+          emoji="⚡"
+          title="Energy Objectives"
+          subtitle="Final energy consumption and progress on renewable electricity generation"
         />
-      )}
 
-      {/* ── Group 2: Energy ──────────────────────────────────────────── */}
-      <GroupHeader
-        emoji="⚡"
-        title="Energy Objectives"
-        subtitle="Final energy consumption and progress on renewable electricity generation"
-      />
+        {byName['Final Energy Consumption'] && (
+          <WideCard
+            id="final-energy-consumption"
+            ind={byName['Final Energy Consumption']}
+            accentColor={COLOR}
+            chartTitle="Energy mix — % of Final Energy Consumption (2022)"
+            chartSource="Source: IEA / Eurostat"
+            chart={<SimplePieChart data={ENERGY_MIX} />}
+          />
+        )}
 
-      {/* Final Energy Consumption + Energy mix pie */}
-      {byName['Final Energy Consumption'] && (
-        <WideCard
-          ind={byName['Final Energy Consumption']}
-          accentColor={COLOR}
-          chartTitle="Energy mix — % of Final Energy Consumption (2022)"
-          chartSource="Source: IEA / Eurostat"
-          chart={<SimplePieChart data={ENERGY_MIX} />}
-        />
-      )}
+        {byName['Renewable Electricity Share'] && (
+          <WideCard
+            id="renewable-electricity-share"
+            ind={byName['Renewable Electricity Share']}
+            accentColor={COLOR}
+            chartTitle="Renewables breakdown — % of total renewable energy (2023)"
+            chartSource="Source: IRENA / Eurostat"
+            chart={<SimplePieChart data={RENEWABLES_MIX} />}
+          />
+        )}
 
-      {/* Renewable Electricity Share + Renewables breakdown pie */}
-      {byName['Renewable Electricity Share'] && (
-        <WideCard
-          ind={byName['Renewable Electricity Share']}
-          accentColor={COLOR}
-          chartTitle="Renewables breakdown — % of total renewable energy (2023)"
-          chartSource="Source: IRENA / Eurostat"
-          chart={<SimplePieChart data={RENEWABLES_MIX} />}
-        />
-      )}
-
+      </div>
     </div>
   );
 }
