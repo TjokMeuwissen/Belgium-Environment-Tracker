@@ -229,7 +229,7 @@ function WideCard({
         <h3 className="card-title" style={{ marginTop: 8, fontSize: '1.05rem' }}>{ind.indicator}</h3>
         {ind.description && (
           <p className="card-desc">
-            {ind.description.length > 120 ? ind.description.slice(0, 120).trimEnd() + '…' : ind.description}
+            {(ind as any).short_description || ind.description}
           </p>
         )}
         <div className="card-values" style={{ marginTop: 8 }}>
