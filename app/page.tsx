@@ -208,9 +208,7 @@ function HomeInner() {
             </div>
           </div>
           <div className="header-image-wrap">
-            <div className="header-image-band" />
             <img src="/images/pic-bxl.jpg" alt="Atomium Brussels with spring flowers" className="header-image" />
-            <div className="header-image-band" />
           </div>
         </div>
       </header>
