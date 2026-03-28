@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import ClimateEnergyTab from './components/ClimateEnergyTab';
 import NatureBiodiversityTab from './components/NatureBiodiversityTab';
 
@@ -139,9 +140,15 @@ function IndicatorCard({ ind, topicColor }: { ind: Indicator; topicColor: string
   );
 }
 
-export default function Home() {
+function HomeInner() {
   const [data, setData]          = useState<EnvData | null>(null);
   const [activeTopic, setActive] = useState('climate_energy');
+  const searchParams             = useSearchParams();
+
+  useEffect(() => {
+    const topic = searchParams.get('topic');
+    if (topic && TOPIC_CONFIG[topic]) setActive(topic);
+  }, [searchParams]);
 
   useEffect(() => {
     fetch('/data/belgium_environment_data.json')
@@ -259,5 +266,13 @@ export default function Home() {
         <p>Data sourced from EEA, Eurostat, VMM, ISSeP and other official sources. Last updated March 2026.</p>
       </footer>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="loading">Loading…</div>}>
+      <HomeInner />
+    </Suspense>
   );
 }
