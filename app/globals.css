@@ -30,30 +30,32 @@ header { position: relative; background: #1a1a1a; color: white; overflow: hidden
 .flag-stripe.yellow { left: 18px; background: #FAE042; }
 .flag-stripe.red    { left: 36px; background: #EF3340; }
 
-/* Centred wrapper — matches topic-section so text aligns with content below */
-.header-layout {
-  max-width: 1200px; margin: 0 auto;
-  display: flex; align-items: center;
-}
+/* Invisible wrapper — image is absolute so this is just a block */
+.header-layout { position: relative; }
 
-/* Left column: text + stats — same indentation as original */
+/* Text centred in same 1200px container as topic-section.
+   padding-left 252px = topic padding (24) + sidebar (200) + gap (28)
+   so "Environment Tracker" aligns with the Climate Objectives box below.
+   padding-right 380px keeps text clear of the photo. */
 .header-content {
-  flex: 1 1 auto;
-  padding: 48px 32px 40px 72px;
+  max-width: 1200px; margin: 0 auto;
+  padding: 48px 380px 40px 252px;
   display: flex; flex-direction: column; align-items: flex-start; gap: 16px;
 }
 
-/* Right column: photo with dark padding acting as top/bottom bands */
+/* Photo pinned to the right edge of the viewport, vertically centred */
 .header-image-wrap {
-  flex: 0 0 auto;
-  background: #1a1a1a;
-  padding: 28px 32px 28px 0;
+  position: absolute;
+  right: 32px; top: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  padding: 24px 0;
 }
 
 .header-image {
-  display: block;
   height: 200px;
   width: auto;
+  display: block;
   border-radius: 6px;
 }
 
