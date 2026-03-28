@@ -111,6 +111,15 @@ function progress(latest: number | null, target: number | null, status?: string 
   return Math.min(100, (t / l) * 100);               // lower is better
 }
 
+function progressColor(pct: number): string {
+  if (pct >= 100) return '#166534';
+  if (pct >= 80)  return '#16a34a';
+  if (pct >= 60)  return '#86efac';
+  if (pct >= 40)  return '#f97316';
+  if (pct >= 20)  return '#ef4444';
+  return '#b91c1c';
+}
+
 function indicatorSlug(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
 }
@@ -180,7 +189,7 @@ function WideCard({
         {pct != null && (
           <div className="progress-wrap" style={{ marginTop: 12 }}>
             <div className="progress-bar">
-              <div className="progress-fill" style={{ width: `${pct}%`, background: accentColor }} />
+              <div className="progress-fill" style={{ width: `${pct}%`, background: progressColor(pct) }} />
             </div>
             <span className="progress-label">{pct === 100 ? '100% of the way to target! 🎉' : `${pct.toFixed(0)}% of the way to target`}</span>
           </div>
