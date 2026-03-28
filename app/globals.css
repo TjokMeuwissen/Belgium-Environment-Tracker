@@ -328,9 +328,9 @@ footer { background: #1a1a1a; color: #666; text-align: center; padding: 24px 32p
 }
 
 /* Override colours — all three use same dark-green palette inside the card */
-.tag-federal  { background: #bbf7d0; color: #14532d; }
-.tag-regional { background: #bbf7d0; color: #14532d; }
-.tag-shared   { background: #bbf7d0; color: #14532d; }
+.tag-federal  { background: #166534; color: #ffffff; }
+.tag-regional { background: #86efac; color: #14532d; }
+.tag-shared   { background: #4ade80; color: #14532d; }
 
 .responsibility-list {
   flex: 1;
