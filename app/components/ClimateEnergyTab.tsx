@@ -201,27 +201,9 @@ function WideCard({
 // ── Charts ─────────────────────────────────────────────────────────────────
 function GHGLineChart({ data }: { data: HistoricalPoint[] }) {
   const filtered = data.filter(d => d.year >= 1990);
-
-  // Latest data point
-  const latest = filtered[filtered.length - 1];
-
-  // Build extrapolation: dotted line from latest value to 2030 target
-  const extrap = latest
-    ? [
-        { year: latest.year, projected: latest.value },
-        { year: 2030,        projected: 64.3 },
-      ]
-    : [];
-
-  // Combine historical + extrapolation into one dataset for the x-axis
-  const combined = [
-    ...filtered.map(d => ({ year: d.year, value: d.value, projected: null as number | null })),
-    { year: 2030, value: null as number | null, projected: 64.3 },
-  ];
-
   return (
     <ResponsiveContainer width="100%" height={240}>
-      <LineChart data={combined} margin={{ top: 8, right: 24, left: 0, bottom: 0 }}>
+      <LineChart data={filtered} margin={{ top: 8, right: 24, left: 0, bottom: 0 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
         <XAxis dataKey="year" tick={{ fontSize: 13, fill: '#6b6b6b' }} tickLine={false} interval={4} />
         <YAxis tick={{ fontSize: 13, fill: '#6b6b6b' }} tickLine={false} axisLine={false} width={44} domain={[0, 160]} />
@@ -232,29 +214,19 @@ function GHGLineChart({ data }: { data: HistoricalPoint[] }) {
           type="monotone" dataKey="value"
           stroke="#f97316" strokeWidth={2.5}
           dot={false} activeDot={{ r: 5, fill: '#f97316' }}
-          connectNulls={false}
         />
 
-        {/* Dotted extrapolation to 2030 target */}
-        <Line
-          type="monotone" dataKey="projected"
-          stroke="#f97316" strokeWidth={2}
-          strokeDasharray="6 4"
-          dot={false} activeDot={false}
-          connectNulls={true}
-        />
-
-        {/* Target reference line at 2030 */}
+        {/* Horizontal dotted target line at 64.3 Mt */}
         <ReferenceLine
-          x={2030}
-          stroke="#16a34a"
-          strokeDasharray="3 3"
-          strokeWidth={1.5}
+          y={64.3}
+          stroke="#f97316"
+          strokeDasharray="6 4"
+          strokeWidth={1.8}
           label={{
-            value: '🎯 64.3 Mt target',
+            value: '🎯 2030 target: 64.3 MtCO₂eq',
             position: 'insideTopRight',
             fontSize: 11,
-            fill: '#16a34a',
+            fill: '#f97316',
             fontWeight: 600,
           }}
         />
