@@ -308,9 +308,9 @@ function Sidebar({ activeId }: { activeId: string }) {
 // ── Main component ─────────────────────────────────────────────────────────
 const KEEP = [
   'Total GHG Emissions',
-  'Per-capita GHG footprint',
+  'Per-capita GHG Footprint',
   'Final Energy Consumption',
-  'Renewable Electricity Share',
+  'Renewable Electricity Share (% of generation)',
 ];
 
 const COLOR = '#f97316';
@@ -367,10 +367,10 @@ export default function ClimateEnergyTab({ indicators, historicalGHG }: Props) {
           />
         )}
 
-        {byName['Per-capita GHG footprint'] && (
+        {byName['Per-capita GHG Footprint'] && (
           <WideCard
             id="per-capita-ghg-footprint"
-            ind={byName['Per-capita GHG footprint']}
+            ind={byName['Per-capita GHG Footprint']}
             accentColor={COLOR}
             chartTitle="Consumption-based footprint by category (~15.7 t/cap, 2019)"
             chartSource="Source: UCLouvain (2021)"
@@ -395,10 +395,10 @@ export default function ClimateEnergyTab({ indicators, historicalGHG }: Props) {
           />
         )}
 
-        {byName['Renewable Electricity Share'] && (
+        {byName['Renewable Electricity Share (% of generation)'] && (
           <WideCard
             id="renewable-electricity-share"
-            ind={byName['Renewable Electricity Share']}
+            ind={byName['Renewable Electricity Share (% of generation)']}
             accentColor={COLOR}
             chartTitle="Renewables breakdown — % of total renewable energy (2023)"
             chartSource="Source: IRENA / Eurostat"
