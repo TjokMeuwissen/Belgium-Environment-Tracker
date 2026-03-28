@@ -253,7 +253,7 @@ function WideCard({
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: `${p}%`, background: accentColor }} />
             </div>
-            <span className="progress-label">{p.toFixed(0)}% of the way to target</span>
+            <span className="progress-label">{p === 100 ? '100% of the way to target! 🎉' : `${p.toFixed(0)}% of the way to target`}</span>
           </div>
         )}
         <Link href={`/nature-biodiversity/${slug}`} className="read-more-btn" style={{ '--btn-color': accentColor } as React.CSSProperties}>
