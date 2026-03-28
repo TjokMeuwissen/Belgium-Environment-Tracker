@@ -30,34 +30,30 @@ header { position: relative; background: #1a1a1a; color: white; overflow: hidden
 .flag-stripe.yellow { left: 18px; background: #FAE042; }
 .flag-stripe.red    { left: 36px; background: #EF3340; }
 
-/* Two-column layout — height driven by left content, never clipped */
+/* Centred wrapper — matches topic-section so text aligns with content below */
 .header-layout {
-  display: flex;
-  align-items: stretch;
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center;
 }
 
-/* Left column: text + stats */
+/* Left column: text + stats — same indentation as original */
 .header-content {
   flex: 1 1 auto;
   padding: 48px 32px 40px 72px;
   display: flex; flex-direction: column; align-items: flex-start; gap: 16px;
 }
 
-/* Right column: fixed width, black bands are the padding top/bottom */
+/* Right column: photo with dark padding acting as top/bottom bands */
 .header-image-wrap {
-  flex: 0 0 360px;
+  flex: 0 0 auto;
   background: #1a1a1a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 28px 32px;
+  padding: 28px 32px 28px 0;
 }
 
-/* Image keeps natural ratio — no cropping */
 .header-image {
-  width: 100%;
-  height: auto;
   display: block;
+  height: 200px;
+  width: auto;
   border-radius: 6px;
 }
 
