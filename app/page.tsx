@@ -193,17 +193,24 @@ function HomeInner() {
         <div className="flag-stripe black" />
         <div className="flag-stripe yellow" />
         <div className="flag-stripe red" />
-        <div className="header-content">
-          <div className="header-text">
-            <p className="header-eyebrow">🇧🇪 Belgium</p>
-            <h1>Environment Tracker</h1>
-            <p className="header-sub">Tracking Belgium's progress on climate &amp; environment objectives</p>
+        <div className="header-layout">
+          <div className="header-content">
+            <div className="header-text">
+              <p className="header-eyebrow">🇧🇪 Belgium</p>
+              <h1>Environment Tracker</h1>
+              <p className="header-sub">Tracking Belgium's progress on climate &amp; environment objectives</p>
+            </div>
+            <div className="header-stats">
+              <div className="stat-pill achieved">✅ {stats.achieved} Achieved</div>
+              <div className="stat-pill ontrack">🟢 {stats.onTrack} On track</div>
+              <div className="stat-pill offtrack">🔴 {stats.offTrack} Off track</div>
+              {stats.noData > 0 && <div className="stat-pill nodata">⚪ {stats.noData} No data</div>}
+            </div>
           </div>
-          <div className="header-stats">
-            <div className="stat-pill achieved">✅ {stats.achieved} Achieved</div>
-            <div className="stat-pill ontrack">🟢 {stats.onTrack} On track</div>
-            <div className="stat-pill offtrack">🔴 {stats.offTrack} Off track</div>
-            {stats.noData > 0 && <div className="stat-pill nodata">⚪ {stats.noData} No data</div>}
+          <div className="header-image-wrap">
+            <div className="header-image-band" />
+            <img src="/images/pic-bxl.jpg" alt="Atomium Brussels with spring flowers" className="header-image" />
+            <div className="header-image-band" />
           </div>
         </div>
       </header>
