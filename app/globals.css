@@ -49,7 +49,7 @@ header {
   /* left padding increased to clear the 54px flag */
   padding: 48px 32px 40px 72px;
   display: flex; flex-direction: column;
-  align-items: flex-start; gap: 32px; flex-wrap: wrap;
+  align-items: flex-start; gap: 16px; flex-wrap: wrap;
 }
 
 .header-eyebrow {
