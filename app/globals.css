@@ -54,7 +54,7 @@ header h1 { font-family: 'Roboto', sans-serif; font-size: clamp(2rem, 5vw, 3.2re
 .tabs { display: flex; background: #2e2e2e; overflow-x: auto; scrollbar-width: none; border-bottom: 3px solid #3a3a3a; position: sticky; top: 0; z-index: 100; }
 .tabs::-webkit-scrollbar { display: none; }
 
-.tab { display: flex; align-items: center; gap: 7px; padding: 14px 20px; background: none; border: none; color: #aaa; font-family: 'Epilogue', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: color 0.2s, background 0.2s; border-bottom: 3px solid transparent; margin-bottom: -3px; }
+.tab { display: flex; align-items: center; justify-content: center; gap: 7px; padding: 14px 20px; flex: 1; background: none; border: none; color: #aaa; font-family: 'Epilogue', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: color 0.2s, background 0.2s; border-bottom: 3px solid transparent; margin-bottom: -3px; }
 .tab:hover { color: #fff; background: rgba(255,255,255,0.1); }
 .tab.active { color: #fff; border-bottom-color: var(--tab-color); }
 .tab-emoji { font-size: 1rem; }
