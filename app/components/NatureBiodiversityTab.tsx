@@ -227,7 +227,11 @@ function WideCard({
           <span className="trend">{TREND_ICON[ind.trend ?? ''] ?? '—'} {ind.trend ?? '—'}</span>
         </div>
         <h3 className="card-title" style={{ marginTop: 8, fontSize: '1.05rem' }}>{ind.indicator}</h3>
-        {ind.description && <p className="card-desc">{ind.description}</p>}
+        {ind.description && (
+          <p className="card-desc">
+            {ind.description.length > 120 ? ind.description.slice(0, 120).trimEnd() + '…' : ind.description}
+          </p>
+        )}
         <div className="card-values" style={{ marginTop: 8 }}>
           <div className="value-block">
             <span className="value-label">Latest</span>
@@ -285,10 +289,11 @@ function EUBarChart() {
         <YAxis
           type="category" dataKey="country" width={88}
           tick={<BoldTick />} tickLine={false} axisLine={false}
+          interval={0}
         />
         <Tooltip
           contentStyle={TOOLTIP_STYLE}
-          formatter={(v: any, n: any, props: any) => [`${v}%`, props.payload.country]}
+          formatter={(v: any) => [`${v}%`, '']}
           cursor={{ fill: 'rgba(0,0,0,0.04)' }}
         />
         <ReferenceLine
