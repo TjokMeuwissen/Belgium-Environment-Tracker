@@ -125,7 +125,7 @@ header h1 { font-family: 'Roboto', sans-serif; font-size: clamp(2rem, 5vw, 3.2re
 .group-header-inner { display: flex; align-items: center; gap: 14px; }
 .group-emoji    { font-size: 1.6rem; }
 .group-title    { font-family: 'Roboto', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
-.group-subtitle { font-size: 0.8rem; color: #d1d5db; }
+.group-subtitle { font-size: 0.8rem; color: #888; }
 
 /* Wide cards — left panel description clamped to 1 line */
 .wide-card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; display: grid; grid-template-columns: 5px 320px 1fr; margin-bottom: 20px; transition: box-shadow 0.2s; }
@@ -218,3 +218,110 @@ footer { background: #1a1a1a; color: #666; text-align: center; padding: 24px 32p
 @media (max-width: 1100px) { .climate-sidebar { display: none; } .climate-tab { display: block; } }
 @media (max-width: 900px) { .wide-card { grid-template-columns: 5px 1fr; } .wide-card-left { border-right: none; border-bottom: 1px solid var(--border); } .ias-detail-grid { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .header-content { padding: 32px 20px 28px 64px; } .header-stats { display: none; } .tab-label { display: none; } .tab { padding: 14px 16px; } .tab-emoji { font-size: 1.2rem; } .topic-section { padding: 24px 16px 48px; } .cards-grid { grid-template-columns: 1fr; } .wide-card { grid-template-columns: 5px 1fr; } .detail-figures { flex-direction: column; } }
+
+/* ── Detail page — new section cards ─────────────────────────────────────── */
+
+.detail-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.detail-section-icon { font-size: 1.2rem; }
+
+.detail-section-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Technical Information */
+.detail-technical-card {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+}
+
+.technical-text {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+/* Consequences */
+.detail-consequences-card {
+  background: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+}
+
+.consequences-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.consequences-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.consequences-item::before {
+  content: '⚠️';
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  margin-top: 1px;
+}
+
+/* Government responsibility */
+.detail-responsibility-card {
+  background: #f0fdf4;
+  border-left: 4px solid #16a34a;
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+}
+
+.responsibility-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.responsibility-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.responsibility-tag {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+.tag-federal  { background: #dbeafe; color: #1e40af; }
+.tag-regional { background: #dcfce7; color: #166534; }
+.tag-shared   { background: #f3e8ff; color: #6b21a8; }
+
+.responsibility-text { flex: 1; }
