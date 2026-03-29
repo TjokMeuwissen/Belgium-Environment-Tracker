@@ -2566,6 +2566,193 @@
         "description": "This sub-target (electricity share) excludes statistical transfers — the overall RES share indicator includes them",
         "severity": "Minor"
       }
+    ],
+    "fec_historical_by_sector": [
+      {
+        "sector": "Industry",
+        "y2005": 12.1,
+        "y2010": 11.1,
+        "y2015": 10.2,
+        "y2020": 9,
+        "y2022": 9.3,
+        "trend": "Declining — driven by energy efficiency and de-industrialisation. Down ~23% since 2005."
+      },
+      {
+        "sector": "Transport",
+        "y2005": 9.4,
+        "y2010": 9.2,
+        "y2015": 8.9,
+        "y2020": 7.6,
+        "y2022": 8.1,
+        "trend": "Slowly declining — COVID dip in 2020, partial rebound. Road transport dominates and is stubborn."
+      },
+      {
+        "sector": "Households",
+        "y2005": 9.5,
+        "y2010": 8.8,
+        "y2015": 8.1,
+        "y2020": 7.8,
+        "y2022": 7.5,
+        "trend": "Declining — insulation improvements and heat pump uptake. Still heavily reliant on gas."
+      },
+      {
+        "sector": "Services",
+        "y2005": 4.8,
+        "y2010": 4.5,
+        "y2015": 4.2,
+        "y2020": 3.8,
+        "y2022": 3.9,
+        "trend": "Declining — efficiency gains in commercial buildings and public sector."
+      },
+      {
+        "sector": "Agriculture",
+        "y2005": 1.3,
+        "y2010": 1.3,
+        "y2015": 1.2,
+        "y2020": 1.2,
+        "y2022": 1.2,
+        "trend": "Stable — minimal change. Diesel and greenhouse heating dominate."
+      }
+    ],
+    "country_comparison": [
+      {
+        "country": "Luxembourg",
+        "value": 13.5,
+        "reference": "EEA / EDGAR 2023",
+        "notes": "Significantly inflated by fuel tourism — cross-border drivers filling up at lower Luxembourg fuel prices. Actual resident footprint is lower.",
+        "source": "EEA GHG Data Viewer / EDGAR v8",
+        "source_url": "https://www.eea.europa.eu/en/analysis/maps-and-charts/greenhouse-gases-viewer-data-viewers"
+      },
+      {
+        "country": "Germany",
+        "value": 9.8,
+        "reference": "EEA national inventory 2023",
+        "notes": "High due to continued coal and gas use in power sector and large industrial base. Declining rapidly as coal exits.",
+        "source": "EEA GHG Data Viewer",
+        "source_url": "https://www.eea.europa.eu/en/analysis/maps-and-charts/greenhouse-gases-viewer-data-viewers"
+      },
+      {
+        "country": "Netherlands",
+        "value": 8.7,
+        "reference": "EEA national inventory 2023",
+        "notes": "Elevated by large gas production, refining and chemical industry (Rotterdam port). Declining since 2018.",
+        "source": "EEA GHG Data Viewer",
+        "source_url": "https://www.eea.europa.eu/en/analysis/maps-and-charts/greenhouse-gases-viewer-data-viewers"
+      },
+      {
+        "country": "Belgium",
+        "value": 8.3,
+        "reference": "National Climate Commission / indicators.be 2023",
+        "notes": "Our tracked indicator. 28% above EU average. Transport and industry are main drivers.",
+        "source": "National Climate Commission / indicators.be",
+        "source_url": "https://www.indicators.be/en/i/G13_GHG/"
+      },
+      {
+        "country": "EU average",
+        "value": 7.3,
+        "reference": "EDGAR v8 / Eurostat 2023",
+        "notes": "EU27 average territorial emissions per capita. Belgium is 14% above this average.",
+        "source": "EDGAR Community GHG Database v8",
+        "source_url": "https://edgar.jrc.ec.europa.eu/report_2023"
+      },
+      {
+        "country": "France",
+        "value": 6.5,
+        "reference": "EEA national inventory 2023",
+        "notes": "Relatively low due to large nuclear electricity fleet (~70% of generation). Higher consumption-based footprint due to imports.",
+        "source": "EEA GHG Data Viewer",
+        "source_url": "https://www.eea.europa.eu/en/analysis/maps-and-charts/greenhouse-gases-viewer-data-viewers"
+      },
+      {
+        "country": "Paris 2030 target",
+        "value": 2.3,
+        "reference": "IEEP / Oxfam / SEI (2021)",
+        "notes": "Global equal per-capita carbon budget consistent with 50% probability of limiting warming to 1.5°C. Belgium is 3.6× this level.",
+        "source": "IEEP / Oxfam / Stockholm Environment Institute",
+        "source_url": "https://ieep.eu/publications/carbon-inequality-in-2030-per-capita-consumption-emissions-and-the-1-5c-goal/"
+      }
+    ],
+    "footprint_examples": [
+      {
+        "activity": "100 km driven — average petrol car",
+        "kg_co2eq": 12,
+        "assumptions": "EU fleet average ~120g CO₂/km tailpipe (2023 new car average). Petrol, WLTP cycle.",
+        "notes": "Tailpipe CO₂ only — does not include vehicle manufacturing or fuel upstream emissions. Full lifecycle would be ~15–18 kg.",
+        "source": "European Environment Agency / ACEA",
+        "source_url": "https://www.eea.europa.eu/en/analysis/indicators/co2-performance-of-new-passenger"
+      },
+      {
+        "activity": "100 km driven — average EV (Belgian grid 2023)",
+        "kg_co2eq": 2.1,
+        "assumptions": "Belgian grid carbon intensity ~175g CO₂eq/kWh (2023, Elia). Average EV consumption ~18 kWh/100km.",
+        "notes": "Grid carbon intensity varies by hour and season. Lower during high renewable generation. EV lifecycle emissions are higher than just charging.",
+        "source": "Elia grid data / Our World in Data",
+        "source_url": "https://ourworldindata.org/grapher/carbon-intensity-electricity"
+      },
+      {
+        "activity": "300g beef steak",
+        "kg_co2eq": 7.5,
+        "assumptions": "Average beef: ~25 kg CO₂eq/kg. 300g × 25 = 7.5 kg. Includes enteric fermentation, manure, land use, feed production.",
+        "notes": "High variability depending on farming system (intensive vs. pasture) and country. European average used. Range: 5–30 kg CO₂eq/kg beef.",
+        "source": "ADEME Base Carbone / Poore & Nemecek (2018) Science",
+        "source_url": "https://www.ademe.fr/en/frontpage/"
+      },
+      {
+        "activity": "Heating a 100m² house for one winter day (natural gas)",
+        "kg_co2eq": 6.5,
+        "assumptions": "Average Belgian house ~100m². Winter day gas consumption ~60 kWh/day. Gas: ~0.20 kg CO₂/kWh (combustion + upstream).",
+        "notes": "Highly dependent on insulation level. Well-insulated house: ~3 kg/day. Poorly insulated: ~10 kg/day. Average used here.",
+        "source": "Eurostat / SPF Energie / ADEME",
+        "source_url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Energy_consumption_in_households"
+      },
+      {
+        "activity": "Return flight Brussels–New York (economy, per person)",
+        "kg_co2eq": 1800,
+        "assumptions": "BRU–JFK return ~11,200 km. Economy class per-seat: ~0.16 kg CO₂eq/km including radiative forcing factor of 2×.",
+        "notes": "Aviation has additional warming effects beyond CO₂ (contrails, NOx). Radiative forcing multiplier of 2× applied. Without multiplier: ~900 kg.",
+        "source": "ICAO Carbon Emissions Calculator / atmosfair",
+        "source_url": "https://www.icao.int/environmental-protection/CarbonOffset/Pages/default.aspx"
+      },
+      {
+        "activity": "One year of average Belgian diet",
+        "kg_co2eq": 2350,
+        "assumptions": "~2,350 kg CO₂eq/year for food and drinks (from consumption-based footprint Section 4.4: 2.35 tCO₂eq/cap for food category).",
+        "notes": "From UCLouvain 2021 study. Includes all food and beverages consumed by average Belgian. Animal products dominate (~35% of food category).",
+        "source": "UCLouvain Mémoire (2021) / ADEME",
+        "source_url": "https://dial.uclouvain.be/memoire/ucl/en/object/thesis:46878"
+      }
+    ],
+    "renewable_capacity": [
+      {
+        "source": "Offshore wind",
+        "installed_gw": 2.26,
+        "target_2030_gw": 5.8,
+        "potential_gw": 8,
+        "potential_year": 2040,
+        "barriers": "Ventilus high-voltage grid permit delayed (West-Flanders) blocking onshore connection. Boucle du Hainaut grid reinforcement behind schedule. Princess Elisabeth Zone tender ongoing — 1.4 GW of 3 farms delayed by 3+ years per Elia (2025). Rising supply chain costs.",
+        "data_source": "Elia (2025) / BOP / FPS Economy Belgium",
+        "source_url": "https://economie.fgov.be/en/themes/energy/sources-and-carriers-energy/belgian-offshore-wind-energy"
+      },
+      {
+        "source": "Onshore wind",
+        "installed_gw": 3.6,
+        "target_2030_gw": 4.5,
+        "potential_gw": 5,
+        "potential_year": 2035,
+        "barriers": "Limited available land in densely populated Belgium. Slow and complex permit procedures (often 10+ years). Local opposition (NIMBY). Radar and aviation interference constraints around military zones and airports. Regional regulatory fragmentation (Flanders / Wallonia / Brussels).",
+        "data_source": "Elia (2025 electricity mix report) / Wind Europe",
+        "source_url": "https://www.elia.be/en/press/2025/12/20251226_press-release-electricity-mix"
+      },
+      {
+        "source": "Solar PV",
+        "installed_gw": 11.6,
+        "target_2030_gw": 20,
+        "potential_gw": 25,
+        "potential_year": 2035,
+        "barriers": "Grid congestion: curtailment already occurring in distribution grid during high solar periods. Negative electricity prices 6.1% of time in 2025 (Elia). Net metering phased out in Wallonia (2023) and investment support phased out in Flanders (2024) reducing residential incentive. Storage solutions and smart grids needed to absorb further growth.",
+        "data_source": "Elia (2025 electricity mix report) / IEA-PVPS Belgium 2024",
+        "source_url": "https://www.elia.be/en/press/2025/12/20251226_press-release-electricity-mix"
+      }
     ]
   },
   "invasive_alien_species": [
