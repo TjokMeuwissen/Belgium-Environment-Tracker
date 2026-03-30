@@ -2806,5 +2806,80 @@
         "source_url": "https://ias.biodiversity.be/"
       }
     ]
+  },
+  "circularity_supplementary": {
+    "packaging_by_material": [
+      {
+        "material": "Paper & Cardboard",
+        "pct_weight": 40,
+        "recycling_rate": 84,
+        "target_2025": 85,
+        "target_2030": 85,
+        "trend": "Stable",
+        "notes": "Largest packaging stream (40% by weight). Slightly below 2030 EU target of 85%."
+      },
+      {
+        "material": "Glass",
+        "pct_weight": 21,
+        "recycling_rate": 93,
+        "target_2025": 75,
+        "target_2030": 75,
+        "trend": "Stable",
+        "notes": "Far exceeds target. Household glass collection well established across all regions."
+      },
+      {
+        "material": "Plastic",
+        "pct_weight": 18,
+        "recycling_rate": 60,
+        "target_2025": 50,
+        "target_2030": 55,
+        "trend": "Improving",
+        "notes": "Up from 39% in 2013. Highest plastic packaging recycling rate in the EU in 2023. 2030 target already met."
+      },
+      {
+        "material": "Wood",
+        "pct_weight": 15,
+        "recycling_rate": 66,
+        "target_2025": 30,
+        "target_2030": 30,
+        "trend": "Stable",
+        "notes": "Includes recovered/repaired wooden packaging per EU calculation method (Commission Implementing Decision 2019/665)."
+      },
+      {
+        "material": "Metal",
+        "pct_weight": 6,
+        "recycling_rate": 97,
+        "target_2025": 80,
+        "target_2030": 80,
+        "trend": "Stable",
+        "notes": "Exceeds all targets. Well-established collection systems (steel cans, aluminium)."
+      }
+    ],
+    "treatment_breakdown": [
+      {
+        "method": "Incinerated (with energy recovery)",
+        "pct_2023": 44,
+        "pct_2022": 46,
+        "notes": "Belgium incinerates a high share but with energy recovery — classified as R1 (energy recovery), not disposal. All Belgian incineration plants meet EU energy efficiency threshold."
+      },
+      {
+        "method": "Material recycling",
+        "pct_2023": 34,
+        "pct_2022": 33,
+        "notes": "Dry recyclables (paper, glass, PMD bags). Slight upward trend as PMD collection expanded nationally 2019–2021."
+      },
+      {
+        "method": "Composted / fermented (bio-waste)",
+        "pct_2023": 22,
+        "pct_2022": 19,
+        "notes": "Organic and garden waste. Growing share following mandatory bio-waste collection introduced in Brussels (2023) and Flanders/Wallonia (2024). Includes home composting estimates."
+      },
+      {
+        "method": "Landfill",
+        "pct_2023": 0.1,
+        "pct_2022": 0.2,
+        "notes": "Near-zero landfill rate — one of the lowest in the EU. Landfill tax (€14.69/tonne) effectively eliminates landfilling of untreated municipal waste."
+      }
+    ]
   }
 }
