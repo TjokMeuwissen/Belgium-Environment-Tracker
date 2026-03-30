@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ClimateEnergyTab from './components/ClimateEnergyTab';
 import NatureBiodiversityTab from './components/NatureBiodiversityTab';
+import CircularityWasteTab from './components/CircularityWasteTab';
 
 interface Indicator {
   indicator: string;
@@ -187,6 +188,18 @@ function HomeInner() {
 
   const invasiveSpecies = data.nature_supplementary?.invasive_alien_species ?? [];
 
+  const historicalMSW   = data.historical?.circularity_waste?.series?.['Municipal solid waste recycling rate']?.map(
+    (d: any) => ({ year: d.year, value: d.value })
+  ) ?? [];
+  const historicalCMUR  = data.historical?.circularity_waste?.series?.['Circular material use rate (CMUR)']?.map(
+    (d: any) => ({ year: d.year, value: d.value })
+  ) ?? [];
+  const historicalWaste = data.historical?.circularity_waste?.series?.['Municipal waste generation per capita']?.map(
+    (d: any) => ({ year: d.year, value: d.value })
+  ) ?? [];
+  const packagingByMaterial = data.circularity_supplementary?.packaging_by_material ?? [];
+  const treatmentBreakdown  = data.circularity_supplementary?.treatment_breakdown ?? [];
+
   return (
     <main>
       <header>
@@ -241,6 +254,15 @@ function HomeInner() {
             historicalOrganic={historicalOrganic}
             historicalBirds={historicalBirds}
             invasiveSpecies={invasiveSpecies}
+          />
+        ) : activeTopic === 'circularity_waste' ? (
+          <CircularityWasteTab
+            indicators={activeIndicators}
+            historicalMSW={historicalMSW}
+            historicalCMUR={historicalCMUR}
+            historicalWaste={historicalWaste}
+            packaging={packagingByMaterial}
+            treatment={treatmentBreakdown}
           />
         ) : (
           <>
