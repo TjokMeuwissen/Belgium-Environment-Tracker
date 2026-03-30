@@ -2755,54 +2755,56 @@
       }
     ]
   },
-  "invasive_alien_species": [
-    {
-      "common_name": "American Bullfrog",
-      "scientific_name": "Lithobates catesbeianus",
-      "origin": "North America",
-      "first_recorded": "1990s",
-      "eu_status": "EU Regulation 1143/2014 — Union List species of concern",
-      "establishment": "Established (Flanders — Grote Nete valley + isolated populations)",
-      "impact": "Predates on native frogs, newts, fish and invertebrates. Carries and spreads chytrid fungus (Batrachochytrium dendrobatidis), a pathogen responsible for catastrophic amphibian declines globally. Has caused local extinction of native amphibian populations in Flanders. Listed among the 100 worst invasive species worldwide (IUCN).",
-      "management": "Active eradication programme in Flanders since 2010 (INBO/ANB). Fyke nets used to capture bullfrogs; captured animals humanely killed. EU-funded Interreg INVEXO and RINSE projects. Management ongoing — full eradication not yet achieved.",
-      "source": "INBO / Belgian Forum on Invasive Species / IUCN",
-      "source_url": "https://ias.biodiversity.be/"
-    },
-    {
-      "common_name": "Japanese Knotweed",
-      "scientific_name": "Fallopia japonica",
-      "origin": "East Asia (Japan, China, Korea)",
-      "first_recorded": "Late 19th century (ornamental plant)",
-      "eu_status": "Not on EU Union List — managed at regional level",
-      "establishment": "Established across Belgium — widespread along rivers, roadsides, railway embankments",
-      "impact": "Forms dense monocultures up to 3–4 m tall that completely suppress all native vegetation. Highly allelopathic — releases chemicals that inhibit growth of other plants. Extremely difficult to eradicate: rhizomes penetrate up to 3 m deep and 7 m laterally; a fragment as small as 0.7 g can regenerate a new plant. Causes structural damage to building foundations, walls, drainage systems and flood defences. Drastically reduces biodiversity in invaded areas.",
-      "management": "No coordinated national programme. Regional management by waterway authorities (De Vlaamse Waterweg, SPW). Herbicide treatment most effective but requires multiple years. Mechanical removal alone ineffective without follow-up. Biological control (Aphalara itadori psyllid) under investigation in UK but not deployed in Belgium.",
-      "source": "INBO / VMM / Belgian Biodiversity Platform",
-      "source_url": "https://ias.biodiversity.be/"
-    },
-    {
-      "common_name": "Asian Hornet",
-      "scientific_name": "Vespa velutina nigrithorax",
-      "origin": "Southeast Asia",
-      "first_recorded": "2016 (first confirmed nest); now established",
-      "eu_status": "EU Regulation 1143/2014 — Union List species of concern",
-      "establishment": "Established and rapidly expanding — detected in all Belgian provinces by 2023",
-      "impact": "Specialist predator of honeybees (Apis mellifera) and native bumblebees. A single nest can consume up to 11 kg of insects per season, devastating local honeybee colonies and disrupting pollination services. Also predates on native wasps, hoverflies and other pollinators. Threatens both wild and managed bee populations and the agricultural services they provide. Spreads rapidly — a queen can found a new colony up to 100 km from origin.",
-      "management": "Mandatory nest destruction programme in all three regions. Citizens report sightings via Vespawatch platform (INBO). Professional pest controllers remove nests. EU-funded research into trapping and early detection. Annual nest counts published by INBO.",
-      "source": "INBO Vespawatch / Belgian Forum on Invasive Species",
-      "source_url": "https://vespawatch.be/"
-    },
-    {
-      "common_name": "American Mink",
-      "scientific_name": "Neovison vison",
-      "origin": "North America",
-      "first_recorded": "1950s–1960s (escapes from fur farms)",
-      "eu_status": "EU Regulation 1143/2014 — Union List species of concern",
-      "establishment": "Established — present along rivers and waterways in Flanders and Wallonia",
-      "impact": "Highly effective semi-aquatic predator that decimates populations of water voles, native crayfish, fish, ground-nesting birds and waterfowl. Has driven near-extinction of the European water vole (Arvicola amphibius) in many areas of Belgium and northwest Europe. Outcompetes and displaces the native European polecat (Mustela putorius). Carries Aleutian disease (parvovirus) which can infect native mustelids. Causes significant losses in fish farms and conservation wetlands.",
-      "management": "Trapping programmes coordinated by waterway managers and nature reserves. No fully coordinated national eradication programme. Regional programmes exist in Flanders (VMM/ANB). Full eradication considered very difficult given dispersal capacity.",
-      "source": "INBO / Belgian Forum on Invasive Species / NOBANIS",
-      "source_url": "https://ias.biodiversity.be/"
-    }
-  ]
+  "nature_supplementary": {
+    "invasive_alien_species": [
+      {
+        "common_name": "American Bullfrog",
+        "scientific_name": "Lithobates catesbeianus",
+        "origin": "North America",
+        "first_recorded": "1990s",
+        "eu_status": "EU Regulation 1143/2014 — Union List species of concern",
+        "establishment": "Established (Flanders — Grote Nete valley + isolated populations)",
+        "impact": "Predates on native frogs, newts, fish and invertebrates. Carries and spreads chytrid fungus (Batrachochytrium dendrobatidis), a pathogen responsible for catastrophic amphibian declines globally. Has caused local extinction of native amphibian populations in Flanders. Listed among the 100 worst invasive species worldwide (IUCN).",
+        "management": "Active eradication programme in Flanders since 2010 (INBO/ANB). Fyke nets used to capture bullfrogs; captured animals humanely killed. EU-funded Interreg INVEXO and RINSE projects. Management ongoing — full eradication not yet achieved.",
+        "source": "INBO / Belgian Forum on Invasive Species / IUCN",
+        "source_url": "https://ias.biodiversity.be/"
+      },
+      {
+        "common_name": "Japanese Knotweed",
+        "scientific_name": "Fallopia japonica",
+        "origin": "East Asia (Japan, China, Korea)",
+        "first_recorded": "Late 19th century (ornamental plant)",
+        "eu_status": "Not on EU Union List — managed at regional level",
+        "establishment": "Established across Belgium — widespread along rivers, roadsides, railway embankments",
+        "impact": "Forms dense monocultures up to 3–4 m tall that completely suppress all native vegetation. Highly allelopathic — releases chemicals that inhibit growth of other plants. Extremely difficult to eradicate: rhizomes penetrate up to 3 m deep and 7 m laterally; a fragment as small as 0.7 g can regenerate a new plant. Causes structural damage to building foundations, walls, drainage systems and flood defences. Drastically reduces biodiversity in invaded areas.",
+        "management": "No coordinated national programme. Regional management by waterway authorities (De Vlaamse Waterweg, SPW). Herbicide treatment most effective but requires multiple years. Mechanical removal alone ineffective without follow-up. Biological control (Aphalara itadori psyllid) under investigation in UK but not deployed in Belgium.",
+        "source": "INBO / VMM / Belgian Biodiversity Platform",
+        "source_url": "https://ias.biodiversity.be/"
+      },
+      {
+        "common_name": "Asian Hornet",
+        "scientific_name": "Vespa velutina nigrithorax",
+        "origin": "Southeast Asia",
+        "first_recorded": "2016 (first confirmed nest); now established",
+        "eu_status": "EU Regulation 1143/2014 — Union List species of concern",
+        "establishment": "Established and rapidly expanding — detected in all Belgian provinces by 2023",
+        "impact": "Specialist predator of honeybees (Apis mellifera) and native bumblebees. A single nest can consume up to 11 kg of insects per season, devastating local honeybee colonies and disrupting pollination services. Also predates on native wasps, hoverflies and other pollinators. Threatens both wild and managed bee populations and the agricultural services they provide. Spreads rapidly — a queen can found a new colony up to 100 km from origin.",
+        "management": "Mandatory nest destruction programme in all three regions. Citizens report sightings via Vespawatch platform (INBO). Professional pest controllers remove nests. EU-funded research into trapping and early detection. Annual nest counts published by INBO.",
+        "source": "INBO Vespawatch / Belgian Forum on Invasive Species",
+        "source_url": "https://vespawatch.be/"
+      },
+      {
+        "common_name": "American Mink",
+        "scientific_name": "Neovison vison",
+        "origin": "North America",
+        "first_recorded": "1950s–1960s (escapes from fur farms)",
+        "eu_status": "EU Regulation 1143/2014 — Union List species of concern",
+        "establishment": "Established — present along rivers and waterways in Flanders and Wallonia",
+        "impact": "Highly effective semi-aquatic predator that decimates populations of water voles, native crayfish, fish, ground-nesting birds and waterfowl. Has driven near-extinction of the European water vole (Arvicola amphibius) in many areas of Belgium and northwest Europe. Outcompetes and displaces the native European polecat (Mustela putorius). Carries Aleutian disease (parvovirus) which can infect native mustelids. Causes significant losses in fish farms and conservation wetlands.",
+        "management": "Trapping programmes coordinated by waterway managers and nature reserves. No fully coordinated national eradication programme. Regional programmes exist in Flanders (VMM/ANB). Full eradication considered very difficult given dispersal capacity.",
+        "source": "INBO / Belgian Forum on Invasive Species / NOBANIS",
+        "source_url": "https://ias.biodiversity.be/"
+      }
+    ]
+  }
 }
