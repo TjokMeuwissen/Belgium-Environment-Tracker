@@ -224,6 +224,7 @@ function TreatmentPieChart({ treatment }: { treatment: any[] }) {
           <PieChart>
             <Pie
               data={treatment.map(t => ({ name: t.method, value: t.pct_2023 }))}
+              dataKey="value"
               cx="50%" cy="50%"
               outerRadius={80} innerRadius={30}
               labelLine={false} label={renderLabel}
