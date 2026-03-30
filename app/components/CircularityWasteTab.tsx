@@ -191,7 +191,7 @@ function PackagingChart({ packaging }: { packaging: any[] }) {
       <div style={{ fontSize: '0.7rem', color: '#9ca3af', marginTop: 4 }}>
         Red dotted lines = EU 2030 targets. Source: IVCIE / Statbel / Eurostat env_waspac (2023).
       </div>
-    </div>
+    </>
   );
 }
 
@@ -327,9 +327,9 @@ export default function CircularityWasteTab({
   ];
 
   return (
-    <div className="climate-tab" style={{ '--topic-color': TOPIC_COLOR } as React.CSSProperties}>
+    <>
       {/* Topic header */}
-      <div className="topic-header" style={{ borderColor: TOPIC_COLOR }}>
+      <div className="topic-header" style={{ borderColor: TOPIC_COLOR, '--topic-color': TOPIC_COLOR } as React.CSSProperties}>
         <h2>♻️ Circularity &amp; Waste</h2>
         <div className="topic-meta">
           {topic_meta.map((m, i) => (
@@ -373,6 +373,6 @@ export default function CircularityWasteTab({
           <CMURChart series={historicalCMUR} />
         </div>
       </div>
-    </div>
+    </>
   );
 }
