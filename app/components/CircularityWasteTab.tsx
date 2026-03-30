@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import {
   LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -121,7 +121,7 @@ function MSWRecyclingChart({ series }: { series: any[] }) {
   );
 }
 
-// ── Chart 2: Packaging Recycling by Material — bar + EU target dotted lines ──
+// ── Chart 2: Packaging Recycling by Material — bar + per-bar target lines ────
 const MATERIAL_COLORS: Record<string, string> = {
   'Paper & Cardboard': '#3b82f6',
   'Glass':             '#06b6d4',
@@ -130,13 +130,35 @@ const MATERIAL_COLORS: Record<string, string> = {
   'Metal':             '#8b5cf6',
 };
 
+const BAR_SIZE = 28; // px — narrower bars
+
+// Custom shape: renders the actual bar + a short target-line segment above it
+const BarWithTarget = (props: any) => {
+  const { x, y, width, height, recycling_rate, target_2030, index, fill } = props;
+  if (width <= 0) return null;
+  // target line: full bar width + 5% padding each side
+  const pad = width * 0.05;
+  const tx1 = x - pad;
+  const tx2 = x + width + pad;
+  // convert target_2030 value to y-coordinate using the same scale
+  // We use a data-driven approach: calculate from the chart's yAxis
+  // Since we pass targetY directly via the data, use the provided targetY
+  const ty = props.targetY;
+  return (
+    <g>
+      <rect x={x} y={y} width={width} height={height} fill={fill} rx={3} />
+      {ty !== undefined && (
+        <line
+          x1={tx1} y1={ty} x2={tx2} y2={ty}
+          stroke="#dc2626" strokeWidth={2} strokeDasharray="4 3"
+        />
+      )}
+    </g>
+  );
+};
+
 function PackagingChart({ packaging }: { packaging: any[] }) {
   if (!packaging.length) return <div style={{ padding: 20, color: '#9ca3af', fontSize: '0.85rem' }}>No data available.</div>;
-
-  const CustomBar = (props: any) => {
-    const { x, y, width, height, material } = props;
-    return <rect x={x} y={y} width={width} height={height} fill={MATERIAL_COLORS[material] ?? '#94a3b8'} rx={3} />;
-  };
 
   return (
     <div style={{ padding: '14px 18px 10px', display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -144,72 +166,78 @@ function PackagingChart({ packaging }: { packaging: any[] }) {
         Packaging recycling rate by material — Belgium 2023
       </div>
       <p style={{ fontSize: '0.75rem', color: '#6b7280', margin: '0 0 10px', lineHeight: 1.4 }}>
-        Dotted lines show EU 2030 targets per material. Source: IVCIE / Statbel.
+        Dashed red lines show EU 2030 target per material. Source: IVCIE / Statbel.
       </p>
-      <ResponsiveContainer width="100%" height={210}>
+      <ResponsiveContainer width="100%" height={220}>
         <BarChart
-          data={packaging.map(p => ({ ...p, name: p.material }))}
+          data={packaging.map(p => ({ ...p, name: p.material === 'Paper & Cardboard' ? 'Paper' : p.material }))}
           margin={{ top: 4, right: 20, left: 0, bottom: 4 }}
+          barSize={BAR_SIZE}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
-          <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#4b5563' }} tickLine={false}
-            tickFormatter={v => v === 'Paper & Cardboard' ? 'Paper' : v} />
+          <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#4b5563' }} tickLine={false} />
           <YAxis tick={{ fontSize: 11, fill: '#9ca3af' }} tickLine={false} axisLine={false} width={36} domain={[0, 105]} tickFormatter={v => `${v}%`} />
           <Tooltip
             contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 12 }}
             formatter={(v: any, _: any, props: any) => [
-              `${v}% recycled (2030 target: ${props.payload.target_2030}%)`,
-              props.payload.material,
+              `${v}% recycled — 2030 target: ${props.payload.target_2030}%`,
+              props.payload.name,
             ]}
           />
-          <Bar dataKey="recycling_rate" radius={[3, 3, 0, 0]}>
+          <Bar dataKey="recycling_rate" shape={(props: any) => {
+            const fill = MATERIAL_COLORS[props.material] ?? '#94a3b8';
+            // Calculate target y-coordinate from the viewBox
+            const { x, y, width, height, value, background } = props;
+            const chartHeight = background?.height ?? 210;
+            const chartY = background?.y ?? 0;
+            const domainMax = 105;
+            const domainMin = 0;
+            const target = props.target_2030;
+            const targetY = chartY + chartHeight * (1 - (target - domainMin) / (domainMax - domainMin));
+            return <BarWithTarget {...props} fill={fill} targetY={targetY} />;
+          }}>
             {packaging.map((p, i) => (
               <Cell key={i} fill={MATERIAL_COLORS[p.material] ?? '#94a3b8'} />
             ))}
           </Bar>
-          {/* EU 2030 targets as reference lines per material — approximated as segments */}
-          {packaging.map((p, i) => (
-            <ReferenceLine
-              key={i}
-              y={p.target_2030}
-              stroke="#dc2626"
-              strokeDasharray="4 3"
-              strokeWidth={1.2}
-              ifOverflow="extendDomain"
-            />
-          ))}
         </BarChart>
       </ResponsiveContainer>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 6 }}>
         {packaging.map((p, i) => (
           <div key={i} style={{ fontSize: '0.68rem', color: '#4b5563', display: 'flex', alignItems: 'center', gap: 4 }}>
             <div style={{ width: 8, height: 8, borderRadius: 2, background: MATERIAL_COLORS[p.material] ?? '#94a3b8', flexShrink: 0 }} />
-            {p.material}: {p.recycling_rate}% <span style={{ color: '#9ca3af' }}>(target {p.target_2030}%)</span>
+            {p.material}: {p.recycling_rate}%
+            <span style={{ color: '#9ca3af' }}>(target {p.target_2030}%)</span>
           </div>
         ))}
+        <div style={{ fontSize: '0.68rem', color: '#4b5563', display: 'flex', alignItems: 'center', gap: 4 }}>
+          <svg width="14" height="8"><line x1="0" y1="4" x2="14" y2="4" stroke="#dc2626" strokeWidth="2" strokeDasharray="4 3"/></svg>
+          EU 2030 target
+        </div>
       </div>
       <div style={{ fontSize: '0.7rem', color: '#9ca3af', marginTop: 4 }}>
-        Red dotted lines = EU 2030 targets. Source: IVCIE / Statbel / Eurostat env_waspac (2023).
+        Source: IVCIE / Statbel / Eurostat env_waspac (2023).
       </div>
     </div>
   );
 }
 
-// ── Chart 3: Municipal Waste Treatment Breakdown — pie chart ─────────────────
-const TREATMENT_COLORS = ['#f97316', '#06b6d4', '#22c55e', '#94a3b8'];
+// ── Chart 3: Municipal Waste Treatment Breakdown — pie chart (climate style) ──
+const TREATMENT_DATA = [
+  { name: 'Incinerated (energy recovery)', color: '#f97316' },
+  { name: 'Material recycling',            color: '#06b6d4' },
+  { name: 'Composted / fermented',         color: '#22c55e' },
+  { name: 'Landfill',                      color: '#94a3b8' },
+];
 
 function TreatmentPieChart({ treatment }: { treatment: any[] }) {
-  const [active, setActive] = useState<number | null>(null);
   if (!treatment.length) return <div style={{ padding: 20, color: '#9ca3af', fontSize: '0.85rem' }}>No data available.</div>;
 
-  const RADIAN = Math.PI / 180;
-  const renderLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, value }: any) => {
-    if (value < 3) return null;
-    const r = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + r * Math.cos(-midAngle * RADIAN);
-    const y = cy + r * Math.sin(-midAngle * RADIAN);
-    return <text x={x} y={y} fill="#fff" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={700}>{`${value}%`}</text>;
-  };
+  const data = treatment.map((t, i) => ({
+    name:  t.method,
+    value: t.pct_2023,
+    color: TREATMENT_DATA[i]?.color ?? '#94a3b8',
+  }));
 
   return (
     <div style={{ padding: '14px 18px 10px', display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -219,52 +247,21 @@ function TreatmentPieChart({ treatment }: { treatment: any[] }) {
       <p style={{ fontSize: '0.75rem', color: '#6b7280', margin: '0 0 6px', lineHeight: 1.4 }}>
         Belgium has near-zero landfill (0.1%) — all incineration uses energy recovery.
       </p>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-        <ResponsiveContainer width={180} height={180}>
-          <PieChart>
-            <Pie
-              data={treatment.map(t => ({ name: t.method, value: t.pct_2023 }))}
-              dataKey="value"
-              cx="50%" cy="50%"
-              outerRadius={80} innerRadius={30}
-              labelLine={false} label={renderLabel}
-              onMouseEnter={(_, idx) => setActive(idx)}
-              onMouseLeave={() => setActive(null)}
-            >
-              {treatment.map((_, i) => (
-                <Cell
-                  key={i}
-                  fill={TREATMENT_COLORS[i]}
-                  opacity={active === null || active === i ? 1 : 0.5}
-                  stroke={active === i ? '#1a1a1a' : 'none'}
-                  strokeWidth={active === i ? 1.5 : 0}
-                />
-              ))}
-            </Pie>
-            <Tooltip
-              contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 12 }}
-              formatter={(v: any, name: string) => [`${v}%`, name]}
-            />
-          </PieChart>
-        </ResponsiveContainer>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
-          {treatment.map((t, i) => (
-            <div key={i}
-              style={{ cursor: 'pointer', padding: '6px 10px', borderRadius: 6, background: active === i ? '#f9fafb' : 'transparent', transition: 'background 0.15s' }}
-              onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <div style={{ width: 10, height: 10, borderRadius: 2, background: TREATMENT_COLORS[i], flexShrink: 0 }} />
-                  <span style={{ fontSize: '0.78rem', color: '#374151', fontWeight: active === i ? 600 : 400 }}>{t.method}</span>
-                </div>
-                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#1a1a1a' }}>{t.pct_2023}%</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div style={{ fontSize: '0.7rem', color: '#9ca3af', marginTop: 6 }}>Source: Statbel — municipal waste statistics 2023.</div>
+      <ResponsiveContainer width="100%" height={240}>
+        <PieChart>
+          <Pie data={data} cx="50%" cy="45%" outerRadius={90} dataKey="value" labelLine={false}>
+            {data.map((e, i) => <Cell key={i} fill={e.color} stroke="white" strokeWidth={2} />)}
+          </Pie>
+          <Tooltip
+            formatter={(v: any, n: any) => [`${v}%`, n]}
+            contentStyle={{ background: '#ffffff', color: '#1a1a1a', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 13, boxShadow: '0 4px 16px rgba(0,0,0,0.1)' }}
+          />
+          <Legend iconType="circle" iconSize={9}
+            formatter={v => <span style={{ fontSize: 11, color: '#4b5563' }}>{v}</span>}
+          />
+        </PieChart>
+      </ResponsiveContainer>
+      <div style={{ fontSize: '0.7rem', color: '#9ca3af', marginTop: 4 }}>Source: Statbel — municipal waste statistics 2023.</div>
     </div>
   );
 }
