@@ -191,7 +191,7 @@ function PackagingChart({ packaging }: { packaging: any[] }) {
       <div style={{ fontSize: '0.7rem', color: '#9ca3af', marginTop: 4 }}>
         Red dotted lines = EU 2030 targets. Source: IVCIE / Statbel / Eurostat env_waspac (2023).
       </div>
-    </>
+    </div>
   );
 }
 
