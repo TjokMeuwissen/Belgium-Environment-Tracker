@@ -12,7 +12,7 @@
   --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 58px; }
 
 body {
   font-family: 'Epilogue', sans-serif;
