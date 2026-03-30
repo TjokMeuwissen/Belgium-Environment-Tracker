@@ -1,0 +1,1081 @@
+'use client';
+
+import { useParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine,
+  LineChart, Line, ResponsiveContainer, Cell,
+} from 'recharts';
+
+// ── Slug → display name ────────────────────────────────────────────────────
+const SLUG_MAP: Record<string, string> = {
+  'protected-land-area-terrestrial':                       'Protected Land Area — terrestrial',
+  'marine-protected-areas':                                'Marine Protected Areas',
+  'species-habitats-in-favourable-conservation-status':    'Species & Habitats in Favourable Conservation Status',
+  'organic-farming-share':                                 'Organic Farming Share (% of agricultural area)',
+  'farmland-bird-population-index':                        'Farmland Bird Population Index',
+  'invasive-alien-species-threatening-red-listed-species': 'Invasive Alien Species Threatening Red-Listed Species',
+};
+
+const DISPLAY_NAME: Record<string, string> = {
+  'protected-land-area-terrestrial':                       'Protected Land Area — Terrestrial',
+  'marine-protected-areas':                                'Marine Protected Areas',
+  'species-habitats-in-favourable-conservation-status':    'Species & Habitats in Favourable Conservation Status',
+  'organic-farming-share':                                 'Organic Farming Share',
+  'farmland-bird-population-index':                        'Farmland Bird Population Index',
+  'invasive-alien-species-threatening-red-listed-species': 'Invasive Alien Species Threatening Red-Listed Species',
+};
+
+// ── EU comparison data ─────────────────────────────────────────────────────
+const EU_COMPARISON = [
+  { country: 'Luxembourg',  total: 40.6, status: 'Achieved'  },
+  { country: 'Slovenia',    total: 40.6, status: 'Achieved'  },
+  { country: 'Poland',      total: 39.6, status: 'Achieved'  },
+  { country: 'Germany',     total: 38.5, status: 'Achieved'  },
+  { country: 'Bulgaria',    total: 38.4, status: 'Achieved'  },
+  { country: 'Croatia',     total: 37.2, status: 'Achieved'  },
+  { country: 'Slovakia',    total: 35.7, status: 'Achieved'  },
+  { country: 'Greece',      total: 33.8, status: 'Achieved'  },
+  { country: 'Cyprus',      total: 31.2, status: 'Achieved'  },
+  { country: 'Romania',     total: 27.9, status: 'Close'     },
+  { country: 'Spain',       total: 27.6, status: 'Close'     },
+  { country: 'Hungary',     total: 26.9, status: 'Close'     },
+  { country: 'Italy',       total: 27.0, status: 'Close'     },
+  { country: 'Austria',     total: 26.5, status: 'Close'     },
+  { country: 'EU-27 avg',   total: 26.4, status: 'Close'     },
+  { country: 'France',      total: 25.5, status: 'Close'     },
+  { country: 'Portugal',    total: 24.8, status: 'Close'     },
+  { country: 'Lithuania',   total: 22.2, status: 'Close'     },
+  { country: 'Czechia',     total: 21.8, status: 'Close'     },
+  { country: 'Estonia',     total: 21.8, status: 'Close'     },
+  { country: 'Ireland',     total: 20.4, status: 'Close'     },
+  { country: 'Netherlands', total: 19.8, status: 'Off track' },
+  { country: 'Latvia',      total: 19.0, status: 'Off track' },
+  { country: 'Malta',       total: 17.8, status: 'Off track' },
+  { country: 'Sweden',      total: 15.0, status: 'Off track' },
+  { country: 'Belgium',     total: 14.7, status: 'Belgium'   },
+  { country: 'Finland',     total: 13.4, status: 'Off track' },
+  { country: 'Denmark',     total:  8.7, status: 'Off track' },
+].sort((a, b) => b.total - a.total);
+
+const BAR_COLOR: Record<string, string> = {
+  Achieved: '#bbf7d0', Close: '#fef08a', 'Off track': '#fecaca', Belgium: '#b91c1c',
+};
+
+const BoldTick = (props: any) => {
+  const { x, y, payload } = props;
+  const isBE = payload.value === 'Belgium';
+  return (
+    <text x={x} y={y} dy={4} textAnchor="end" fontSize={isBE ? 12 : 11} fontWeight={isBE ? 700 : 400} fill={isBE ? '#b91c1c' : '#4b5563'}>
+      {payload.value}
+    </text>
+  );
+};
+
+// ── Habitat examples ───────────────────────────────────────────────────────
+const HABITAT_EXAMPLES = [
+  { label: 'Heath & Scrub',      icon: '/icons/grassland.svg', pctBad: 100,  note: '100% of assessments rated Bad — complete conservation failure for this habitat type in Belgium.' },
+  { label: 'Bogs, Mires & Fens', icon: '/icons/bogs.svg',      pctBad: 100,  note: 'All assessed bog and fen habitats are in unfavourable conservation status, driven by drainage, nitrogen deposition and peat extraction.' },
+  { label: 'Vascular Plants',    icon: '/icons/plant.svg',      pctBad: 55.5, note: '55.5% of assessed vascular plant species in Bad status — the highest proportion among all species groups in Belgium.' },
+  { label: 'Fish',               icon: '/icons/fish.svg',       pctBad: 50,   note: 'Approximately half of assessed fish species in Bad status, driven by water quality, physical barriers and invasive species.' },
+];
+
+// ── IAS data ───────────────────────────────────────────────────────────────
+const IAS_EMOJI: Record<string, string> = {
+  'American Bullfrog': '🐸', 'Japanese Knotweed': '🌿',
+  'Asian Hornet': '🐝', 'American Mink': '🦦',
+};
+
+// ── Misc ───────────────────────────────────────────────────────────────────
+const STATUS_CFG: Record<string, { color: string; bg: string; label: string }> = {
+  'Achieved':          { color: '#065f46', bg: '#d1fae5', label: '✅ Achieved'  },
+  'On track':          { color: '#14532d', bg: '#bbf7d0', label: '🟢 On track'  },
+  'Off track':         { color: '#7f1d1d', bg: '#fee2e2', label: '🔴 Off track' },
+  'Insufficient data': { color: '#374151', bg: '#f3f4f6', label: '⚪ No data'   },
+};
+
+const TOOLTIP_STYLE = {
+  background: '#fff', color: '#1a1a1a',
+  border: '1px solid #e5e3da', borderRadius: 8,
+  fontSize: 13, boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+};
+
+function fmt(v: any, unit: string | null) {
+  if (v == null) return '—';
+  const n = typeof v === 'number' ? v : parseFloat(String(v));
+  if (isNaN(n)) return String(v);
+  return `${n.toLocaleString('en-BE', { maximumFractionDigits: 2 })}${unit ? ' ' + unit : ''}`;
+}
+
+// ── Text processing helpers ───────────────────────────────────────────────
+
+function rewriteArrows(text: string): string {
+  return text.replace(
+    /EU infringement proceedings\s*→\s*referral to Court of Justice\s*→\s*financial fines/gi,
+    'EU infringement proceedings, which can escalate to a referral to the Court of Justice of the EU and ultimately result in significant financial fines imposed on Belgium'
+  ).replace(
+    /infringement\s*→\s*ECJ\s*→\s*lump sum \/ daily fines/gi,
+    'infringement proceedings before the Court of Justice, which can result in lump-sum payments or recurring daily fines until Belgium complies'
+  ).replace(/\s*→\s*/g, ', leading to ');
+}
+
+function toSentences(text: string): string[] {
+  return text.split(/(?<=[.!?])\s+(?=[A-Z🇧"'])/).map(s => s.trim()).filter(s => s.length > 0);
+}
+
+function buildConsequenceBullets(text: string): Array<{ text: string; sub?: string[] }> {
+  const sentences = toSentences(rewriteArrows(text));
+  const pastKeywords = /already (faced|subject|missed)|court ruling|previous|infringement.*\d{4}|INFR\s*\d{4}/i;
+  const pastItems: string[] = [], mainItems: string[] = [];
+  sentences.forEach(s => { if (pastKeywords.test(s)) pastItems.push(s); else mainItems.push(s); });
+  const result: Array<{ text: string; sub?: string[] }> = mainItems.map(t => ({ text: t }));
+  if (pastItems.length > 0) result.push({ text: 'Previous occurrences', sub: pastItems });
+  return result;
+}
+
+function groupResponsibility(text: string) {
+  const sentences = toSentences(text);
+  const isFederal  = (s: string) => /\bfederal\b/i.test(s) && !/region|flanders|wallonia|brussels|flemish|walloon/i.test(s);
+  const isRegional = (s: string) => /region|flanders|wallonia|brussels|flemish|walloon/i.test(s) && !/\bfederal\b/i.test(s);
+  const isShared   = (s: string) =>
+    /shared|coordinated|both|all levels|ICE|inter-?federal|inter-?ministerial/i.test(s) ||
+    (/\bfederal\b/i.test(s) && /region|flanders|wallonia|brussels/i.test(s));
+  const federal: string[] = [], shared: string[] = [], regional: string[] = [];
+  sentences.forEach(s => {
+    if (isShared(s)) shared.push(s);
+    else if (isFederal(s)) federal.push(s);
+    else if (isRegional(s)) regional.push(s);
+    else shared.push(s);
+  });
+  return { federal, shared, regional };
+}
+
+// ── Card components ────────────────────────────────────────────────────────
+
+function InfoRow({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="detail-info-row">
+      <div className="detail-label">{label}</div>
+      <div className="detail-value">{children}</div>
+    </div>
+  );
+}
+
+function ConsequencesCard({ text }: { text: string }) {
+  const bullets = buildConsequenceBullets(text);
+  return (
+    <div className="detail-consequences-card">
+      <div className="detail-section-header">
+        <span className="detail-section-icon">⚠️</span>
+        <span className="detail-section-title">Consequences if Target is Missed</span>
+      </div>
+      <ul className="consequences-list">
+        {bullets.map((b, i) => (
+          <li key={i} className="consequences-item">
+            <span className="bullet-dot">•</span>
+            <span>
+              {b.text}
+              {b.sub && (
+                <ul className="consequences-sub-list">
+                  {b.sub.map((s, j) => (
+                    <li key={j} className="consequences-sub-item">
+                      <span className="bullet-dot">–</span>
+                      <span>{s}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function ResponsibilityCard({ text }: { text: string }) {
+  const { federal, shared, regional } = groupResponsibility(text);
+  const Section = ({ label, cls, items }: { label: string; cls: string; items: string[] }) => {
+    if (items.length === 0) return null;
+    return (
+      <div className="responsibility-group">
+        <span className={`responsibility-tag ${cls}`}>{label}</span>
+        <ul className="responsibility-list">
+          {items.map((item, i) => (
+            <li key={i} className="responsibility-list-item">
+              <span className="bullet-dot">•</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+  return (
+    <div className="detail-responsibility-card">
+      <div className="detail-section-header">
+        <span className="detail-section-icon">🏛️</span>
+        <span className="detail-section-title">Government Responsibility</span>
+      </div>
+      <div className="responsibility-groups">
+        <Section label="Federal"  cls="tag-federal"  items={federal}  />
+        <Section label="Shared"   cls="tag-shared"   items={shared}   />
+        <Section label="Regional" cls="tag-regional" items={regional} />
+      </div>
+    </div>
+  );
+}
+
+function DataSourceRow({ source, url, description }: {
+  source: string;
+  url: string | null;
+  description?: string | null;
+}) {
+  const sources = source.split(/\s*[\/|]\s*/).map((s: string) => s.trim()).filter(Boolean);
+  const urls    = url         ? url.split(/\s*\|\s*/).map((u: string) => u.trim()).filter(Boolean) : [];
+  const descs   = description ? description.split(/\s*\|\s*/).map((d: string) => d.trim()).filter(Boolean) : [];
+  return (
+    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {sources.map((s: string, i: number) => (
+        <li key={i}>
+          {urls[i]
+            ? <a href={urls[i]} target="_blank" rel="noopener noreferrer" className="detail-link">{s} ↗</a>
+            : <span style={{ fontSize: '0.88rem' }}>{s}</span>}
+          {descs[i] && (
+            <span style={{ display: 'block', fontSize: '0.79rem', color: '#6b7280', marginTop: 2, lineHeight: 1.5 }}>
+              {descs[i]}
+            </span>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function TechnicalInfoCard({ text }: { text: string }) {
+  return (
+    <div className="detail-technical-card">
+      <div className="detail-section-header">
+        <span className="detail-section-icon">📋</span>
+        <span className="detail-section-title">Technical Information</span>
+      </div>
+      <p className="technical-text">{text}</p>
+    </div>
+  );
+}
+
+// ── Chart components ───────────────────────────────────────────────────────
+function EUBarChartLarge() {
+  return (
+    <div className="detail-chart-block">
+      <div className="detail-chart-title">Protected land area — all EU member states (% of land area, 2023)</div>
+      <ResponsiveContainer width="100%" height={640}>
+        <BarChart data={EU_COMPARISON} layout="vertical" margin={{ top: 4, right: 48, left: 100, bottom: 4 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" horizontal={false} />
+          <XAxis type="number" domain={[0, 50]} tick={{ fontSize: 11, fill: '#6b6b6b' }} tickLine={false}
+            label={{ value: '% of land area', position: 'insideBottomRight', offset: -4, fontSize: 11, fill: '#9ca3af' }} />
+          <YAxis type="category" dataKey="country" width={96} tick={<BoldTick />} tickLine={false} axisLine={false} interval={0} />
+          <Tooltip contentStyle={TOOLTIP_STYLE} formatter={(v: any) => [`${v}%`, '']} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
+          <ReferenceLine x={30} stroke="#f97316" strokeDasharray="4 2" strokeWidth={1.5}
+            label={{ value: '30% EU target', position: 'insideTopRight', fontSize: 10, fill: '#f97316' }} />
+          <Bar dataKey="total" radius={[0, 3, 3, 0]}>
+            {EU_COMPARISON.map((e, i) => <Cell key={i} fill={BAR_COLOR[e.status] ?? '#e5e7eb'} />)}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+      <div style={{ display: 'flex', gap: 16, marginTop: 10, flexWrap: 'wrap' }}>
+        {[['#bbf7d0', 'Achieved (≥30%)'], ['#fef08a', 'Close (20–30%)'], ['#fecaca', 'Off track (<20%)']].map(([color, label]) => (
+          <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12 }}>
+            <div style={{ width: 12, height: 12, borderRadius: 3, background: color as string }} />
+            <span style={{ color: '#4b5563' }}>{label}</span>
+          </div>
+        ))}
+      </div>
+      <p className="detail-chart-source">Source: EEA — Designated terrestrial protected areas in Europe (2025)</p>
+    </div>
+  );
+}
+
+function LineChartBlock({ data, color, title, unit, source }: { data: { year: number; value: number }[]; color: string; title: string; unit: string; source: string; }) {
+  return (
+    <div className="detail-chart-block">
+      <div className="detail-chart-title">{title}</div>
+      <ResponsiveContainer width="100%" height={320}>
+        <LineChart data={data} margin={{ top: 8, right: 24, left: 0, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+          <XAxis dataKey="year" tick={{ fontSize: 11, fill: '#9ca3af' }} tickLine={false} interval={4} />
+          <YAxis tick={{ fontSize: 11, fill: '#9ca3af' }} tickLine={false} axisLine={false} width={44} />
+          <Tooltip contentStyle={TOOLTIP_STYLE} formatter={(v: any) => [`${v}${unit ? ' ' + unit : ''}`, '']} labelStyle={{ fontWeight: 700 }} />
+          <Line type="monotone" dataKey="value" stroke={color} strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: color }} />
+        </LineChart>
+      </ResponsiveContainer>
+      <p className="detail-chart-source">{source}</p>
+    </div>
+  );
+}
+
+function HabitatBlock() {
+  return (
+    <div className="detail-chart-block">
+      <div className="detail-chart-title">Conservation status — selected habitats & species groups (Belgium, 2019 Art. 17 reporting)</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 8 }}>
+        {HABITAT_EXAMPLES.map((h, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 14, padding: '12px 14px', background: '#f9fafb', borderRadius: 8 }}>
+            <div style={{ flexShrink: 0, width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fff', borderRadius: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+              <Image src={h.icon} alt={h.label} width={36} height={36} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontFamily: 'Roboto,sans-serif', fontWeight: 700, fontSize: '0.9rem', marginBottom: 6 }}>{h.label}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
+                <div style={{ flex: 1, height: 9, background: '#e5e7eb', borderRadius: 999, overflow: 'hidden' }}>
+                  <div style={{ width: `${h.pctBad}%`, height: '100%', background: '#dc2626', borderRadius: 999 }} />
+                </div>
+                <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#dc2626', whiteSpace: 'nowrap' }}>{h.pctBad}% Bad status</span>
+              </div>
+              <div style={{ fontSize: '0.82rem', color: '#6b6b6b', lineHeight: 1.55 }}>{h.note}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p className="detail-chart-source">Source: EEA — State of Nature in the EU (2020), Belgium Art. 17 Habitats Directive reporting</p>
+    </div>
+  );
+}
+
+function IASBlock({ species }: { species: any[] }) {
+  return (
+    <div className="ias-detail-grid">
+      {species.map((sp, i) => (
+        <div key={i} className="ias-detail-card">
+          <div className="ias-detail-accent" />
+          <div className="ias-detail-body">
+            <div className="ias-detail-header">
+              <span className="ias-detail-emoji">{IAS_EMOJI[sp.common_name] ?? '🦠'}</span>
+              <div>
+                <div className="ias-detail-name">{sp.common_name}</div>
+                <div className="ias-detail-sci">{sp.scientific_name} · Origin: {sp.origin}</div>
+              </div>
+            </div>
+            <div className="ias-detail-section"><strong>Ecological impact</strong><p>{sp.impact}</p></div>
+            <div className="ias-detail-section"><strong>Current management</strong><p>{sp.management}</p></div>
+            <div className="ias-detail-section"><strong>EU regulatory status</strong><p>{sp.eu_status}</p></div>
+            <div className="ias-detail-section"><strong>Establishment in Belgium</strong><p>{sp.establishment} · First recorded: {sp.first_recorded}</p></div>
+            {sp.source_url && (
+              <div className="ias-detail-section">
+                <strong>Source</strong>
+                <a href={sp.source_url} target="_blank" rel="noopener noreferrer">{sp.source} ↗</a>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+
+// ── Static Technical Info: Natura 2000 ───────────────────────────────────────
+function Natura2000InfoCard() {
+  return (
+    <div className="detail-technical-card">
+      <div className="detail-section-header">
+        <span className="detail-section-icon">📋</span>
+        <span className="detail-section-title">Technical Information</span>
+      </div>
+
+      <div style={{ marginBottom: 20 }}>
+        <strong style={{ display: 'block', marginBottom: 4 }}>What is Natura 2000?</strong>
+        Natura 2000 is the EU's main tool for protecting biodiversity — a network of protected areas
+        spanning all 27 member states, covering around 18% of the EU's land area and 8% of its
+        marine territory. It is the largest coordinated network of protected areas in the world.
+        The network protects over 2,000 species and 230 habitat types listed in the EU's two
+        main nature directives. Unlike traditional nature reserves, Natura 2000 sites can still
+        be used by people — the goal is to ensure that human activity is compatible with the
+        long-term survival of species and habitats, not to exclude all activity.
+      </div>
+
+      <div style={{ marginBottom: 20 }}>
+        <strong style={{ display: 'block', marginBottom: 4 }}>Legal basis</strong>
+        Natura 2000 is established under two EU directives:
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 10 }}>
+          <div style={{ background: '#f0fdf4', borderRadius: 8, padding: '12px 14px', borderLeft: '4px solid #16a34a' }}>
+            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#14532d', marginBottom: 4 }}>
+              Birds Directive (2009/147/EC)
+            </div>
+            <p style={{ fontSize: '0.81rem', color: '#374151', margin: 0, lineHeight: 1.6 }}>
+              Protects all wild bird species naturally occurring in the EU. Requires member states
+              to designate Special Protection Areas (SPAs) for the most vulnerable species.
+              Belgium has designated 9 SPAs.
+            </p>
+          </div>
+          <div style={{ background: '#f0fdf4', borderRadius: 8, padding: '12px 14px', borderLeft: '4px solid #16a34a' }}>
+            <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#14532d', marginBottom: 4 }}>
+              Habitats Directive (92/43/EEC)
+            </div>
+            <p style={{ fontSize: '0.81rem', color: '#374151', margin: 0, lineHeight: 1.6 }}>
+              Protects over 1,000 animal and plant species and 200+ habitat types. Requires
+              designation of Special Areas of Conservation (SACs). Belgium has 280 SACs.
+              Member states must ensure no significant deterioration of these sites.
+            </p>
+          </div>
+        </div>
+        <p style={{ fontSize: '0.8rem', color: '#4b5563', marginTop: 10, lineHeight: 1.6 }}>
+          Belgium's Natura 2000 network covers approximately <strong>14.7%</strong> of its land area —
+          well below the EU Biodiversity Strategy 2030 target of 30%. The sites are managed by the
+          three regions: INBO and ANB in Flanders, DNF and SPW in Wallonia, and Bruxelles Environnement
+          in Brussels. Despite legal protection, many sites lack active management plans and face
+          ongoing pressures from agriculture, nitrogen deposition and urban sprawl.
+        </p>
+      </div>
+
+      <div>
+        <strong style={{ display: 'block', marginBottom: 8 }}>Main Natura 2000 areas in Belgium</strong>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.83rem' }}>
+            <thead>
+              <tr style={{ borderBottom: '2px solid #e5e7eb', background: '#f9fafb' }}>
+                <th style={{ textAlign: 'left', padding: '8px 12px', fontWeight: 700, color: '#374151' }}>Site name</th>
+                <th style={{ textAlign: 'left', padding: '8px 12px', fontWeight: 700, color: '#374151' }}>Region</th>
+                <th style={{ textAlign: 'left', padding: '8px 12px', fontWeight: 700, color: '#374151' }}>Key habitats / species</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Hautes Fagnes – Eifel', 'Wallonia', 'Largest protected area in Belgium (~70,000 ha). Raised bogs, heathland, beech forests. Home to black grouse, peregrine falcon, European otter.'],
+                ['Voerstreek & Gulpdal', 'Flanders', 'Chalk grasslands, old orchards, ancient woodland. Key habitat for spotted flycatcher, lesser horseshoe bat, early purple orchid.'],
+                ['Zwin & Polders', 'Flanders / Coast', 'Tidal mudflats, salt marshes, dune systems. Critical staging area for migratory waders and wildfowl. Grey seal haul-out site.'],
+                ['Sonian Forest (Forêt de Soignes)', 'Brussels / Wallonia', 'Ancient beech forest UNESCO World Heritage. Home to middle spotted woodpecker, lesser spotted woodpecker, numerous bat species.'],
+                ['Kalmthoutse Heide', 'Flanders', 'Largest lowland heathland in Belgium. Nightjar, sand lizard, smooth snake. Cross-border with the Netherlands.'],
+                ['Upper Scheldt & tributaries', 'Wallonia', 'River corridors with alluvial forests and wet meadows. Atlantic salmon (reintroduced), otter, kingfisher, white stork.'],
+              ].map(([name, region, habitats], i) => (
+                <tr key={i} style={{ borderBottom: '1px solid #f3f4f6', background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                  <td style={{ padding: '9px 12px', fontWeight: 600, color: '#1a1a1a' }}>{name}</td>
+                  <td style={{ padding: '9px 12px', color: '#4b5563', whiteSpace: 'nowrap' }}>{region}</td>
+                  <td style={{ padding: '9px 12px', color: '#4b5563', lineHeight: 1.5 }}>{habitats}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p style={{ fontSize: '0.72rem', color: '#9ca3af', marginTop: 8 }}>
+          Source: EEA Natura 2000 viewer; INBO; SPW / DNF Wallonia; Bruxelles Environnement.
+          Full list of Belgian Natura 2000 sites:{' '}
+          <a href="https://natura2000.eea.europa.eu/" target="_blank" rel="noopener noreferrer" className="detail-link">natura2000.eea.europa.eu ↗</a>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ── Static Technical Info: Organic Farming ───────────────────────────────────
+function OrganicFarmingInfoCard() {
+  return (
+    <div className="detail-technical-card">
+      <div className="detail-section-header">
+        <span className="detail-section-icon">📋</span>
+        <span className="detail-section-title">Technical Information</span>
+      </div>
+
+      <div style={{ marginBottom: 20 }}>
+        <strong style={{ display: 'block', marginBottom: 4 }}>What is organic farming?</strong>
+        Organic farming is an agricultural system that relies on natural processes, biodiversity
+        and ecological cycles rather than synthetic inputs. It prohibits the use of synthetic
+        pesticides, synthetic fertilisers, genetically modified organisms (GMOs) and routine
+        use of antibiotics in livestock. Instead, organic farmers use crop rotation, green
+        manures, composting and biological pest control.
+        <p style={{ fontSize: '0.88rem', lineHeight: 1.75, color: '#374151', margin: '10px 0 0' }}>
+          The environmental benefits include improved soil health, higher biodiversity on and
+          around farms, reduced water pollution and lower greenhouse gas emissions per hectare.
+          However, organic farming typically produces lower yields per hectare than conventional
+          farming, meaning more land is needed to produce the same quantity of food.
+          Belgium's organic sector is growing but remains small — at 7.6% of agricultural area,
+          it lags well behind the EU Biodiversity Strategy 2030 target of 25%.
+        </p>
+      </div>
+
+      <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+        <div style={{ flex: 1 }}>
+          <strong style={{ display: 'block', marginBottom: 4 }}>The EU organic logo</strong>
+          <p style={{ fontSize: '0.88rem', lineHeight: 1.75, color: '#374151', margin: 0 }}>
+            Since 2010, all pre-packaged organic food produced in the EU must carry the
+            official <strong>EU organic logo</strong> — a green leaf formed by white stars
+            on a green background (Regulation EU 2018/848). The logo guarantees that:
+          </p>
+          <ul style={{ fontSize: '0.85rem', color: '#374151', lineHeight: 1.7, paddingLeft: 20, margin: '8px 0 0' }}>
+            <li>At least 95% of the agricultural ingredients are organically produced</li>
+            <li>The product complies with EU organic production rules throughout the supply chain</li>
+            <li>The producer has been inspected and certified by an accredited certification body</li>
+            <li>The product name and producer details are traceable</li>
+          </ul>
+          <p style={{ fontSize: '0.8rem', color: '#6b7280', marginTop: 8, lineHeight: 1.5 }}>
+            In Belgium, certification is carried out by Certisys (Wallonia), Certis/TÜV Nord (Flanders)
+            and Ecocert. The code of the certifying body appears alongside the logo on the packaging.
+          </p>
+        </div>
+        <div style={{ flexShrink: 0, textAlign: 'center' }}>
+          <img
+            src="/icons/eu-organic-logo.png"
+            alt="EU organic farming logo"
+            style={{ width: 100, height: 'auto', display: 'block', marginBottom: 6 }}
+          />
+          <div style={{ fontSize: '0.7rem', color: '#9ca3af', lineHeight: 1.3 }}>
+            EU organic logo<br />(Reg. EU 2018/848)
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Static Technical Info: Farmland Birds ────────────────────────────────────
+function FarmlandBirdInfoCard() {
+  return (
+    <div className="detail-technical-card">
+      <div className="detail-section-header">
+        <span className="detail-section-icon">📋</span>
+        <span className="detail-section-title">Technical Information</span>
+      </div>
+
+      <div style={{ marginBottom: 20 }}>
+        <strong style={{ display: 'block', marginBottom: 4 }}>What are farmland birds?</strong>
+        Farmland birds are species that depend on agricultural landscapes for breeding, foraging
+        or wintering. They are considered key indicators of the overall health of agricultural
+        ecosystems — when farmland bird populations decline, it signals broader problems with
+        habitat quality, food availability and pesticide use that affect the entire food web.
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10, marginTop: 12 }}>
+          {[
+            { bird: '🐦 Skylark', name: 'Alauda arvensis', status: 'Strong decline', note: 'Nests on the ground in open arable fields. Loss of winter stubble and early ploughing destroy nests.' },
+            { bird: '🪶 Lapwing', name: 'Vanellus vanellus', status: 'Strong decline', note: 'Breeds in wet grasslands. Drainage and intensification have eliminated most suitable habitat.' },
+            { bird: '🌾 Yellow wagtail', name: 'Motacilla flava', status: 'Strong decline', note: 'Nests in crops and wet meadows. Pesticide use has drastically reduced insect prey availability.' },
+            { bird: '🐦 Corn bunting', name: 'Emberiza calandra', status: 'Near extinct in BE', note: 'Requires large unbroken cereal fields with hedgerows. Almost disappeared from Belgium.' },
+            { bird: '🏚️ Barn swallow', name: 'Hirundo rustica', status: 'Declining', note: 'Feeds on flying insects over farmland. Insect decline is the primary driver of population loss.' },
+            { bird: '🦅 Turtle dove', name: 'Streptopelia turtur', status: 'Rapid decline', note: 'Needs weedy patches and shrubs for nesting. Loss of weed seeds due to herbicides is critical.' },
+          ].map((b, i) => (
+            <div key={i} style={{ background: '#fafafa', borderRadius: 8, padding: '10px 12px', border: '1px solid #f0f0f0' }}>
+              <div style={{ fontSize: '1.1rem', marginBottom: 2 }}>{b.bird}</div>
+              <div style={{ fontWeight: 700, fontSize: '0.82rem', color: '#1a1a1a' }}>{b.name.split(' ')[0]} {b.name.split(' ')[1]}</div>
+              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#dc2626', margin: '2px 0 4px' }}>{b.status}</div>
+              <p style={{ fontSize: '0.76rem', color: '#6b7280', margin: 0, lineHeight: 1.45 }}>{b.note}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <strong style={{ display: 'block', marginBottom: 4 }}>Why are populations declining so dramatically?</strong>
+        <p style={{ fontSize: '0.88rem', lineHeight: 1.75, color: '#374151', marginBottom: 8 }}>
+          Belgium's farmland bird index has fallen by nearly 50% since 1990 — one of the steepest
+          declines in Europe. The causes are interconnected and driven primarily by agricultural
+          intensification:
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {[
+            ['🌿 Loss of habitat diversity', 'Larger fields, removal of hedgerows, drainage of wet meadows and disappearance of fallow land have eliminated the mosaic of habitats farmland birds depend on. A skylark needs 2–3 hectares of open ground; modern agricultural parcels leave no space.'],
+            ['🐛 Insect collapse', 'Widespread use of insecticides and herbicides has decimated insect populations — the primary food source for most farmland birds and their chicks. Studies show insect biomass in agricultural areas has fallen 75–80% since 1970.'],
+            ['📅 Changed timing', 'Earlier and more frequent mowing, faster crop cycles and autumn sowing of cereals (instead of spring) mean chicks are destroyed before they can fly. Lapwing and skylark nests are routinely crushed by machinery.'],
+            ['🌱 No winter food', 'Elimination of winter stubble fields (ploughed immediately after harvest) removes a critical food source for seed-eating birds. Without stubble, birds cannot survive the winter in agricultural areas.'],
+            ['🏗️ EU subsidies', 'Common Agricultural Policy (CAP) subsidies have historically incentivised maximising production rather than ecological management. The 2023 CAP reform introduced eco-schemes for nature-friendly practices, but uptake in Belgium has been limited.'],
+          ].map(([title, text], i) => (
+            <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '10px 12px', background: '#fafafa', borderRadius: 8, border: '1px solid #f0f0f0' }}>
+              <span style={{ fontSize: '1.1rem', flexShrink: 0, marginTop: 1 }}>{(title as string).split(' ')[0]}</span>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: '0.84rem', color: '#1a1a1a', marginBottom: 2 }}>{(title as string).replace(/^\S+\s/, '')}</div>
+                <p style={{ fontSize: '0.82rem', color: '#4b5563', margin: 0, lineHeight: 1.6 }}>{text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p style={{ fontSize: '0.73rem', color: '#9ca3af', marginTop: 10 }}>
+          Sources: INBO (2024) Flemish breeding bird atlas; EEA SEBI indicator; Pan-European Common Bird Monitoring Scheme (PECBMS); Hallmann et al. (2017) PLOS ONE insect decline.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ── Static Technical Info: Invasive Species ──────────────────────────────────
+function InvasiveSpeciesInfoCard() {
+  return (
+    <div className="detail-technical-card">
+      <div className="detail-section-header">
+        <span className="detail-section-icon">📋</span>
+        <span className="detail-section-title">Technical Information</span>
+      </div>
+
+      <div style={{ marginBottom: 20 }}>
+        <strong style={{ display: 'block', marginBottom: 4 }}>What is an invasive alien species?</strong>
+        An invasive alien species (IAS) is a non-native species — introduced outside its natural
+        range by human activity, either deliberately or accidentally — that establishes itself,
+        spreads, and causes significant harm to biodiversity, ecosystems, human health or the
+        economy. Not all non-native species become invasive; invasiveness depends on the species'
+        characteristics and the vulnerability of the receiving ecosystem.
+        <p style={{ fontSize: '0.88rem', lineHeight: 1.75, color: '#374151', margin: '10px 0 0' }}>
+          In Belgium, over 100 alien species are considered problematic. The EU Regulation
+          1143/2014 on IAS establishes a Union List of species of serious concern — currently
+          containing 88 species — for which member states must take prevention, early detection
+          and management measures.
+        </p>
+      </div>
+
+      <div>
+        <strong style={{ display: 'block', marginBottom: 4 }}>Why are they harmful to native species and ecosystems?</strong>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {[
+            ['🍽️ Competition', 'IAS often compete directly with native species for food, nesting sites or territory — and frequently win. The American mink, for example, outcompetes the native European mink and water vole, having driven the European mink to near-extinction across most of its range.'],
+            ['🦠 Predation', 'Species introduced to areas where prey has no evolutionary experience of them can cause catastrophic declines. The American bullfrog preys on native amphibians, fish, invertebrates and even small mammals, with devastating local effects.'],
+            ['🌱 Habitat modification', 'Some IAS physically alter habitats. Japanese knotweed forms dense monocultures that shade out native vegetation, reduce plant diversity by up to 90% locally, and destabilise riverbanks — worsening flood risk.'],
+            ['🐝 Disruption of ecological networks', 'The Asian hornet specifically targets honey bees and native pollinators, disrupting pollination networks that entire plant communities depend on. A single nest can destroy 11–500 kg of bees per year.'],
+            ['🧬 Genetic dilution', 'Some IAS hybridise with closely related native species, diluting the native gene pool — a form of extinction by genetic absorption rather than direct competition.'],
+          ].map(([title, text], i) => (
+            <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '10px 12px', background: '#fafafa', borderRadius: 8, border: '1px solid #f0f0f0' }}>
+              <span style={{ fontSize: '1.1rem', flexShrink: 0, marginTop: 1 }}>{(title as string).split(' ')[0]}</span>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: '0.84rem', color: '#1a1a1a', marginBottom: 2 }}>{(title as string).replace(/^\S+\s/, '')}</div>
+                <p style={{ fontSize: '0.82rem', color: '#4b5563', margin: 0, lineHeight: 1.6 }}>{text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p style={{ fontSize: '0.73rem', color: '#9ca3af', marginTop: 10 }}>
+          Sources: EU Regulation 1143/2014; IUCN Invasive Species Specialist Group; EEA (2023) Invasive alien species indicator; Belgian Biodiversity Platform.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ── Main page ──────────────────────────────────────────────────────────────
+
+// ── Sidebar section definitions ───────────────────────────────────────────────
+const NATURE_SECTIONS: Record<string, { id: string; label: string }[]> = {
+  'protected-land-area-terrestrial': [
+    { id: 'key-figures',    label: 'Key figures' },
+    { id: 'main-chart',     label: 'EU comparison' },
+    { id: 'technical-info', label: 'Technical Information' },
+    { id: 'consequences',   label: 'Consequences' },
+    { id: 'responsibility', label: 'Government responsibility' },
+    { id: 'policy',         label: 'Policy' },
+    { id: 'data-source',    label: 'Data source' },
+  ],
+  'marine-protected-areas': [
+    { id: 'key-figures',    label: 'Key figures' },
+    { id: 'technical-info', label: 'Technical Information' },
+    { id: 'consequences',   label: 'Consequences' },
+    { id: 'responsibility', label: 'Government responsibility' },
+    { id: 'policy',         label: 'Policy' },
+    { id: 'data-source',    label: 'Data source' },
+  ],
+  'species-habitats-in-favourable-conservation-status': [
+    { id: 'key-figures',    label: 'Key figures' },
+    { id: 'main-chart',     label: 'Habitat status' },
+    { id: 'technical-info', label: 'Technical Information' },
+    { id: 'consequences',   label: 'Consequences' },
+    { id: 'responsibility', label: 'Government responsibility' },
+    { id: 'policy',         label: 'Policy' },
+    { id: 'data-source',    label: 'Data source' },
+  ],
+  'organic-farming-share': [
+    { id: 'key-figures',    label: 'Key figures' },
+    { id: 'main-chart',     label: 'Trend 2000–2023' },
+    { id: 'technical-info', label: 'Technical Information' },
+    { id: 'consequences',   label: 'Consequences' },
+    { id: 'responsibility', label: 'Government responsibility' },
+    { id: 'policy',         label: 'Policy' },
+    { id: 'data-source',    label: 'Data source' },
+  ],
+  'farmland-bird-population-index': [
+    { id: 'key-figures',    label: 'Key figures' },
+    { id: 'main-chart',     label: 'Trend 1990–2023' },
+    { id: 'technical-info', label: 'Technical Information' },
+    { id: 'consequences',   label: 'Consequences' },
+    { id: 'responsibility', label: 'Government responsibility' },
+    { id: 'policy',         label: 'Policy' },
+    { id: 'data-source',    label: 'Data source' },
+  ],
+  'invasive-alien-species-threatening-red-listed-species': [
+    { id: 'key-figures',    label: 'Key figures' },
+    { id: 'technical-info', label: 'Technical Information' },
+    { id: 'consequences',   label: 'Consequences' },
+    { id: 'responsibility', label: 'Government responsibility' },
+    { id: 'policy',         label: 'Policy' },
+    { id: 'data-source',    label: 'Data source' },
+  ],
+};
+
+function NatureSidebar({ slug }: { slug: string }) {
+  const [active, setActive] = useState('key-figures');
+  const sections = NATURE_SECTIONS[slug] ?? [];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      for (const s of [...sections].reverse()) {
+        const el = document.getElementById(s.id);
+        if (el && el.getBoundingClientRect().top <= 120) {
+          setActive(s.id);
+          return;
+        }
+      }
+      setActive(sections[0]?.id ?? '');
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [sections]);
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 70;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  return (
+    <div className="detail-sidebar" style={{ '--topic-color': '#22c55e' } as React.CSSProperties}>
+      <div className="detail-sidebar-title">On this page</div>
+      {sections.map(s => (
+        <button
+          key={s.id}
+          className={`detail-sidebar-link${active === s.id ? ' active' : ''}`}
+          onClick={() => scrollTo(s.id)}
+        >
+          {s.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+
+// ── Static Technical Info: Species & Habitats FCS ────────────────────────────
+function SpeciesHabitatInfoCard() {
+  return (
+    <div className="detail-technical-card">
+      <div className="detail-section-header">
+        <span className="detail-section-icon">📋</span>
+        <span className="detail-section-title">Technical Information</span>
+      </div>
+
+      {/* 1. What FCS means */}
+      <div style={{ marginBottom: 22 }}>
+        <strong style={{ display: 'block', marginBottom: 4 }}>What does "Favourable Conservation Status" mean?</strong>
+        <p style={{ fontSize: '0.88rem', lineHeight: 1.75, color: '#374151', marginBottom: 10 }}>
+          Favourable Conservation Status (FCS) is the legal benchmark under the EU Habitats Directive.
+          It describes the situation where a species or habitat is doing well enough that it can be
+          expected to continue thriving without any change to current management or policy.
+          Crucially, FCS is not simply about avoiding extinction — it is a positive target requiring
+          species and habitats to be in a genuinely healthy state.
+        </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10, marginBottom: 12 }}>
+          {[
+            { status: 'Favourable', color: '#16a34a', bg: '#f0fdf4', border: '#16a34a',
+              desc: 'Species or habitat is thriving. Range, population and structure are stable or improving. No management change needed.' },
+            { status: 'Unfavourable — Inadequate', color: '#92400e', bg: '#fefce8', border: '#ca8a04',
+              desc: 'Change in policy or management is required to return to favourable status, but no immediate extinction risk.' },
+            { status: 'Unfavourable — Bad', color: '#7f1d1d', bg: '#fef2f2', border: '#dc2626',
+              desc: 'Species or habitat is in serious danger of regional extinction. Urgent intervention required.' },
+          ].map((s, i) => (
+            <div key={i} style={{ background: s.bg, borderRadius: 8, padding: '12px 14px', borderLeft: `4px solid ${s.border}` }}>
+              <div style={{ fontWeight: 700, fontSize: '0.82rem', color: s.color, marginBottom: 6 }}>{s.status}</div>
+              <p style={{ fontSize: '0.79rem', color: '#374151', margin: 0, lineHeight: 1.55 }}>{s.desc}</p>
+            </div>
+          ))}
+        </div>
+        <p style={{ fontSize: '0.83rem', lineHeight: 1.7, color: '#374151', margin: 0 }}>
+          For <strong>habitats</strong>, FCS is assessed across four parameters: natural range,
+          surface area, structure and functions, and future prospects. For <strong>species</strong>,
+          the four parameters are: range, population size and trend, habitat quality, and future
+          prospects. Status is assessed separately for each biogeographical region — Belgium spans
+          the Atlantic and Continental regions, and has a small Alpine area in the Ardennes.
+          Reporting is required every 6 years under Article 17 of the Habitats Directive; the most
+          recent Belgian data covers the period 2013–2018.
+        </p>
+      </div>
+
+      {/* 4. Why Belgium performs so poorly */}
+      <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: 18, marginBottom: 22 }}>
+        <strong style={{ display: 'block', marginBottom: 4 }}>Why does Belgium have one of the worst scores in the EU?</strong>
+        <p style={{ fontSize: '0.83rem', lineHeight: 1.7, color: '#374151', marginBottom: 12 }}>
+          Belgium and Denmark report the lowest share of habitats with good conservation status among
+          all EU member states. Several structural factors explain why Belgium consistently performs
+          so poorly:
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {[
+            ['👥 Population density', 'Belgium is the most densely populated country in the EU at 376 people/km². This means that virtually every piece of land is claimed for human use — agriculture, housing, infrastructure — leaving little space for nature.'],
+            ['🌾 Agricultural intensity', `Over 44% of Belgium's land area is farmed, with Flanders among the most intensively farmed regions in Europe. Pesticide use, fertiliser runoff and mechanisation have degraded the quality of habitats within and around farmland.`],
+            ['⚗️ Nitrogen deposition', `Flanders has one of the highest nitrogen deposition rates in Europe, driven by intensive livestock farming. Excess nitrogen fertilises fast-growing grasses and nettles that outcompete rare, nitrogen-sensitive species in heathlands, bogs and chalk grasslands — habitats that define Belgium's most threatened ecosystems.`],
+            ['🔀 Habitat fragmentation', `Belgium's remaining natural areas are small and isolated. A forest patch or wetland surrounded by farmland and roads cannot support viable populations of many species. Animals cannot disperse, genetic diversity collapses, and local extinctions are not recolonised.`],
+            ['🏗️ Historical land use', 'Belgium industrialised early and intensively. Many habitats — lowland raised bogs, riverine floodplains, chalk grasslands — were drained, ploughed or built over in the 19th and 20th centuries before any legal protection existed. What remains is a fraction of the original extent.'],
+          ].map(([title, text], i) => (
+            <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '10px 12px', background: '#fafafa', borderRadius: 8, border: '1px solid #f0f0f0' }}>
+              <span style={{ fontSize: '1.1rem', flexShrink: 0, marginTop: 1 }}>{(title as string).split(' ')[0]}</span>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: '0.84rem', color: '#1a1a1a', marginBottom: 2 }}>{(title as string).replace(/^\S+\s/, '')}</div>
+                <p style={{ fontSize: '0.82rem', color: '#4b5563', margin: 0, lineHeight: 1.6 }}>{text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 5. What Bad status means in practice */}
+      <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: 18 }}>
+        <strong style={{ display: 'block', marginBottom: 4 }}>What does "Bad" status mean in practice?</strong>
+        <div style={{ background: '#fff7ed', borderRadius: 8, padding: '14px 16px', borderLeft: '4px solid #f97316', marginBottom: 10 }}>
+          <p style={{ fontSize: '0.85rem', color: '#374151', margin: 0, lineHeight: 1.7 }}>
+            <strong>Bad status does not mean a species or habitat has already disappeared.</strong> It means
+            the current trajectory — if nothing changes — will lead to regional loss in the
+            foreseeable future. Think of it as a serious warning signal, not an obituary.
+          </p>
+        </div>
+        <p style={{ fontSize: '0.83rem', lineHeight: 1.7, color: '#374151', marginBottom: 8 }}>
+          A practical example: the <strong>lowland raised bog</strong> habitat in Belgium is assessed
+          as Bad. Raised bogs still exist in the Hautes Fagnes, but they are degraded — drained,
+          compressed by recreational use, invaded by shrubs due to nitrogen deposition. The peat
+          moss communities that define a true raised bog are declining. Without active restoration
+          and strict nitrogen reduction, the habitat will continue deteriorating until it is
+          effectively lost as a functional ecosystem, even if some land area remains.
+        </p>
+        <p style={{ fontSize: '0.83rem', lineHeight: 1.7, color: '#374151', margin: 0 }}>
+          This distinction matters for policy: Bad status triggers an obligation under the EU
+          Nature Restoration Law (2023) to actively restore the habitat to at least Inadequate
+          status by 2030, and to Favourable by 2050. Belgium's current restoration plans are
+          considered insufficient to meet these legally binding targets.
+        </p>
+        <p style={{ fontSize: '0.73rem', color: '#9ca3af', marginTop: 10 }}>
+          Sources: EEA State of Nature in the EU (2020); Belgian Article 17 report 2013–2018 (INBO / SPW);
+          EU Nature Restoration Law (Reg. 2024/1991); EEA conservation status indicators.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+
+// ── Static Technical Info: Marine Protected Areas ────────────────────────────
+function MarineProtectedAreasInfoCard() {
+  const zones = [
+    {
+      name: 'Vlaamse Banken',
+      type: 'Habitats Directive (SAC)',
+      color: '#0369a1',
+      bg: '#f0f9ff',
+      desc: 'The largest Belgian MPA, protecting shallow sandbanks and gravel beds. These sandbanks are among the most productive habitats in the North Sea — gravel beds support spawning grounds for whelks and bobtail squid, and serve as biodiversity hotspots.',
+      species: 'Harbour porpoise, harbour seal, grey seal, sand mason worm communities, shrimps, oysters, sharks and rays',
+    },
+    {
+      name: 'Vlakte van de Raan',
+      type: 'Habitats Directive (SAC)',
+      color: '#0369a1',
+      bg: '#f0f9ff',
+      desc: 'Protects sandbank habitats and dense communities of sand mason worms. These bristle worms are ecosystem engineers — they stabilise sediment and increase local species richness four to six times compared to bare sand.',
+      species: 'Sand mason worm (Lanice conchilega), diverse benthic invertebrates, flatfish including sole and dab',
+    },
+    {
+      name: 'Special Protection Zones 1, 2 & 3',
+      type: 'Birds Directive (SPA) — 3 zones',
+      color: '#15803d',
+      bg: '#f0fdf4',
+      desc: 'Three seabird protection zones covering feeding and resting areas for migratory, wintering and breeding birds. Together they cover a significant portion of the Belgian North Sea.',
+      species: 'Common scoter, great crested grebe, red-throated diver, little gull, sandwich tern, common tern, little tern, lesser and great black-backed gull',
+    },
+  ];
+
+  return (
+    <div className="detail-technical-card">
+      <div className="detail-section-header">
+        <span className="detail-section-icon">📋</span>
+        <span className="detail-section-title">Technical Information</span>
+      </div>
+
+      <div style={{ marginBottom: 20 }}>
+        <strong style={{ display: 'block', marginBottom: 4 }}>
+          Belgium&#39;s marine protected areas
+        </strong>
+        <p style={{ fontSize: '0.88rem', lineHeight: 1.75, color: '#374151', marginBottom: 10 }}>
+          Despite having one of the shortest coastlines in the North Sea (just 67 km) and a
+          continental shelf of only 3,457 km&#178;, Belgium has designated five marine protected
+          areas covering <strong>37.8%</strong> of its marine waters — exceeding the EU
+          Biodiversity Strategy 2030 target of 30%, and one of the higher coverage rates in the EU.
+          All five zones are part of the Natura 2000 network.
+        </p>
+        <p style={{ fontSize: '0.88rem', lineHeight: 1.75, color: '#374151', margin: 0 }}>
+          The Belgian North Sea hosts over 2,000 animal and plant species, including approximately
+          140 fish species. The dominant habitat types are shallow sandbanks (covering more than
+          80% of the Belgian sea floor) and, further offshore, gravel beds — both of which are
+          legally protected habitat types under the Habitats Directive.
+        </p>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 16 }}>
+        {zones.map((z, i) => (
+          <div key={i} style={{ background: z.bg, borderRadius: 8, padding: '14px 16px', borderLeft: `4px solid ${z.color}` }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4, flexWrap: 'wrap', gap: 8 }}>
+              <span style={{ fontWeight: 700, fontSize: '0.88rem', color: '#1a1a1a' }}>{z.name}</span>
+              <span style={{ fontSize: '0.72rem', fontWeight: 700, color: z.color, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{z.type}</span>
+            </div>
+            <p style={{ fontSize: '0.82rem', color: '#374151', margin: '0 0 8px', lineHeight: 1.6 }}>{z.desc}</p>
+            <div style={{ fontSize: '0.78rem', color: '#6b7280', lineHeight: 1.5 }}>
+              <strong style={{ color: '#374151' }}>Key species: </strong>{z.species}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ background: '#fff7ed', borderRadius: 8, padding: '12px 14px', borderLeft: '4px solid #f97316' }}>
+        <div style={{ fontWeight: 700, fontSize: '0.83rem', color: '#92400e', marginBottom: 4 }}>
+          Main threats and pressures
+        </div>
+        <p style={{ fontSize: '0.82rem', color: '#374151', margin: 0, lineHeight: 1.6 }}>
+          Despite formal protection, Belgian marine habitats remain under significant pressure.
+          Bottom-disturbing fishing (beam trawling) has severely degraded gravel beds and
+          historically eliminated the native flat oyster reefs that once covered large areas.
+          Heavy shipping traffic (the Belgian North Sea is one of the busiest shipping lanes in
+          the world), offshore construction noise, sand extraction, and chronic pollution from
+          rivers and agricultural runoff all affect marine biodiversity. Climate change is
+          also shifting species distributions and increasing water temperatures.
+        </p>
+      </div>
+
+      <p style={{ fontSize: '0.73rem', color: '#9ca3af', marginTop: 10 }}>
+        Sources: FPS Public Health Belgium (health.belgium.be); EEA Marine Protected Areas indicator (2023);
+        EEA Europe&#39;s Environment 2025 — Belgium; Flanders Marine Institute (VLIZ).
+      </p>
+    </div>
+  );
+}
+
+export default function NatureDetailPage() {
+  const { slug } = useParams<{ slug: string }>();
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    fetch('/data/belgium_environment_data.json').then(r => r.json()).then(setData);
+  }, []);
+
+  if (!data) return <div className="loading">Loading…</div>;
+
+  const indicatorName = SLUG_MAP[slug];
+  if (!indicatorName) return (
+    <div style={{ padding: 48, textAlign: 'center', fontFamily: 'Roboto,sans-serif' }}>
+      <p style={{ marginBottom: 16, color: '#6b6b6b' }}>Indicator not found.</p>
+      <Link href="/?topic=nature_biodiversity" style={{ color: '#22c55e', fontWeight: 600 }}>← Back to overview</Link>
+    </div>
+  );
+
+  const ind = data.topics.nature_biodiversity?.indicators?.find((i: any) => i.indicator === indicatorName);
+  const sc = STATUS_CFG[ind?.status ?? ''] ?? STATUS_CFG['Insufficient data'];
+
+  const historicalOrganic = data.historical?.nature_biodiversity?.series?.['Organic farming share']?.map((d: any) => ({ year: d.year, value: d.value })) ?? [];
+  const historicalBirds   = data.historical?.nature_biodiversity?.series?.['Farmland bird population index']?.map((d: any) => ({ year: d.year, value: d.value })) ?? [];
+  const invasiveSpecies   = data.nature_supplementary?.invasive_alien_species ?? [];
+
+  const displayName = DISPLAY_NAME[slug] ?? indicatorName;
+
+  // Pick chart for this slug
+  let chartNode: React.ReactNode = null;
+  if (slug === 'protected-land-area-terrestrial')                       chartNode = <EUBarChartLarge />;
+  else if (slug === 'species-habitats-in-favourable-conservation-status') chartNode = <HabitatBlock />;
+  else if (slug === 'organic-farming-share')
+    chartNode = <LineChartBlock data={historicalOrganic} color="#22c55e" title="Organic farming share — Belgium 2000–2023" unit="% UAA" source="Source: Eurostat / Statbel" />;
+  else if (slug === 'farmland-bird-population-index')
+    chartNode = <LineChartBlock data={historicalBirds} color="#f97316" title="Farmland bird population index — Belgium 1990–2023 (1990 = 100)" unit="" source="Source: INBO / Natagora / indicators.be" />;
+  // IAS: no chart — species detail cards are on the overview tab, not repeated here
+
+  return (
+    <div className="detail-page">
+      <div className="detail-header" style={{ background: '#1a1a1a' }}>
+        <div className="detail-header-inner">
+          <Link href="/?topic=nature_biodiversity" className="back-link">← Back to overview</Link>
+          <p className="header-eyebrow" style={{ marginTop: 16 }}>🇧🇪 Nature & Biodiversity</p>
+          <h1 className="detail-title">{displayName}</h1>
+          <div style={{ display: 'flex', gap: 12, marginTop: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+            <span className="status-badge" style={{ color: sc.color, background: sc.bg, padding: '5px 14px' }}>{sc.label}</span>
+            {ind?.trend && (
+              <span style={{ color: '#b0b0b0', fontSize: '0.9rem', fontWeight: 600 }}>
+                {ind.trend === 'Improving' ? '↑' : ind.trend === 'Worsening' ? '↓' : '→'} {ind.trend}
+              </span>
+            )}
+          </div>
+          {ind?.description && (
+            <p style={{ color: '#d1d5db', fontSize: '0.95rem', marginTop: 14, maxWidth: 680, lineHeight: 1.6 }}>
+              {ind.description}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="detail-body">
+        <NatureSidebar slug={slug} />
+
+        <div className="detail-main">
+
+          {/* Key figures */}
+          <div id="key-figures" className="detail-figures">
+            {ind?.latest_value != null && (
+              <div className="figure-card">
+                <div className="figure-label">Latest value</div>
+                <div className="figure-number">{fmt(ind.latest_value, ind.unit)}</div>
+                <div className="figure-year">{ind.latest_value_year}</div>
+              </div>
+            )}
+            {ind?.target_value != null && (
+              <div className="figure-card">
+                <div className="figure-label">Target</div>
+                <div className="figure-number">{fmt(ind.target_value, ind.unit)}</div>
+                <div className="figure-year">by {ind.target_year}</div>
+              </div>
+            )}
+            {ind?.target_context && (
+              <div className="figure-card figure-card-wide">
+                <div className="figure-label">Target context</div>
+                <div className="figure-text">{ind.target_context}</div>
+              </div>
+            )}
+          </div>
+
+          {/* Chart */}
+          {chartNode && <div id="main-chart" className="detail-charts">{chartNode}</div>}
+
+          {/* Detail info */}
+          <div className="detail-info">
+
+            <div id="technical-info">
+              {slug === 'protected-land-area-terrestrial' && <Natura2000InfoCard />}
+              {slug === 'organic-farming-share' && <OrganicFarmingInfoCard />}
+              {slug === 'farmland-bird-population-index' && <FarmlandBirdInfoCard />}
+              {slug === 'invasive-alien-species-threatening-red-listed-species' && <InvasiveSpeciesInfoCard />}
+              {slug === 'marine-protected-areas' && <MarineProtectedAreasInfoCard />}
+              {slug === 'species-habitats-in-favourable-conservation-status' && <SpeciesHabitatInfoCard />}
+              {!['protected-land-area-terrestrial','marine-protected-areas','organic-farming-share','farmland-bird-population-index','invasive-alien-species-threatening-red-listed-species','species-habitats-in-favourable-conservation-status'].includes(slug) && ind?.notes && <TechnicalInfoCard text={ind.notes} />}
+            </div>
+
+            <div id="consequences">{ind?.consequences && <ConsequencesCard text={ind.consequences} />}</div>
+            <div id="responsibility">{ind?.responsible && <ResponsibilityCard text={ind.responsible} />}</div>
+
+            <div id="policy">{ind?.policy && (
+              <InfoRow label="Policy / Legal basis">
+                {ind.policy_url
+                  ? <a href={ind.policy_url} target="_blank" rel="noopener noreferrer" className="detail-link">{ind.policy} ↗</a>
+                  : ind.policy}
+              </InfoRow>
+            )}</div>
+
+            <div id="data-source">{ind?.data_source && (
+              <InfoRow label="Data source">
+                <DataSourceRow
+                  source={ind.data_source}
+                  url={ind.data_source_url}
+                  description={ind.data_source_description}
+                />
+              </InfoRow>
+            )}</div>
+
+          </div>
+
+        </div>{/* end detail-main */}
+      </div>
+    </div>
+  );
+}
