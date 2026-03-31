@@ -397,7 +397,7 @@ export default function CircularityWasteTab({
           <CMURChart series={historicalCMUR} />
         </div>
       </div>
-      </div>{/* end main content */}
-    </div>{/* end climate-tab */}
+      </div>
+    </div>
   );
 }
