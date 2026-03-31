@@ -111,8 +111,8 @@ function MSWRecyclingChart({ series }: { series: any[] }) {
             contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 12 }}
             formatter={(v: any) => [`${v}%`, 'Recycling rate']}
           />
-          <ReferenceLine y={55} stroke="#f97316" strokeDasharray="5 4" strokeWidth={1.5}
-            label={{ value: '🎯 2025 target: 55%', position: 'insideTopRight', fontSize: 10, fill: '#f97316', fontWeight: 600 }} />
+          <ReferenceLine y={55} stroke={TOPIC_COLOR} strokeDasharray="6 4" strokeWidth={1.8}
+            label={{ value: '🎯 2025 target: 55%', position: 'insideTopRight', fontSize: 11, fill: TOPIC_COLOR, fontWeight: 600 }} />
           <Line type="monotone" dataKey="value" stroke={TOPIC_COLOR} strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: TOPIC_COLOR }} />
         </LineChart>
       </ResponsiveContainer>
@@ -286,8 +286,8 @@ function CMURChart({ series }: { series: any[] }) {
             contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 12 }}
             formatter={(v: any) => [`${v}%`, 'CMUR']}
           />
-          <ReferenceLine y={24} stroke="#f97316" strokeDasharray="5 4" strokeWidth={1.5}
-            label={{ value: '🎯 2030 target: 24%', position: 'insideTopRight', fontSize: 10, fill: '#f97316', fontWeight: 600 }} />
+          <ReferenceLine y={24} stroke={TOPIC_COLOR} strokeDasharray="6 4" strokeWidth={1.8}
+            label={{ value: '🎯 2030 target: 24%', position: 'insideTopRight', fontSize: 11, fill: TOPIC_COLOR, fontWeight: 600 }} />
           <Line type="monotone" dataKey="value" stroke={TOPIC_COLOR} strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: TOPIC_COLOR }} />
         </LineChart>
       </ResponsiveContainer>
