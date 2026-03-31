@@ -350,7 +350,9 @@ export default function CircularityWasteTab({
         {GROUPS.map((group, gi) => (
           <div key={group.id}>
             {gi > 0 && <div className="sidebar-divider" />}
-            <div className="sidebar-group-label">{group.emoji}</div>
+            <div className="sidebar-group-label" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              {group.emoji} {group.label}
+            </div>
             {group.items.map(item => (
               <button key={item.id} onClick={() => scrollTo(item.id)}
                 className="sidebar-link"
