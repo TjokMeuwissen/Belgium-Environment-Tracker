@@ -600,6 +600,28 @@
           "consequences": "Currently policy targets (Soil Strategy, Biodiversity Strategy) rather than binding legal obligations. The proposed EU Soil Monitoring Law (SML), once adopted, will introduce binding soil health objectives with potential infringement implications. Belgium's Flemish Spatial Planning Strategy (\"bouwshift\") has binding regional targets — failure to implement regional land use plans could trigger domestic legal challenges. No direct EU financial penalty currently for sealing rates.",
           "responsible": "Regional (primary). Land use planning is an exclusive regional competence. Flanders: Departement Omgeving (bouwshift policy — aiming for net land take = 0 by 2040). Wallonia: SPW / DGO4 (Aménagement du territoire). Brussels: Perspective.Brussels. Federal: very limited role in land use planning.",
           "short_description": "Share of land covered by impervious surfaces — Belgium has one of the highest rates in the EU."
+        },
+        {
+          "topic": "Water & Soil",
+          "indicator": "Phosphate Pollution — Rivers Exceeding Good Status Threshold",
+          "description": "Share of river monitoring stations in Belgium with phosphate concentrations above the WFD good ecological status threshold (~0.05 mg P/L). High phosphate causes eutrophication in rivers and coastal waters. Belgium among the highest in EU, driven by intensive agriculture.",
+          "unit": "%",
+          "target_value": 60,
+          "target_year": 2027,
+          "latest_value": 78,
+          "latest_value_year": 2022,
+          "target_context": "WFD 2000/60/EC requires good ecological status by 2027 (SDG 6, Eurostat sdg_06_50). ~78% of Belgian monitoring stations exceed good status threshold. 60% target derived from WFD compliance trajectory.",
+          "status": "Off track",
+          "trend": "Worsening",
+          "policy": "WFD River Basin Management Plans 2022-2027; MAP 7 Manure Action Plan (Flanders); Urban Waste Water Treatment Directive",
+          "policy_url": "https://environment.ec.europa.eu/topics/water/water-framework-directive_en",
+          "data_source": "VMM (Flanders) / ISSeP (Wallonia) / Eurostat (sdg_06_50) / EEA Waterbase",
+          "data_source_url": "https://www.eea.europa.eu/en/analysis/indicators/nutrients-in-freshwater-in-europe | https://ec.europa.eu/eurostat/databrowser/view/SDG_06_50",
+          "data_source_description": "% of stations exceeding ~0.05 mg P/L WFD good status threshold. 28 Belgian river stations in Eurostat sdg_06_50. Belgian average ~0.10-0.18 mg P/L (Scheldt basin, VMM/EEA 2022). EU average 0.074 mg/L. EU upward trend +10.4% since 2017.",
+          "notes": "Continued high phosphate causes eutrophication, algal blooms, oxygen depletion and biodiversity loss. Scheldt estuary and North Sea coast directly affected. Failure triggers EU infringement proceedings. Elevated phosphate also increases drinking water treatment costs.",
+          "consequences": "Regional (primary). Flanders: VMM / OVAM (MAP 7 manure regulation). Wallonia: SPW-Direction des Eaux. Brussels: Bruxelles-Environnement. Shared: CIW coordination. Federal: EU reporting.",
+          "responsible": "Belgian rivers among EU's most phosphate-polluted — driven by intensive livestock farming, urban density and legacy phosphorus in river sediments.",
+          "short_description": null
         }
       ]
     },
@@ -2955,6 +2977,112 @@
         "drivers": "Waste oils, solvents, used lubricants. Very low circularity — fossil fuels are consumed, not meaningfully recycled. Small fraction of total material flow.",
         "source": "Eurostat (cei_srm030) 2022",
         "source_url": "https://ec.europa.eu/eurostat/en/web/products-eurostat-news/w/ddn-20231114-2"
+      }
+    ]
+  },
+  "water_supplementary": {
+    "land_use": [
+      {
+        "category": "Agriculture",
+        "sub": "TOTAL agriculture",
+        "pct": 44,
+        "area_km2": 13504,
+        "trend": "Stable/Declining"
+      },
+      {
+        "category": "Forest & woodland",
+        "sub": "TOTAL forest & woodland",
+        "pct": 20,
+        "area_km2": 6138,
+        "trend": "Stable"
+      },
+      {
+        "category": "Built-up & related",
+        "sub": "TOTAL built-up & related",
+        "pct": 21.8,
+        "area_km2": 6690,
+        "trend": "Increasing"
+      },
+      {
+        "category": "Water bodies",
+        "sub": "TOTAL water bodies (inland)",
+        "pct": 1.9,
+        "area_km2": 583,
+        "trend": "Stable"
+      },
+      {
+        "category": "Nature & other",
+        "sub": "TOTAL nature & other",
+        "pct": 12,
+        "area_km2": 3682,
+        "trend": "Stable"
+      }
+    ],
+    "nitrate_sources": [
+      {
+        "source": "Animal manure — livestock",
+        "importance": "Very high (dominant)",
+        "mechanism": "Manure applied to fields releases nitrates which leach into groundwater and run off into surface water, especially during and after heavy rainfall. Excess application beyond crop uptake is the key problem.",
+        "be_specific": "Flanders has among the highest livestock density in EU (pigs, cattle, poultry). Pig population: 5.9M (2019) → 5.05M (2023), directly linked to recent improvement in nitrate levels. Intensive animal farming makes manure management the single biggest lever.",
+        "trend": "Slightly improving (livestock numbers declining)"
+      },
+      {
+        "source": "Mineral fertilisers — synthetic nitrogen",
+        "importance": "High",
+        "mechanism": "Synthetic nitrogen fertilisers (e.g. ammonium nitrate, urea) applied to arable crops leach nitrate into groundwater when application exceeds crop uptake or coincides with rainfall.",
+        "be_specific": "Arable farming covers 27% of Belgian land. Both Flanders and Wallonia designated as Nitrate Vulnerable Zones under EU Nitrates Directive. Buffer zones and application limits in place but compliance variable.",
+        "trend": "Stable / slow improvement"
+      },
+      {
+        "source": "Septic tanks & urban wastewater",
+        "importance": "Moderate (point source)",
+        "mechanism": "Poorly maintained or over-capacity septic tanks release nitrogen-rich effluent into soil and shallow groundwater. Urban wastewater treatment plants (WWTPs) are a secondary source when nitrogen removal is incomplete.",
+        "be_specific": "Belgium lagged significantly in WWTP compliance — 2004 ECJ ruling for failure on wastewater treatment. Major investments since. Brussels completed full wastewater treatment only in 2007. Remaining poorly-connected rural areas still contribute.",
+        "trend": "Improving (WWTP upgrades ongoing)"
+      },
+      {
+        "source": "Urban stormwater runoff",
+        "importance": "Low-moderate",
+        "mechanism": "Rainwater running off roads, roofs and urban surfaces picks up nitrogen from atmospheric deposition, pet waste and organic matter. Enters rivers directly via storm sewers without treatment.",
+        "be_specific": "High urban and transport land cover (21.8% built-up) means stormwater is a non-trivial diffuse source, particularly during heavy rainfall events.",
+        "trend": "Stable"
+      }
+    ],
+    "phosphate_sources": [
+      {
+        "source": "Agriculture — fertiliser & manure runoff",
+        "importance": "Very high (dominant diffuse source)",
+        "mechanism": "Phosphorus in mineral fertilisers and animal manure binds to soil particles and is carried into rivers via surface runoff and erosion, especially on sloped agricultural land during heavy rainfall. Unlike nitrate, phosphate does not leach significantly into groundwater — it moves with water flow at the surface.",
+        "be_specific": "Intensive livestock farming generates large volumes of phosphorus-rich manure. Flanders in particular has far more manure phosphorus produced than its agricultural land can absorb, requiring export to Wallonia and neighbouring countries. Excess P accumulates in soils and enters rivers during rain events.",
+        "trend": "Slight improvement linked to livestock decline; legacy soil phosphorus remains a long-term problem"
+      },
+      {
+        "source": "Urban wastewater treatment plants (WWTPs)",
+        "importance": "Historically high, now reduced",
+        "mechanism": "Domestic wastewater and household detergents contain significant phosphorus. Modern WWTPs apply tertiary phosphorus removal, but older or under-capacity plants discharge phosphate-rich effluent.",
+        "be_specific": "Major reductions since introduction of phosphate-free detergents (EU regulation) and UWWTD-compliant P-removal in WWTPs. Belgium had significant WWTP compliance failures (2004 ECJ ruling) but has invested heavily since. WWTP effluents now a secondary rather than primary source.",
+        "trend": "Improving (P-free detergents + WWTP upgrades)"
+      },
+      {
+        "source": "Stormwater & combined sewer overflows (CSOs)",
+        "importance": "Moderate",
+        "mechanism": "Urban stormwater carries phosphorus from road dust, organic matter and pet waste. Combined sewer overflows — where storm and foul sewers share pipes — discharge untreated wastewater during heavy rain.",
+        "be_specific": "Dense urban network and legacy combined sewer systems in Brussels, Liège and Antwerp mean CSOs contribute to phosphate pulses in rivers during storm events. Being addressed through sewer separation programmes.",
+        "trend": "Slow improvement (sewer separation ongoing)"
+      },
+      {
+        "source": "Industrial discharges",
+        "importance": "Low",
+        "mechanism": "Some industrial processes (food processing, chemical industry) generate phosphate-rich effluents. Subject to discharge permits under IPPC/IED.",
+        "be_specific": "Industrial point sources now tightly regulated; limited contribution compared to diffuse agricultural sources.",
+        "trend": "Stable (well-regulated)"
+      },
+      {
+        "source": "Legacy sediment phosphorus",
+        "importance": "Moderate (internal load)",
+        "mechanism": "Phosphate adsorbed to river and lake sediments over decades of pollution can re-dissolve into the water column under low-oxygen or high-temperature conditions — acting as an internal source even after external inputs are reduced.",
+        "be_specific": "Particularly relevant for slow-moving Flemish rivers and canals (Scheldt basin). Scientific research (Lauryssen et al. 2022) shows pre-industrial PO4 background in the Scheldt was already ~62 µg P/L — sediment P is a structural long-term problem.",
+        "trend": "Not improving (structural issue)"
       }
     ]
   }
