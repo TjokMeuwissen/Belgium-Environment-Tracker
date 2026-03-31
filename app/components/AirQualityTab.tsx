@@ -174,20 +174,20 @@ function OzonePathwayDiagram() {
 
       <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fafafa' }}>
         <defs>
-          <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto">
-            <path d="M0,0 L0,10 L12,5 z" fill="#8b5cf6"/>
+          <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#8b5cf6"/>
           </marker>
-          <marker id="arrowOrange" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto">
-            <path d="M0,0 L0,10 L12,5 z" fill="#f97316"/>
+          <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#f97316"/>
           </marker>
-          <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto">
-            <path d="M0,0 L0,10 L12,5 z" fill="#16a34a"/>
+          <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#16a34a"/>
           </marker>
-          <marker id="arrowRed" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto">
-            <path d="M0,0 L0,10 L12,5 z" fill="#dc2626"/>
+          <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#dc2626"/>
           </marker>
-          <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto">
-            <path d="M0,0 L0,10 L12,5 z" fill="#2563eb"/>
+          <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#2563eb"/>
           </marker>
         </defs>
 
@@ -217,28 +217,28 @@ function OzonePathwayDiagram() {
         {/* NO2 box */}
         <rect x="20" y="98" width="130" height="38" rx="6" fill="#e0e7ff" stroke="#6366f1" strokeWidth="1.5"/>
         <text x="85" y="113" textAnchor="middle" fontSize="10" fontWeight="700" fill="#3730a3" fontFamily="sans-serif">NO₂ + UV light</text>
-        <text x="85" y="127" textAnchor="middle" fontSize="9" fill="#4338ca" fontFamily="sans-serif">→ NO + O (atomic)</text>
+        <text x="85" y="127" textAnchor="middle" fontSize="10" fontWeight="700" fill="#4338ca" fontFamily="sans-serif">→ NO + O (atomic)</text>
 
         {/* ── Step 2: O + O2 → O3 ── */}
         <line x1="85" y1="136" x2="85" y2="175" stroke="#8b5cf6" strokeWidth="1.5" markerEnd="url(#arrowPurple)"/>
 
         <rect x="20" y="177" width="130" height="38" rx="6" fill="#ede9fe" stroke="#8b5cf6" strokeWidth="1.5"/>
         <text x="85" y="192" textAnchor="middle" fontSize="10" fontWeight="700" fill="#5b21b6" fontFamily="sans-serif">O + O₂ → O₃</text>
-        <text x="85" y="206" textAnchor="middle" fontSize="9" fill="#6d28d9" fontFamily="sans-serif">ozone formed</text>
+        <text x="85" y="206" textAnchor="middle" fontSize="10" fontWeight="700" fill="#6d28d9" fontFamily="sans-serif">ozone formed</text>
 
         {/* ── VOC pathway ── */}
         <line x1="230" y1="54" x2="230" y2="96" stroke="#f59e0b" strokeWidth="1.5" markerEnd="url(#arrowOrange)"/>
 
         <rect x="170" y="98" width="130" height="38" rx="6" fill="#dcfce7" stroke="#16a34a" strokeWidth="1.5"/>
         <text x="235" y="113" textAnchor="middle" fontSize="10" fontWeight="700" fill="#14532d" fontFamily="sans-serif">VOCs + OH radical</text>
-        <text x="235" y="127" textAnchor="middle" fontSize="9" fill="#166534" fontFamily="sans-serif">→ peroxy radicals (RO₂)</text>
+        <text x="235" y="127" textAnchor="middle" fontSize="10" fontWeight="700" fill="#166534" fontFamily="sans-serif">→ peroxy radicals (RO₂)</text>
 
         {/* RO2 converts NO to NO2 faster → more O3 */}
         <line x1="235" y1="136" x2="235" y2="175" stroke="#16a34a" strokeWidth="1.5" markerEnd="url(#arrowGreen)"/>
 
         <rect x="170" y="177" width="130" height="38" rx="6" fill="#dcfce7" stroke="#16a34a" strokeWidth="1.5"/>
         <text x="235" y="192" textAnchor="middle" fontSize="10" fontWeight="700" fill="#14532d" fontFamily="sans-serif">RO₂ + NO → NO₂</text>
-        <text x="235" y="206" textAnchor="middle" fontSize="9" fill="#166534" fontFamily="sans-serif">amplifies O₃ production</text>
+        <text x="235" y="206" textAnchor="middle" fontSize="10" fontWeight="700" fill="#166534" fontFamily="sans-serif">amplifies O₃ production</text>
 
         {/* ── Both pathways feed into O3 accumulation ── */}
         <line x1="150" y1="196" x2="330" y2="248" stroke="#8b5cf6" strokeWidth="1.5" markerEnd="url(#arrowPurple)"/>
@@ -252,33 +252,24 @@ function OzonePathwayDiagram() {
         {/* ── NO titration (scavenging) ── */}
         <rect x="340" y="120" width="120" height="48" rx="6" fill="#fee2e2" stroke="#dc2626" strokeWidth="1.5"/>
         <text x="400" y="135" textAnchor="middle" fontSize="9" fontWeight="700" fill="#7f1d1d" fontFamily="sans-serif">⚠️ NO titration</text>
-        <text x="400" y="149" textAnchor="middle" fontSize="9" fill="#991b1b" fontFamily="sans-serif">O₃ + NO → NO₂ + O₂</text>
-        <text x="400" y="162" textAnchor="middle" fontSize="9" fill="#991b1b" fontFamily="sans-serif">scavenges O₃ near roads</text>
+        <text x="400" y="149" textAnchor="middle" fontSize="10" fontWeight="700" fill="#991b1b" fontFamily="sans-serif">O₃ + NO → NO₂ + O₂</text>
+        <text x="400" y="162" textAnchor="middle" fontSize="10" fontWeight="700" fill="#991b1b" fontFamily="sans-serif">scavenges O₃ near roads</text>
 
         {/* Arrow from O3 box back to NO titration - curved via line */}
         <path d="M395,250 Q440,220 400,168" stroke="#dc2626" strokeWidth="1.2" fill="none" strokeDasharray="4 3" markerEnd="url(#arrowRed)"/>
 
-        {/* ── Legend — two rows so nothing spills out ── */}
-        <rect x="16" y="262" width="450" height="52" rx="4" fill="white" opacity="0.95" stroke="#e5e7eb"/>
-        <text x="24" y="274" fontSize="9" fontWeight="700" fill="#374151" fontFamily="sans-serif">Key:</text>
-        {/* Row 1 */}
+        {/* ── Legend — left half only, two rows ── */}
+        <rect x="10" y="264" width="230" height="52" rx="4" fill="white" opacity="0.95" stroke="#e5e7eb"/>
+        <text x="18" y="277" fontSize="9" fontWeight="700" fill="#374151" fontFamily="sans-serif">Key:</text>
         {[
           ['#f59e0b', 'Primary emission'],
           ['#8b5cf6', 'O₃ formation'],
-        ].map(([col, lbl], i) => (
-          <g key={i} transform={`translate(${55 + i * 175}, 266)`}>
-            <rect width="10" height="8" fill={col} rx="1.5"/>
-            <text x="14" y="7" fontSize="9" fill="#374151" fontFamily="sans-serif">{lbl}</text>
-          </g>
-        ))}
-        {/* Row 2 */}
-        {[
           ['#16a34a', 'VOC amplification'],
-          ['#dc2626', 'O₃ scavenging (near roads)'],
+          ['#dc2626', 'O₃ scavenging'],
         ].map(([col, lbl], i) => (
-          <g key={i} transform={`translate(${55 + i * 175}, 282)`}>
-            <rect width="10" height="8" fill={col} rx="1.5"/>
-            <text x="14" y="7" fontSize="9" fill="#374151" fontFamily="sans-serif">{lbl}</text>
+          <g key={i} transform={`translate(${18 + (i % 2) * 108}, ${278 + Math.floor(i / 2) * 16})`}>
+            <rect width="9" height="7" fill={col} rx="1.5" y="2"/>
+            <text x="13" y="9" fontSize="8.5" fill="#374151" fontFamily="sans-serif">{lbl}</text>
           </g>
         ))}
       </svg>
