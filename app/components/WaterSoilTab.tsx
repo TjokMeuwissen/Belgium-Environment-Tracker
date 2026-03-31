@@ -110,8 +110,8 @@ function NitrateSourcesPanel({ sources }: { sources: any[] }) {
   const SHORT: Record<string, string> = {
     'Animal manure — livestock':              'Manure from pigs, cattle and poultry leaches nitrates into groundwater and runs off into rivers. The dominant source in Flanders. Pig numbers fell from 5.9M to 5.05M (2019→2023), directly linked to recent improvements.',
     'Mineral fertilisers — synthetic nitrogen': 'Synthetic nitrogen applied to arable crops leaches when it exceeds crop uptake or heavy rain follows application. Flanders and Wallonia are both designated Nitrate Vulnerable Zones.',
-    'Septic tanks & urban wastewater':         'Poorly maintained septic tanks and older wastewater plants release nitrogen-rich effluent. Improved significantly since Belgium's 2004 ECJ ruling on wastewater compliance.',
-    'Urban stormwater runoff':                 'Rainwater picks up nitrogen from roads and surfaces, entering rivers untreated via storm sewers — a minor but non-trivial diffuse source in Belgium's heavily built-up landscape.',
+    'Septic tanks & urban wastewater':         'Poorly maintained septic tanks and older wastewater plants release nitrogen-rich effluent. Improved significantly since Belgium&#39;s 2004 ECJ ruling on wastewater compliance.',
+    'Urban stormwater runoff':                 'Rainwater picks up nitrogen from roads and surfaces, entering rivers untreated via storm sewers — a minor but non-trivial diffuse source in Belgium&#39;s heavily built-up landscape.',
   };
   return (
     <div style={{ padding: '14px 18px 14px', display: 'flex', flexDirection: 'column', height: '100%', gap: 10 }}>
@@ -166,7 +166,7 @@ const PHOSPHATE_IMPORTANCE_BAR: Record<string, number> = {
 
 function PhosphateSourcesPanel({ sources }: { sources: any[] }) {
   const SHORT: Record<string, string> = {
-    'Agriculture — fertiliser & manure runoff': 'Phosphorus from manure and fertiliser binds to soil and washes into rivers during rainfall. Unlike nitrate, it doesn't leach — it travels via surface runoff. Flanders produces far more manure P than its land can absorb.',
+    'Agriculture — fertiliser & manure runoff': 'Phosphorus from manure and fertiliser binds to soil and washes into rivers during rainfall. Unlike nitrate, it doesn&#39;t leach — it travels via surface runoff. Flanders produces far more manure P than its land can absorb.',
     'Urban wastewater treatment plants (WWTPs)': 'Once the dominant source; now greatly reduced by phosphate-free detergents (EU regulation) and WWTP upgrades. A secondary source where older or under-capacity plants still operate.',
     'Stormwater & combined sewer overflows (CSOs)': 'Urban stormwater and CSO discharges during heavy rain contribute phosphate pulses. Dense Belgian cities with legacy combined sewers are being addressed through sewer separation.',
     'Industrial discharges':                    'Well-regulated point sources — food processing and chemical industry. A minor contribution compared to agriculture.',
