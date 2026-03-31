@@ -3,8 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine,
-  PieChart, Pie, Cell, Legend, ResponsiveContainer,
+  PieChart, Pie, Cell, Legend, ResponsiveContainer, Tooltip,
 } from 'recharts';
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -92,45 +91,6 @@ function IndicatorLeft({ ind, slug }: { ind: any; slug: string }) {
   );
 }
 
-// ── Right panel: Surface Waters ───────────────────────────────────────────────
-function SurfaceWaterPanel() {
-  const facts = [
-    { icon: '🌿', label: 'Ecological status', value: 'Only 27.4%', sub: 'of surface water bodies meet WFD good ecological status — driven by nutrient pollution and habitat degradation' },
-    { icon: '🏭', label: 'Main pressures', value: 'Agriculture', sub: 'Diffuse nitrogen & phosphorus runoff, physical modification of rivers, and urban runoff are the dominant drivers of failure' },
-    { icon: '📅', label: 'WFD deadline', value: '2027', sub: 'The Water Framework Directive required good status by 2015, extended to 2027. Belgium is far off track. A new deadline of 2039 is under negotiation.' },
-  ];
-  return (
-    <div style={{ padding: '14px 18px 14px', display: 'flex', flexDirection: 'column', height: '100%', gap: 12 }}>
-      <div>
-        <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#1a1a1a', marginBottom: 4 }}>
-          What does "good ecological status" mean?
-        </div>
-        <p style={{ fontSize: '0.78rem', color: '#6b7280', margin: 0, lineHeight: 1.55 }}>
-          Under the EU Water Framework Directive, "good ecological status" means a water body shows only slight
-          deviation from natural reference conditions — assessed across biology (fish, invertebrates, plants),
-          chemistry (nutrients, pollutants) and hydrology (flow regime, morphology). All elements must pass
-          using a strict "one out, all out" rule.
-        </p>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {facts.map((f, i) => (
-          <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', background: '#f8fafc', borderRadius: 8, padding: '10px 12px', border: '1px solid #e5e7eb' }}>
-            <span style={{ fontSize: '1.4rem', flexShrink: 0, lineHeight: 1 }}>{f.icon}</span>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#9ca3af' }}>{f.label}</span>
-                <span style={{ fontFamily: 'Roboto, sans-serif', fontSize: '1rem', fontWeight: 900, color: TOPIC_COLOR, flexShrink: 0 }}>{f.value}</span>
-              </div>
-              <p style={{ fontSize: '0.78rem', color: '#4b5563', margin: '3px 0 0', lineHeight: 1.5 }}>{f.sub}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <p style={{ fontSize: '0.7rem', color: '#9ca3af', margin: 0 }}>Source: EEA / WFD 3rd River Basin Management Cycle 2022. Belgium: VMM (Flanders) / DGARNE (Wallonia).</p>
-    </div>
-  );
-}
-
 // ── Right panel: Nitrate sources ─────────────────────────────────────────────
 const NITRATE_IMPORTANCE_COLOR: Record<string, string> = {
   'Very high (dominant)': '#dc2626',
@@ -146,6 +106,13 @@ const NITRATE_IMPORTANCE_BAR: Record<string, number> = {
 };
 
 function NitrateSourcesPanel({ sources }: { sources: any[] }) {
+  // Short descriptions per source — shown instead of the long Excel text
+  const SHORT: Record<string, string> = {
+    'Animal manure — livestock':              'Manure from pigs, cattle and poultry leaches nitrates into groundwater and runs off into rivers. The dominant source in Flanders. Pig numbers fell from 5.9M to 5.05M (2019→2023), directly linked to recent improvements.',
+    'Mineral fertilisers — synthetic nitrogen': 'Synthetic nitrogen applied to arable crops leaches when it exceeds crop uptake or heavy rain follows application. Flanders and Wallonia are both designated Nitrate Vulnerable Zones.',
+    'Septic tanks & urban wastewater':         'Poorly maintained septic tanks and older wastewater plants release nitrogen-rich effluent. Improved significantly since Belgium's 2004 ECJ ruling on wastewater compliance.',
+    'Urban stormwater runoff':                 'Rainwater picks up nitrogen from roads and surfaces, entering rivers untreated via storm sewers — a minor but non-trivial diffuse source in Belgium's heavily built-up landscape.',
+  };
   return (
     <div style={{ padding: '14px 18px 14px', display: 'flex', flexDirection: 'column', height: '100%', gap: 10 }}>
       <div>
@@ -153,8 +120,7 @@ function NitrateSourcesPanel({ sources }: { sources: any[] }) {
           Main sources of nitrate pollution — Belgium
         </div>
         <p style={{ fontSize: '0.78rem', color: '#6b7280', margin: '0 0 10px', lineHeight: 1.5 }}>
-          No official Belgian % breakdown by source is published. The ranking below is based on VMM reports and EEA Nitrates Directive monitoring.
-          Agriculture (manure + fertilisers) is overwhelmingly dominant.
+          Agriculture (manure + fertilisers) is overwhelmingly dominant. No official % breakdown by source is published.
         </p>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -170,10 +136,9 @@ function NitrateSourcesPanel({ sources }: { sources: any[] }) {
               <div style={{ height: 4, background: '#f0f0f0', borderRadius: 2, marginBottom: 6 }}>
                 <div style={{ height: '100%', width: `${bar}%`, background: color, borderRadius: 2 }} />
               </div>
-              <p style={{ fontSize: '0.76rem', color: '#4b5563', margin: 0, lineHeight: 1.5 }}>{s.mechanism}</p>
-              {s.be_specific && (
-                <p style={{ fontSize: '0.73rem', color: '#6b7280', margin: '4px 0 0', lineHeight: 1.4, fontStyle: 'italic' }}>🇧🇪 {s.be_specific}</p>
-              )}
+              <p style={{ fontSize: '0.76rem', color: '#4b5563', margin: 0, lineHeight: 1.5 }}>
+                {SHORT[s.source] ?? s.mechanism}
+              </p>
             </div>
           );
         })}
@@ -200,6 +165,13 @@ const PHOSPHATE_IMPORTANCE_BAR: Record<string, number> = {
 };
 
 function PhosphateSourcesPanel({ sources }: { sources: any[] }) {
+  const SHORT: Record<string, string> = {
+    'Agriculture — fertiliser & manure runoff': 'Phosphorus from manure and fertiliser binds to soil and washes into rivers during rainfall. Unlike nitrate, it doesn't leach — it travels via surface runoff. Flanders produces far more manure P than its land can absorb.',
+    'Urban wastewater treatment plants (WWTPs)': 'Once the dominant source; now greatly reduced by phosphate-free detergents (EU regulation) and WWTP upgrades. A secondary source where older or under-capacity plants still operate.',
+    'Stormwater & combined sewer overflows (CSOs)': 'Urban stormwater and CSO discharges during heavy rain contribute phosphate pulses. Dense Belgian cities with legacy combined sewers are being addressed through sewer separation.',
+    'Industrial discharges':                    'Well-regulated point sources — food processing and chemical industry. A minor contribution compared to agriculture.',
+    'Legacy sediment phosphorus':               'Decades of pollution have saturated river sediments with phosphorus, which re-dissolves under low oxygen or high temperatures. A structural long-term problem even as external inputs fall (Scheldt basin).',
+  };
   return (
     <div style={{ padding: '14px 18px 14px', display: 'flex', flexDirection: 'column', height: '100%', gap: 10 }}>
       <div>
@@ -207,8 +179,7 @@ function PhosphateSourcesPanel({ sources }: { sources: any[] }) {
           Main sources of phosphate pollution — Belgium
         </div>
         <p style={{ fontSize: '0.78rem', color: '#6b7280', margin: '0 0 10px', lineHeight: 1.5 }}>
-          Unlike nitrate, phosphate binds to soil particles and moves with surface runoff rather than leaching. Agriculture
-          is the dominant diffuse source; legacy sediment phosphorus is a structural complication in Flemish rivers.
+          Phosphate binds to soil and moves with surface runoff, not via leaching. Agriculture is dominant; legacy sediment is a structural long-term problem.
         </p>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -224,10 +195,9 @@ function PhosphateSourcesPanel({ sources }: { sources: any[] }) {
               <div style={{ height: 4, background: '#f0f0f0', borderRadius: 2, marginBottom: 6 }}>
                 <div style={{ height: '100%', width: `${bar}%`, background: color, borderRadius: 2 }} />
               </div>
-              <p style={{ fontSize: '0.76rem', color: '#4b5563', margin: 0, lineHeight: 1.5 }}>{s.mechanism}</p>
-              {s.be_specific && (
-                <p style={{ fontSize: '0.73rem', color: '#6b7280', margin: '4px 0 0', lineHeight: 1.4, fontStyle: 'italic' }}>🇧🇪 {s.be_specific}</p>
-              )}
+              <p style={{ fontSize: '0.76rem', color: '#4b5563', margin: 0, lineHeight: 1.5 }}>
+                {SHORT[s.source] ?? s.mechanism}
+              </p>
             </div>
           );
         })}
@@ -420,25 +390,6 @@ function SoilSealingPanel({ historicalSoil, landUse }: { historicalSoil: any[]; 
         </p>
       </div>
 
-      {/* Historical line chart */}
-      {historicalSoil.length > 0 && (
-        <div>
-          <div style={{ fontWeight: 700, fontSize: '0.82rem', color: '#1a1a1a', marginBottom: 4 }}>
-            Soil sealing rate — Belgium 2006–2021
-          </div>
-          <ResponsiveContainer width="100%" height={160}>
-            <LineChart data={historicalSoil} margin={{ top: 4, right: 20, left: 0, bottom: 4 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="year" tick={{ fontSize: 10, fill: '#9ca3af' }} tickLine={false} interval={2} />
-              <YAxis tick={{ fontSize: 10, fill: '#9ca3af' }} tickLine={false} axisLine={false} width={34} domain={[12, 15]} tickFormatter={v => `${v}%`} />
-              <Tooltip contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 12 }}
-                formatter={(v: any) => [`${v}%`, 'Soil sealing']} />
-              <Line type="monotone" dataKey="value" stroke={TOPIC_COLOR} strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: TOPIC_COLOR }} />
-            </LineChart>
-          </ResponsiveContainer>
-          <p style={{ fontSize: '0.7rem', color: '#9ca3af', marginTop: 4 }}>Source: Copernicus Land Monitoring Service / EEA. 2022 data not yet published.</p>
-        </div>
-      )}
     </div>
   );
 }
@@ -455,7 +406,6 @@ interface Props {
 export default function WaterSoilTab({ indicators, historicalSoil, landUse, nitrateSources, phosphateSources }: Props) {
   const get = (name: string) => indicators.find(i => i.indicator === name);
 
-  const surfaceWater  = get('Surface Waters in Good Ecological Status');
   const nitrate       = get('Nitrate Pollution — Groundwater Stations Exceeding 50 mg/L');
   const phosphate     = get('Phosphate Pollution — Rivers Exceeding Good Status Threshold');
   const drinkingWater = get('Drinking Water Quality Compliance');
@@ -466,7 +416,6 @@ export default function WaterSoilTab({ indicators, historicalSoil, landUse, nitr
     {
       id: 'water-quality', label: 'Water Quality', emoji: '🌊',
       items: [
-        { id: 'surface-water',  label: 'Surface Water Ecological Status' },
         { id: 'nitrate',        label: 'Nitrate Pollution'                },
         { id: 'phosphate',      label: 'Phosphate Pollution'              },
         { id: 'groundwater',    label: 'Groundwater Chemical Status'      },
@@ -520,12 +469,6 @@ export default function WaterSoilTab({ indicators, historicalSoil, landUse, nitr
               <div className="group-subtitle">Ecological status of surface waters, nitrate &amp; phosphate pollution, and groundwater chemical status</div>
             </div>
           </div>
-        </div>
-
-        <div id="surface-water" className="wide-card">
-          <div className="wide-card-accent" />
-          <IndicatorLeft ind={surfaceWater} slug="surface-waters-in-good-ecological-status" />
-          <div className="wide-card-right"><SurfaceWaterPanel /></div>
         </div>
 
         <div id="nitrate" className="wide-card">
