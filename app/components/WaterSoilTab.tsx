@@ -213,88 +213,43 @@ function GroundwaterPanel() {
     <div style={{ padding: '14px 18px 14px', display: 'flex', flexDirection: 'column', height: '100%', gap: 12 }}>
       <div>
         <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#1a1a1a', marginBottom: 4 }}>
-          Flanders: a high-risk area for drought &amp; water scarcity
+          Belgium in a European water stress context
         </div>
         <p style={{ fontSize: '0.78rem', color: '#6b7280', margin: '0 0 10px', lineHeight: 1.55 }}>
-          Groundwater provides two thirds of Belgium&#39;s drinking water. Flanders is structurally vulnerable:
-          high urban density, intensive agriculture and limited aquifer recharge combine with worsening
-          droughts under climate change. Already in 2022 and 2023 severe drought conditions hit Flemish
-          groundwater levels. 18% of EU groundwater bodies face abstraction pressure and risk failing by 2027 (EEA 2024).
+          At the large river basin scale Belgium appears in the low water stress zone (yellow) —
+          the Rhine-Meuse basin has abundant water overall. However this masks critical local
+          vulnerabilities: Belgium scores <strong>extreme water stress (&gt;80% WEI)</strong> in the
+          WRI Aqueduct country ranking, driven by its exceptionally high population and agricultural
+          density relative to its small territory. Flanders in particular faces structural groundwater
+          pressure: high abstraction, intensive agriculture, flat topography limiting natural recharge,
+          and documented groundwater level drops during the 2022–2023 droughts.
         </p>
       </div>
-
-      {/* Schematic EU drought sensitivity map */}
-      <div style={{ flex: 1 }}>
-        <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#6b7280', marginBottom: 6 }}>
-          Relative drought sensitivity — NW Europe (schematic)
-        </div>
-        <svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', maxWidth: 340, borderRadius: 8, border: '1px solid #e5e7eb' }}>
-          {/* Ocean background */}
-          <rect width="340" height="200" fill="#dbeafe" rx="8"/>
-
-          {/* UK */}
-          <ellipse cx="68" cy="68" rx="24" ry="36" fill="#fde68a" opacity="0.9"/>
-          <text x="68" y="71" textAnchor="middle" fontSize="9" fill="#374151" fontFamily="sans-serif">UK</text>
-
-          {/* Ireland */}
-          <ellipse cx="38" cy="80" rx="14" ry="20" fill="#bbf7d0" opacity="0.9"/>
-          <text x="38" y="83" textAnchor="middle" fontSize="8" fill="#374151" fontFamily="sans-serif">IE</text>
-
-          {/* Netherlands */}
-          <rect x="122" y="52" width="30" height="28" rx="4" fill="#fde68a" opacity="0.9"/>
-          <text x="137" y="69" textAnchor="middle" fontSize="9" fill="#374151" fontFamily="sans-serif">NL</text>
-
-          {/* Flanders — red/high risk */}
-          <rect x="122" y="80" width="30" height="22" rx="3" fill="#ef4444" opacity="0.9"/>
-          <text x="137" y="94" textAnchor="middle" fontSize="8" fill="white" fontWeight="bold" fontFamily="sans-serif">FL</text>
-
-          {/* Wallonia */}
-          <rect x="122" y="102" width="44" height="22" rx="3" fill="#fde68a" opacity="0.9"/>
-          <text x="144" y="116" textAnchor="middle" fontSize="8" fill="#374151" fontFamily="sans-serif">WAL</text>
-
-          {/* Luxembourg */}
-          <rect x="156" y="102" width="18" height="22" rx="3" fill="#bbf7d0" opacity="0.9"/>
-          <text x="165" y="116" textAnchor="middle" fontSize="7" fill="#374151" fontFamily="sans-serif">LU</text>
-
-          {/* Germany */}
-          <rect x="152" y="52" width="60" height="70" rx="4" fill="#fde68a" opacity="0.9"/>
-          <text x="182" y="90" textAnchor="middle" fontSize="9" fill="#374151" fontFamily="sans-serif">DE</text>
-
-          {/* France north */}
-          <rect x="90" y="124" width="70" height="52" rx="4" fill="#bbf7d0" opacity="0.9"/>
-          <text x="125" y="153" textAnchor="middle" fontSize="9" fill="#374151" fontFamily="sans-serif">FR (north)</text>
-
-          {/* Denmark */}
-          <ellipse cx="170" cy="30" rx="18" ry="16" fill="#bbf7d0" opacity="0.9"/>
-          <text x="170" y="33" textAnchor="middle" fontSize="8" fill="#374151" fontFamily="sans-serif">DK</text>
-
-          {/* Arrow pointing to Flanders */}
-          <line x1="240" y1="91" x2="155" y2="91" stroke="#dc2626" strokeWidth="1.5" markerEnd="url(#arrow)"/>
-          <defs>
-            <marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L6,3 z" fill="#dc2626"/>
-            </marker>
-          </defs>
-          <rect x="239" y="78" width="95" height="28" rx="4" fill="white" opacity="0.92" stroke="#e5e7eb"/>
-          <text x="247" y="89" fontSize="8" fill="#dc2626" fontWeight="bold" fontFamily="sans-serif">⚠️ Flanders: HIGH RISK</text>
-          <text x="247" y="100" fontSize="7" fill="#4b5563" fontFamily="sans-serif">dense, flat, over-abstracted</text>
-
-          {/* Legend */}
-          <rect x="4" y="154" width="110" height="42" rx="4" fill="white" opacity="0.88" stroke="#e5e7eb"/>
-          <text x="9" y="165" fontSize="7.5" fill="#374151" fontWeight="bold" fontFamily="sans-serif">Drought sensitivity</text>
-          {[['#ef4444', 'High (Flanders)'], ['#fde68a', 'Medium'], ['#bbf7d0', 'Low']].map(([col, lbl], i) => (
-            <g key={i} transform={`translate(9, ${172 + i * 8})`}>
-              <rect width="8" height="6" fill={col} rx="1" opacity="0.9"/>
-              <text x="11" y="5.5" fontSize="7" fill="#374151" fontFamily="sans-serif">{lbl}</text>
-            </g>
+      <div>
+        <img
+          src="/images/water_stress_present.png"
+          alt="Annual water stress for present climate — Europe (EEA)"
+          style={{ width: '100%', borderRadius: 6, border: '1px solid #e5e7eb', display: 'block' }}
+        />
+        {/* Custom legend matching site style */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 8 }}>
+          {[
+            { color: '#ffd900', label: 'Low (0–20%)' },
+            { color: '#f58220', label: 'Mild (20–40%)' },
+            { color: '#ed1c24', label: 'Severe (>40%)' },
+            { color: '#808285', label: 'Outside coverage' },
+          ].map((item, i) => (
+            <div key={i} style={{ fontSize: '0.78rem', color: '#4b5563', display: 'flex', alignItems: 'center', gap: 5 }}>
+              <div style={{ width: 12, height: 12, borderRadius: 2, background: item.color, flexShrink: 0, border: '1px solid rgba(0,0,0,0.15)' }} />
+              {item.label}
+            </div>
           ))}
-        </svg>
+        </div>
+        <p style={{ fontSize: '0.7rem', color: '#9ca3af', margin: '6px 0 0' }}>
+          Source: EEA — Annual water stress, present climate (CC-BY 2.5 DK).
+          WEI = ratio of water withdrawn to renewable resources available.
+        </p>
       </div>
-      <p style={{ fontSize: '0.7rem', color: '#9ca3af', margin: 0 }}>
-        Schematic based on EEA European Climate Risk Assessment 2024 and EEA State of Water 2024.
-        Flanders highlighted due to high population density, intensive agriculture, flat topography limiting natural recharge,
-        and documented groundwater level drops during 2022–2023 droughts.
-      </p>
     </div>
   );
 }
@@ -349,8 +304,8 @@ function SoilSealingPanel({ historicalSoil, landUse }: { historicalSoil: any[]; 
         <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#1a1a1a', marginBottom: 4 }}>
           Land use in Belgium — 2022
         </div>
-        <ResponsiveContainer width="100%" height={220}>
-          <PieChart>
+        <ResponsiveContainer width="100%" height={240}>
+          <PieChart margin={{ top: 10, right: 0, bottom: 0, left: 0 }}>
             <Pie data={pieData} cx="50%" cy="45%" outerRadius={80} dataKey="value" labelLine={false}>
               {pieData.map((e, i) => <Cell key={i} fill={e.color} stroke="white" strokeWidth={2} />)}
             </Pie>
@@ -445,7 +400,9 @@ export default function WaterSoilTab({ indicators, historicalSoil, landUse, nitr
         {GROUPS.map((group, gi) => (
           <div key={group.id}>
             {gi > 0 && <div className="sidebar-divider" />}
-            <div className="sidebar-group-label">{group.emoji}</div>
+            <div className="sidebar-group-label" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              {group.emoji} {group.label}
+            </div>
             {group.items.map(item => (
               <button key={item.id} onClick={() => scrollTo(item.id)}
                 className="sidebar-link"
