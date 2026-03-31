@@ -2880,6 +2880,82 @@
         "pct_2022": 0.2,
         "notes": "Near-zero landfill rate — one of the lowest in the EU. Landfill tax (€14.69/tonne) effectively eliminates landfilling of untreated municipal waste."
       }
+    ],
+    "energy_recovery": [
+      {
+        "metric": "Number of waste-to-energy plants",
+        "value": 15,
+        "unit": "plants",
+        "notes": "10 in Flanders (all R1), 4 in Wallonia (all R1), 1 in Brussels (R1). R1 = energy recovery status under EU Waste Framework Directive.",
+        "source": "EEA Early Warning Assessment Belgium 2022",
+        "source_url": "https://www.eea.europa.eu/publications/many-eu-member-states/belgium"
+      },
+      {
+        "metric": "Electricity from renewable MSW",
+        "value": 0.8,
+        "unit": "TWh/year",
+        "notes": "Approximately 1% of Belgium's total electricity consumption (2022). Renewable MSW fraction only. Total waste-to-energy electricity (incl. non-renewable fraction) estimated 2-3 TWh.",
+        "source": "IEA Bioenergy Belgium Country Report 2024",
+        "source_url": "https://www.ieabioenergy.com/wp-content/uploads/2024/12/CountryReport2024_Belgium_final.pdf"
+      },
+      {
+        "metric": "Total electricity from all waste incineration (est.)",
+        "value": 2.5,
+        "unit": "TWh/year",
+        "notes": "Estimate: renewable MSW (~0.8 TWh) + non-renewable fraction (residual household waste). Approximately 2-3% of Belgium's ~80 TWh annual electricity consumption.",
+        "source": "IEA Bioenergy Belgium 2024 / Elia electricity mix 2023",
+        "source_url": "https://www.elia.be/-/media/project/elia/shared/documents/press-releases/2024/20240108_electricity-mix-2023-belgian_en.pdf"
+      },
+      {
+        "metric": "Steam production — ECLUSE network (Antwerp)",
+        "value": 250,
+        "unit": "MW thermal",
+        "notes": "Indaver + SLECO installations supply 250 MW of industrial steam to 6 chemical companies at Port of Antwerp via ECLUSE network — largest industrial steam network in Europe. Replacing fossil fuels, saving 100,000+ t CO2/year.",
+        "source": "CEWEP / Indaver",
+        "source_url": "https://www.indaver.com/be-en/installations-processes/waste-to-energy/"
+      },
+      {
+        "metric": "Belgium total electricity consumption (2022)",
+        "value": 80.5,
+        "unit": "TWh/year",
+        "notes": "Reference figure for comparison with waste-to-energy contribution.",
+        "source": "Elia electricity mix report 2023",
+        "source_url": "https://www.elia.be/-/media/project/elia/shared/documents/press-releases/2024/20240108_electricity-mix-2023-belgian_en.pdf"
+      }
+    ],
+    "cmur_by_material": [
+      {
+        "material": "Non-metallic minerals",
+        "pct_be_stream": 73,
+        "eu_cmur_pct": 13.7,
+        "drivers": "Construction & demolition waste (concrete, bricks, asphalt), glass, ceramics. Belgium/Flanders has near-100% C&D recycling rate — largest single driver of high CMUR.",
+        "source": "CE Monitor Flanders / Eurostat cei_srm030",
+        "source_url": "https://cemonitor.be/en/indicator/circularity/r-strategies/circular-material-use-rate-cmur/"
+      },
+      {
+        "material": "Biomass",
+        "pct_be_stream": 18,
+        "eu_cmur_pct": 10,
+        "drivers": "Paper & cardboard, wood waste, organic materials. High paper recycling rate (84%) and wood recovery contribute. Includes recovered bio-organic material.",
+        "source": "CE Monitor Flanders / Eurostat 2023",
+        "source_url": "https://ec.europa.eu/eurostat/en/web/products-eurostat-news/w/ddn-20231114-2"
+      },
+      {
+        "material": "Metal ores",
+        "pct_be_stream": 6,
+        "eu_cmur_pct": 23.9,
+        "drivers": "Steel (from scrap), aluminium, copper. Belgium hosts Umicore (precious metals recycling) and ArcelorMittal (steel from scrap). Metals recycling is economically attractive and well-established.",
+        "source": "Eurostat (cei_srm030) 2022 / EEA",
+        "source_url": "https://www.eea.europa.eu/en/analysis/indicators/circular-material-use-rate-in-europe"
+      },
+      {
+        "material": "Fossil energy materials",
+        "pct_be_stream": 3,
+        "eu_cmur_pct": 2,
+        "drivers": "Waste oils, solvents, used lubricants. Very low circularity — fossil fuels are consumed, not meaningfully recycled. Small fraction of total material flow.",
+        "source": "Eurostat (cei_srm030) 2022",
+        "source_url": "https://ec.europa.eu/eurostat/en/web/products-eurostat-news/w/ddn-20231114-2"
+      }
     ]
   }
 }
