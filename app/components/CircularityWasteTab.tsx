@@ -83,7 +83,8 @@ function IndicatorLeft({ ind, slug }: { ind: any; slug: string }) {
       )}
       <Link
         href={`/circularity-waste/${slug}`}
-        style={{ marginTop: 'auto', fontSize: '0.78rem', color: TOPIC_COLOR, fontWeight: 600, textDecoration: 'none', paddingTop: 4 }}
+        className="read-more-btn"
+        style={{ '--btn-color': TOPIC_COLOR } as React.CSSProperties}
       >
         Read more →
       </Link>
