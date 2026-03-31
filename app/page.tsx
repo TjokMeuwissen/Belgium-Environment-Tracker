@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import ClimateEnergyTab from './components/ClimateEnergyTab';
 import NatureBiodiversityTab from './components/NatureBiodiversityTab';
 import CircularityWasteTab from './components/CircularityWasteTab';
+import WaterSoilTab from './components/WaterSoilTab';
 
 interface Indicator {
   indicator: string;
@@ -200,6 +201,14 @@ function HomeInner() {
   const packagingByMaterial = data.circularity_supplementary?.packaging_by_material ?? [];
   const treatmentBreakdown  = data.circularity_supplementary?.treatment_breakdown ?? [];
 
+  const historicalSoil   = data.historical?.water_soil?.series?.['Soil sealing rate']?.map(
+    (d: any) => ({ year: d.year, value: d.value })
+  ) ?? [];
+  const landUse          = data.water_supplementary?.land_use ?? [];
+  const nitrateSources   = data.water_supplementary?.nitrate_sources ?? [];
+  const phosphateSources = data.water_supplementary?.phosphate_sources ?? [];
+  const treatmentBreakdown  = data.circularity_supplementary?.treatment_breakdown ?? [];
+
   return (
     <main>
       <header>
@@ -254,6 +263,14 @@ function HomeInner() {
             historicalOrganic={historicalOrganic}
             historicalBirds={historicalBirds}
             invasiveSpecies={invasiveSpecies}
+          />
+        ) : activeTopic === 'water_soil' ? (
+          <WaterSoilTab
+            indicators={activeIndicators}
+            historicalSoil={historicalSoil}
+            landUse={landUse}
+            nitrateSources={nitrateSources}
+            phosphateSources={phosphateSources}
           />
         ) : activeTopic === 'circularity_waste' ? (
           <CircularityWasteTab
