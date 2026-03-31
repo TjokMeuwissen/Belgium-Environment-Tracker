@@ -316,11 +316,7 @@ export default function CircularityWasteTab({
   const mwCap   = get('Municipal Waste Generation per Capita');
   const cmur    = get('Circular Material Use Rate (CMUR)');
 
-  const topic_meta = [
-    { label: `${indicators.length} indicators tracked` },
-    { label: `${indicators.filter(i => i.status === 'Off track').length} off track`, color: '#dc2626' },
-    { label: `${indicators.filter(i => i.status === 'On track' || i.status === 'Achieved').length} on track / achieved`, color: '#16a34a' },
-  ];
+  
 
   const GROUPS = [
     {
@@ -368,21 +364,15 @@ export default function CircularityWasteTab({
 
       {/* Main content */}
       <div style={{ flex: 1, minWidth: 0 }}>
-      {/* Topic header */}
-      <div className="topic-header" style={{ borderColor: TOPIC_COLOR, '--topic-color': TOPIC_COLOR } as React.CSSProperties}>
-        <h2>♻️ Circularity &amp; Waste</h2>
-        <div className="topic-meta">
-          {topic_meta.map((m, i) => (
-            <span key={i} style={m.color ? { color: m.color } : undefined}>{m.label}</span>
-          ))}
+      {/* Group header: Waste Management */}
+      <div id="waste-management" className="group-header" style={{ marginTop: 0 }}>
+        <div className="group-header-inner">
+          <span className="group-emoji">🗑️</span>
+          <div>
+            <div className="group-title">Waste Management</div>
+            <div className="group-subtitle">Municipal waste recycling, packaging and generation per capita</div>
+          </div>
         </div>
-      </div>
-
-
-      {/* Sub-section: Waste Management */}
-      <div id="waste-management" style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '4px 0 16px', paddingBottom: 10, borderBottom: `2px solid ${TOPIC_COLOR}` }}>
-        <span style={{ fontSize: '1.4rem' }}>🗑️</span>
-        <h3 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '1.1rem', fontWeight: 700, color: '#1a1a1a', margin: 0 }}>Waste Management</h3>
       </div>
       <div id="msw-recycling" className="wide-card">
         <div className="wide-card-accent" />
@@ -409,10 +399,15 @@ export default function CircularityWasteTab({
       </div>
 
 
-      {/* Sub-section: Circular Economy */}
-      <div id="circular-economy" style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '28px 0 16px', paddingBottom: 10, borderBottom: `2px solid ${TOPIC_COLOR}` }}>
-        <span style={{ fontSize: '1.4rem' }}>🔄</span>
-        <h3 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '1.1rem', fontWeight: 700, color: '#1a1a1a', margin: 0 }}>Circular Economy</h3>
+      {/* Group header: Circular Economy */}
+      <div id="circular-economy" className="group-header">
+        <div className="group-header-inner">
+          <span className="group-emoji">🔄</span>
+          <div>
+            <div className="group-title">Circular Economy</div>
+            <div className="group-subtitle">Circular material use rate — share of recycled materials in total consumption</div>
+          </div>
+        </div>
       </div>
       <div id="cmur" className="wide-card">
         <div className="wide-card-accent" />
