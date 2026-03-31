@@ -113,7 +113,7 @@ function MSWRecyclingChart({ series }: { series: any[] }) {
           />
           <ReferenceLine y={55} stroke="#f97316" strokeDasharray="5 4" strokeWidth={1.5}
             label={{ value: '🎯 2025 target: 55%', position: 'insideTopRight', fontSize: 10, fill: '#f97316', fontWeight: 600 }} />
-          <Line type="monotone" dataKey="value" stroke={TOPIC_COLOR} strokeWidth={2.5} dot={{ r: 3, fill: TOPIC_COLOR }} activeDot={{ r: 5 }} />
+          <Line type="monotone" dataKey="value" stroke={TOPIC_COLOR} strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: TOPIC_COLOR }} />
         </LineChart>
       </ResponsiveContainer>
       <div style={{ fontSize: '0.7rem', color: '#9ca3af', marginTop: 4 }}>Source: Statbel / Eurostat (env_wasmun). ⚠️ Series break at 2020 — new EU definition.</div>
@@ -176,7 +176,7 @@ function PackagingChart({ packaging }: { packaging: any[] }) {
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
           <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#4b5563' }} tickLine={false} />
-          <YAxis tick={{ fontSize: 11, fill: '#9ca3af' }} tickLine={false} axisLine={false} width={36} domain={[0, 105]} tickFormatter={v => `${v}%`} />
+          <YAxis tick={{ fontSize: 11, fill: '#9ca3af' }} tickLine={false} axisLine={false} width={36} domain={[0, 100]} tickFormatter={v => `${v}%`} />
           <Tooltip
             contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 12 }}
             formatter={(v: any, _: any, props: any) => [
@@ -202,16 +202,15 @@ function PackagingChart({ packaging }: { packaging: any[] }) {
           </Bar>
         </BarChart>
       </ResponsiveContainer>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 6 }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 8 }}>
         {packaging.map((p, i) => (
-          <div key={i} style={{ fontSize: '0.68rem', color: '#4b5563', display: 'flex', alignItems: 'center', gap: 4 }}>
-            <div style={{ width: 8, height: 8, borderRadius: 2, background: MATERIAL_COLORS[p.material] ?? '#94a3b8', flexShrink: 0 }} />
-            {p.material}: {p.recycling_rate}%
-            <span style={{ color: '#9ca3af' }}>(target {p.target_2030}%)</span>
+          <div key={i} style={{ fontSize: '0.78rem', color: '#4b5563', display: 'flex', alignItems: 'center', gap: 5 }}>
+            <div style={{ width: 10, height: 10, borderRadius: 2, background: MATERIAL_COLORS[p.material] ?? '#94a3b8', flexShrink: 0 }} />
+            {p.material === 'Paper & Cardboard' ? 'Paper' : p.material}
           </div>
         ))}
-        <div style={{ fontSize: '0.68rem', color: '#4b5563', display: 'flex', alignItems: 'center', gap: 4 }}>
-          <svg width="14" height="8"><line x1="0" y1="4" x2="14" y2="4" stroke="#dc2626" strokeWidth="2" strokeDasharray="4 3"/></svg>
+        <div style={{ fontSize: '0.78rem', color: '#4b5563', display: 'flex', alignItems: 'center', gap: 5 }}>
+          <svg width="16" height="10"><line x1="0" y1="5" x2="16" y2="5" stroke="#dc2626" strokeWidth="2" strokeDasharray="4 3"/></svg>
           EU 2030 target
         </div>
       </div>
@@ -257,7 +256,7 @@ function TreatmentPieChart({ treatment }: { treatment: any[] }) {
             contentStyle={{ background: '#ffffff', color: '#1a1a1a', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 13, boxShadow: '0 4px 16px rgba(0,0,0,0.1)' }}
           />
           <Legend iconType="circle" iconSize={9}
-            formatter={v => <span style={{ fontSize: 11, color: '#4b5563' }}>{v}</span>}
+            formatter={v => <span style={{ fontSize: 12, color: '#4b5563' }}>{v}</span>}
           />
         </PieChart>
       </ResponsiveContainer>
@@ -289,7 +288,7 @@ function CMURChart({ series }: { series: any[] }) {
           />
           <ReferenceLine y={24} stroke="#f97316" strokeDasharray="5 4" strokeWidth={1.5}
             label={{ value: '🎯 2030 target: 24%', position: 'insideTopRight', fontSize: 10, fill: '#f97316', fontWeight: 600 }} />
-          <Line type="monotone" dataKey="value" stroke={TOPIC_COLOR} strokeWidth={2.5} dot={{ r: 3, fill: TOPIC_COLOR }} activeDot={{ r: 5 }} />
+          <Line type="monotone" dataKey="value" stroke={TOPIC_COLOR} strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: TOPIC_COLOR }} />
         </LineChart>
       </ResponsiveContainer>
       <div style={{ fontSize: '0.7rem', color: '#9ca3af', marginTop: 4 }}>Source: Eurostat (cei_srm030). 2022 latest available; odd years are estimates.</div>
@@ -323,8 +322,40 @@ export default function CircularityWasteTab({
     { label: `${indicators.filter(i => i.status === 'On track' || i.status === 'Achieved').length} on track / achieved`, color: '#16a34a' },
   ];
 
+  const SECTIONS = [
+    { id: 'msw-recycling',   label: 'MSW Recycling Rate',       emoji: '♻️' },
+    { id: 'packaging',       label: 'Packaging Recycling',       emoji: '📦' },
+    { id: 'waste-per-capita',label: 'Waste per Capita',          emoji: '🗑️' },
+    { id: 'cmur',            label: 'Circular Material Use',     emoji: '🔄' },
+  ];
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 70;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
   return (
-    <>
+    <div className="climate-tab" style={{ '--topic-color': TOPIC_COLOR } as React.CSSProperties}>
+      {/* Sidebar */}
+      <div className="climate-sidebar">
+        <div style={{ padding: '4px 16px 8px', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-muted)' }}>
+          Objectives
+        </div>
+        {SECTIONS.map(s => (
+          <button key={s.id} onClick={() => scrollTo(s.id)}
+            style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 16px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.82rem', color: 'var(--text-muted)', fontFamily: 'Epilogue, sans-serif', borderLeft: '3px solid transparent', transition: 'color 0.15s, background 0.15s' }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text)'; (e.currentTarget as HTMLElement).style.background = '#f9f9f9'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text-muted)'; (e.currentTarget as HTMLElement).style.background = 'none'; }}
+          >
+            {s.emoji} {s.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Main content */}
+      <div style={{ flex: 1, minWidth: 0 }}>
       {/* Topic header */}
       <div className="topic-header" style={{ borderColor: TOPIC_COLOR, '--topic-color': TOPIC_COLOR } as React.CSSProperties}>
         <h2>♻️ Circularity &amp; Waste</h2>
@@ -335,8 +366,7 @@ export default function CircularityWasteTab({
         </div>
       </div>
 
-      {/* Card 1: MSW Recycling Rate + historical line */}
-      <div className="wide-card">
+      <div id="msw-recycling" className="wide-card">
         <div className="wide-card-accent" />
         <IndicatorLeft ind={msw} slug="municipal-solid-waste-recycling-rate" />
         <div className="wide-card-right">
@@ -344,8 +374,7 @@ export default function CircularityWasteTab({
         </div>
       </div>
 
-      {/* Card 2: Packaging Waste Recycling + material bar chart */}
-      <div className="wide-card">
+      <div id="packaging" className="wide-card">
         <div className="wide-card-accent" />
         <IndicatorLeft ind={pkgWaste} slug="packaging-waste-recycling-rate" />
         <div className="wide-card-right">
@@ -353,8 +382,7 @@ export default function CircularityWasteTab({
         </div>
       </div>
 
-      {/* Card 3: Municipal Waste per Capita + treatment pie */}
-      <div className="wide-card">
+      <div id="waste-per-capita" className="wide-card">
         <div className="wide-card-accent" />
         <IndicatorLeft ind={mwCap} slug="municipal-waste-generation-per-capita" />
         <div className="wide-card-right">
@@ -362,14 +390,14 @@ export default function CircularityWasteTab({
         </div>
       </div>
 
-      {/* Card 4: CMUR + historical line */}
-      <div className="wide-card">
+      <div id="cmur" className="wide-card">
         <div className="wide-card-accent" />
         <IndicatorLeft ind={cmur} slug="circular-material-use-rate-cmur" />
         <div className="wide-card-right">
           <CMURChart series={historicalCMUR} />
         </div>
       </div>
-    </>
+      </div>{/* end main content */}
+    </div>{/* end climate-tab */}
   );
 }
