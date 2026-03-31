@@ -27,7 +27,6 @@ function fmt(v: any, unit: string | null) {
 
 function getProgress(latest: number | null, target: number | null, status?: string | null) {
   if (latest == null || target == null) return null;
-  if (status === 'Achieved') return 100;
   const l = +latest, t = +target;
   if (isNaN(l) || isNaN(t) || t === 0) return null;
   return Math.min(100, l < t ? (l / t) * 100 : (t / l) * 100);
@@ -173,22 +172,22 @@ function OzonePathwayDiagram() {
         </p>
       </div>
 
-      <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fafafa' }}>
+      <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', borderRadius: 8, border: '1px solid #e5e7eb', background: '#fafafa' }}>
         <defs>
-          <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L8,3 z" fill="#8b5cf6"/>
+          <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto">
+            <path d="M0,0 L0,10 L12,5 z" fill="#8b5cf6"/>
           </marker>
-          <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L8,3 z" fill="#f97316"/>
+          <marker id="arrowOrange" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto">
+            <path d="M0,0 L0,10 L12,5 z" fill="#f97316"/>
           </marker>
-          <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L8,3 z" fill="#16a34a"/>
+          <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto">
+            <path d="M0,0 L0,10 L12,5 z" fill="#16a34a"/>
           </marker>
-          <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L8,3 z" fill="#dc2626"/>
+          <marker id="arrowRed" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto">
+            <path d="M0,0 L0,10 L12,5 z" fill="#dc2626"/>
           </marker>
-          <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L8,3 z" fill="#2563eb"/>
+          <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto">
+            <path d="M0,0 L0,10 L12,5 z" fill="#2563eb"/>
           </marker>
         </defs>
 
@@ -259,18 +258,27 @@ function OzonePathwayDiagram() {
         {/* Arrow from O3 box back to NO titration - curved via line */}
         <path d="M395,250 Q440,220 400,168" stroke="#dc2626" strokeWidth="1.2" fill="none" strokeDasharray="4 3" markerEnd="url(#arrowRed)"/>
 
-        {/* ── Legend ── */}
-        <rect x="16" y="258" width="300" height="36" rx="4" fill="white" opacity="0.9" stroke="#e5e7eb"/>
-        <text x="24" y="270" fontSize="8" fontWeight="700" fill="#374151" fontFamily="sans-serif">Key:</text>
+        {/* ── Legend — two rows so nothing spills out ── */}
+        <rect x="16" y="262" width="450" height="52" rx="4" fill="white" opacity="0.95" stroke="#e5e7eb"/>
+        <text x="24" y="274" fontSize="9" fontWeight="700" fill="#374151" fontFamily="sans-serif">Key:</text>
+        {/* Row 1 */}
         {[
           ['#f59e0b', 'Primary emission'],
           ['#8b5cf6', 'O₃ formation'],
+        ].map(([col, lbl], i) => (
+          <g key={i} transform={`translate(${55 + i * 175}, 266)`}>
+            <rect width="10" height="8" fill={col} rx="1.5"/>
+            <text x="14" y="7" fontSize="9" fill="#374151" fontFamily="sans-serif">{lbl}</text>
+          </g>
+        ))}
+        {/* Row 2 */}
+        {[
           ['#16a34a', 'VOC amplification'],
           ['#dc2626', 'O₃ scavenging (near roads)'],
         ].map(([col, lbl], i) => (
-          <g key={i} transform={`translate(${16 + i * 74}, 276)`}>
-            <rect width="8" height="6" fill={col} rx="1"/>
-            <text x="11" y="5.5" fontSize="7.5" fill="#374151" fontFamily="sans-serif">{lbl}</text>
+          <g key={i} transform={`translate(${55 + i * 175}, 282)`}>
+            <rect width="10" height="8" fill={col} rx="1.5"/>
+            <text x="14" y="7" fontSize="9" fill="#374151" fontFamily="sans-serif">{lbl}</text>
           </g>
         ))}
       </svg>
