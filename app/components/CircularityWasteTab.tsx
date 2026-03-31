@@ -322,11 +322,21 @@ export default function CircularityWasteTab({
     { label: `${indicators.filter(i => i.status === 'On track' || i.status === 'Achieved').length} on track / achieved`, color: '#16a34a' },
   ];
 
-  const SECTIONS = [
-    { id: 'msw-recycling',   label: 'MSW Recycling Rate',       emoji: '♻️' },
-    { id: 'packaging',       label: 'Packaging Recycling',       emoji: '📦' },
-    { id: 'waste-per-capita',label: 'Waste per Capita',          emoji: '🗑️' },
-    { id: 'cmur',            label: 'Circular Material Use',     emoji: '🔄' },
+  const GROUPS = [
+    {
+      id: 'waste-management', label: 'Waste Management', emoji: '🗑️',
+      items: [
+        { id: 'msw-recycling',    label: 'MSW Recycling Rate'    },
+        { id: 'packaging',        label: 'Packaging Recycling'    },
+        { id: 'waste-per-capita', label: 'Waste per Capita'       },
+      ],
+    },
+    {
+      id: 'circular-economy', label: 'Circular Economy', emoji: '🔄',
+      items: [
+        { id: 'cmur', label: 'Circular Material Use Rate' },
+      ],
+    },
   ];
 
   const scrollTo = (id: string) => {
@@ -340,17 +350,19 @@ export default function CircularityWasteTab({
     <div className="climate-tab" style={{ '--topic-color': TOPIC_COLOR } as React.CSSProperties}>
       {/* Sidebar */}
       <div className="climate-sidebar">
-        <div style={{ padding: '4px 16px 8px', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-muted)' }}>
-          Objectives
-        </div>
-        {SECTIONS.map(s => (
-          <button key={s.id} onClick={() => scrollTo(s.id)}
-            style={{ display: 'block', width: '100%', textAlign: 'left', padding: '8px 16px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.82rem', color: 'var(--text-muted)', fontFamily: 'Epilogue, sans-serif', borderLeft: '3px solid transparent', transition: 'color 0.15s, background 0.15s' }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text)'; (e.currentTarget as HTMLElement).style.background = '#f9f9f9'; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'var(--text-muted)'; (e.currentTarget as HTMLElement).style.background = 'none'; }}
-          >
-            {s.emoji} {s.label}
-          </button>
+        {GROUPS.map((group, gi) => (
+          <div key={group.id}>
+            {gi > 0 && <div className="sidebar-divider" />}
+            <div className="sidebar-group-label">{group.emoji}</div>
+            {group.items.map(item => (
+              <button key={item.id} onClick={() => scrollTo(item.id)}
+                className="sidebar-link"
+                style={{ background: 'none', border: 'none', cursor: 'pointer', width: '100%', textAlign: 'left', fontFamily: 'Epilogue, sans-serif' }}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
         ))}
       </div>
 
@@ -366,6 +378,12 @@ export default function CircularityWasteTab({
         </div>
       </div>
 
+
+      {/* Sub-section: Waste Management */}
+      <div id="waste-management" style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '4px 0 16px', paddingBottom: 10, borderBottom: `2px solid ${TOPIC_COLOR}` }}>
+        <span style={{ fontSize: '1.4rem' }}>🗑️</span>
+        <h3 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '1.1rem', fontWeight: 700, color: '#1a1a1a', margin: 0 }}>Waste Management</h3>
+      </div>
       <div id="msw-recycling" className="wide-card">
         <div className="wide-card-accent" />
         <IndicatorLeft ind={msw} slug="municipal-solid-waste-recycling-rate" />
@@ -390,6 +408,12 @@ export default function CircularityWasteTab({
         </div>
       </div>
 
+
+      {/* Sub-section: Circular Economy */}
+      <div id="circular-economy" style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '28px 0 16px', paddingBottom: 10, borderBottom: `2px solid ${TOPIC_COLOR}` }}>
+        <span style={{ fontSize: '1.4rem' }}>🔄</span>
+        <h3 style={{ fontFamily: 'Roboto, sans-serif', fontSize: '1.1rem', fontWeight: 700, color: '#1a1a1a', margin: 0 }}>Circular Economy</h3>
+      </div>
       <div id="cmur" className="wide-card">
         <div className="wide-card-accent" />
         <IndicatorLeft ind={cmur} slug="circular-material-use-rate-cmur" />
