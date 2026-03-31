@@ -6,6 +6,7 @@ import ClimateEnergyTab from './components/ClimateEnergyTab';
 import NatureBiodiversityTab from './components/NatureBiodiversityTab';
 import CircularityWasteTab from './components/CircularityWasteTab';
 import WaterSoilTab from './components/WaterSoilTab';
+import AirQualityTab from './components/AirQualityTab';
 
 interface Indicator {
   indicator: string;
@@ -280,6 +281,8 @@ function HomeInner() {
             packaging={packagingByMaterial}
             treatment={treatmentBreakdown}
           />
+        ) : activeTopic === 'air_quality' ? (
+          <AirQualityTab indicators={activeIndicators} />
         ) : (
           <>
             <div className="topic-header" style={{ borderColor: activeCfg.color }}>
