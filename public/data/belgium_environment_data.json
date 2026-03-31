@@ -3084,6 +3084,58 @@
         "be_specific": "Particularly relevant for slow-moving Flemish rivers and canals (Scheldt basin). Scientific research (Lauryssen et al. 2022) shows pre-industrial PO4 background in the Scheldt was already ~62 µg P/L — sediment P is a structural long-term problem.",
         "trend": "Not improving (structural issue)"
       }
+    ],
+    "soil_sealing_eu": [
+      {
+        "country": "Malta",
+        "rate": 28.2,
+        "notes": "Smallest & most densely built EU member state"
+      },
+      {
+        "country": "Belgium",
+        "rate": 12.9,
+        "notes": "2018 value. 2021 updated to 13.7%. Flanders significantly higher (~20%)"
+      },
+      {
+        "country": "Netherlands",
+        "rate": 11.8,
+        "notes": "Also highly urbanised delta country"
+      },
+      {
+        "country": "Germany",
+        "rate": 7.1,
+        "notes": null
+      },
+      {
+        "country": "Luxembourg",
+        "rate": 5.8,
+        "notes": null
+      },
+      {
+        "country": "France",
+        "rate": 5.1,
+        "notes": null
+      },
+      {
+        "country": "EU average",
+        "rate": 4.2,
+        "notes": "EU-27 average 2018. Many eastern/southern members have low rates due to lower urbanisation"
+      },
+      {
+        "country": "Denmark",
+        "rate": 3.5,
+        "notes": null
+      },
+      {
+        "country": "Sweden",
+        "rate": 1.6,
+        "notes": "Large country, relatively low urbanisation"
+      },
+      {
+        "country": "Finland",
+        "rate": 1.2,
+        "notes": null
+      }
     ]
   }
 }
