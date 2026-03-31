@@ -207,7 +207,6 @@ function HomeInner() {
   const landUse          = data.water_supplementary?.land_use ?? [];
   const nitrateSources   = data.water_supplementary?.nitrate_sources ?? [];
   const phosphateSources = data.water_supplementary?.phosphate_sources ?? [];
-  const treatmentBreakdown  = data.circularity_supplementary?.treatment_breakdown ?? [];
 
   return (
     <main>
