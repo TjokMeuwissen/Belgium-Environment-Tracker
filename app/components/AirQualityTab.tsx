@@ -27,9 +27,15 @@ function fmt(v: any, unit: string | null) {
 
 function getProgress(latest: number | null, target: number | null, status?: string | null) {
   if (latest == null || target == null) return null;
+  // "Achieved" always renders as full bar
+  if (status === 'Achieved') return 100;
   const l = +latest, t = +target;
   if (isNaN(l) || isNaN(t) || t === 0) return null;
-  return Math.min(100, l < t ? (l / t) * 100 : (t / l) * 100);
+  // For ceiling-type targets (lower is better): if latest is already below
+  // the target, the goal is met — show 100%
+  if (l <= t) return 100;
+  // For floor-type targets (higher is better): show proportional progress
+  return Math.min(100, (t / l) * 100);
 }
 
 function progressColor(p: number) {
