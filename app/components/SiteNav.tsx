@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 const NAV_LINKS = [
   { href: '/indicators', label: 'Indicators' },
@@ -11,12 +12,18 @@ const NAV_LINKS = [
 
 export default function SiteNav() {
   const pathname = usePathname();
+
+  // Scroll to top on every page navigation
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [pathname]);
+
   return (
     <nav className="site-nav" aria-label="Site navigation">
       <div className="site-nav-inner">
         <Link href="/" className="site-nav-logo">
           <span className="site-nav-flag">🇧🇪</span>
-          <span className="site-nav-brand">Belgium Environment Tracker</span>
+          <span className="site-nav-brand">Home</span>
         </Link>
         <div className="site-nav-links">
           {NAV_LINKS.map(l => (
