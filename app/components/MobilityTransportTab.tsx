@@ -124,7 +124,8 @@ function BEVPanel({ history }: { history: any[] }) {
           ))}
         </div>
       </div>
-      <ResponsiveContainer width="100%" height={190}>
+      <div style={{ width: '100%', height: 190 }}>
+      <ResponsiveContainer width="100%" height="100%">
         <LineChart data={chartData} margin={{ top: 4, right: 16, left: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
           <XAxis dataKey="year" tick={{ fontSize: 11, fill: '#9ca3af' }} tickLine={false} />
@@ -138,6 +139,7 @@ function BEVPanel({ history }: { history: any[] }) {
           <Legend iconType="circle" iconSize={9} formatter={v => <span style={{ fontSize: '0.75rem', color: '#4b5563' }}>{v}</span>} />
         </LineChart>
       </ResponsiveContainer>
+      </div>
       <div style={{ background: '#f0fdf4', borderRadius: 6, padding: '6px 10px', border: '1px solid #bbf7d0', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
         <span style={{ fontSize: '0.76rem', color: '#166534' }}>🎯 <strong>2035 target:</strong> 100% zero-emission new cars (EU regulation)</span>
       </div>
@@ -169,7 +171,8 @@ function CO2Panel() {
           WLTP (Worldwide harmonised Light vehicles Test Procedure) is the EU&#39;s official test cycle since 2021 — more realistic than its predecessor NEDC but still ~10–20% below real-world driving.
         </p>
       </div>
-      <ResponsiveContainer width="100%" height={210}>
+      <div style={{ width: '100%', height: 210 }}>
+      <ResponsiveContainer width="100%" height="100%">
         <BarChart data={CO2_BY_FUEL} layout="vertical" margin={{ top: 4, right: 60, left: 10, bottom: 4 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" horizontal={false} />
           <XAxis type="number" tick={{ fontSize: 11, fill: '#9ca3af' }} tickLine={false} axisLine={false}
@@ -184,6 +187,7 @@ function CO2Panel() {
           </Bar>
         </BarChart>
       </ResponsiveContainer>
+      </div>
       <div style={{ background: '#fefce8', borderRadius: 6, padding: '8px 12px', border: '1px solid #fde68a' }}>
         <p style={{ fontSize: '0.76rem', color: '#713f12', margin: 0, lineHeight: 1.5 }}>
           <strong>⚠️ PHEV caveat:</strong> Official PHEV emissions (≈40 g/km) assume frequent charging. Real-world studies show that PHEVs driven primarily on petrol emit 80–120 g/km on average — similar to conventional cars. Company PHEVs in Belgium are often not charged regularly.
@@ -221,7 +225,8 @@ function PublicTransportPanel({ modalSplit }: { modalSplit: any[] }) {
         </p>
       </div>
 
-      <ResponsiveContainer width="100%" height={200}>
+      <div style={{ width: '100%', height: 200 }}>
+      <ResponsiveContainer width="100%" height="100%">
         <PieChart margin={{ top: 8, right: 0, bottom: 0, left: 0 }}>
           <Pie data={allData} cx="50%" cy="44%" outerRadius={72} dataKey="value" labelLine={false}>
             {allData.map((e, i) => <Cell key={i} fill={e.color} stroke="white" strokeWidth={2} />)}
@@ -231,6 +236,7 @@ function PublicTransportPanel({ modalSplit }: { modalSplit: any[] }) {
           <Legend iconType="circle" iconSize={9} formatter={v => <span style={{ fontSize: '0.73rem', color: '#4b5563' }}>{v}</span>} />
         </PieChart>
       </ResponsiveContainer>
+      </div>
 
       {/* Tram/metro note */}
       <div style={{ background: '#f0f9ff', borderRadius: 6, padding: '8px 12px', border: '1px solid #bae6fd' }}>
@@ -307,7 +313,8 @@ function FreightPanel() {
         <div style={{ fontWeight: 700, fontSize: '0.82rem', color: '#1a1a1a', marginBottom: 4 }}>
           Road freight share — EU country comparison (2022, %)
         </div>
-        <ResponsiveContainer width="100%" height={170}>
+        <div style={{ width: '100%', height: 170 }}>
+        <ResponsiveContainer width="100%" height="100%">
           <BarChart data={FREIGHT_EU_COMPARE} layout="vertical" margin={{ top: 2, right: 40, left: 10, bottom: 2 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" horizontal={false} />
             <XAxis type="number" tick={{ fontSize: 10, fill: '#9ca3af' }} tickLine={false} axisLine={false}
@@ -322,6 +329,7 @@ function FreightPanel() {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
+        </div>
         <p style={{ fontSize: '0.7rem', color: '#9ca3af', margin: '4px 0 0' }}>
           Switzerland and Austria achieve lower road shares via dense rail networks and Alpine transit policy. Belgium&#39;s inland waterway network (Scheldt, Meuse, Albert Canal) gives it structural potential to shift freight — largely untapped.
         </p>
