@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import SiteNav from './components/SiteNav'
 
 export const metadata: Metadata = {
   title: 'Belgium Environment Tracker',
@@ -17,7 +18,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <SiteNav />
+        {children}
+      </body>
     </html>
   )
 }
