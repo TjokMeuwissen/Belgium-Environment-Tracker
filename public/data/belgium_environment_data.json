@@ -758,8 +758,15 @@
           "eu_average": "EU Average",
           "belgium_vs_eu": "Belgium vs EU",
           "data_source_description": null,
+          "data_source": "Data Source",
           "notes": "Notes",
-          "short_description": null
+          "policy": "Policy / Agreement",
+          "short_description": "Short Description",
+          "policy_url": "Policy URL",
+          "data_source_url": "Data Source URL",
+          "target_context": "Target Context",
+          "consequences": "Consequences if target missed\n(legal / financial)",
+          "responsible": "Responsible level of government\n(Federal / Regional)"
         },
         {
           "indicator": "Zero-Emission New Car Registrations",
@@ -776,8 +783,15 @@
           "eu_average": 14,
           "belgium_vs_eu": "Belgium well above EU avg (14%); driven by company car tax reform (Dec 2021). 89% of BEVs are company cars. 2025: 35% share (145,170 units).",
           "data_source_description": null,
+          "data_source": "EAFO / Statbel / EV Belgium",
           "notes": "Strong momentum but private buyer uptake low (~13%). Used BEV market underdeveloped. Flanders subsidy discontinued late 2024.",
-          "short_description": "Share of new cars that are fully electric — Belgium leads the EU driven by the company car tax reform."
+          "policy": "EU Regulation 2023/851 (CO2 standards cars & vans); Belgian company car tax reform Dec 2021",
+          "short_description": "Share of new cars that are fully electric — Belgium leads the EU driven by the company car tax reform.",
+          "policy_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32023R0851 | https://eafo.eu",
+          "data_source_url": "https://eafo.eu/vehicles-and-fleet/m1 | https://statbel.fgov.be/en/themes/mobility/road-traffic | https://www.indicators.be/en/i/G11_EV/Electric_vehicles",
+          "target_context": "EU Regulation 2023/851 requires 100% zero-emission new car sales from 2035. Belgium (35%, 2025) leads the EU average (14%) driven by company car tax reform, not private buyers.",
+          "consequences": "Failure to achieve the 2035 mandate would expose Belgian car manufacturers and importers to EU penalty payments (the fleet CO₂ standard carries fines of €95 per g/km excess per car sold). The company car tax reform cliff edge (ICE deductibility drops to 0% by 2028) creates risk of fleet disruption if infrastructure is insufficient. PFAS contamination at EV battery recycling sites is an emerging environmental risk.",
+          "responsible": "Shared — Federal + Regions. Federal: vehicle taxation (company car benefit-in-kind), type approval compliance with EU regulation. Regions: charging infrastructure deployment, mobility plans, LEZ enforcement. Flanders: discontinued purchase subsidies (late 2024). Brussels/Wallonia: maintaining incentive schemes."
         },
         {
           "indicator": "Average CO₂ — New Passenger Cars",
@@ -794,8 +808,15 @@
           "eu_average": 107,
           "belgium_vs_eu": "EU avg ~107 g/km (2024). Belgium data available from EEA monitoring dataset. 2021 value (WLTP): ~117 g/km (Statista/NEDC converted). Sharp drop expected post-2024 with stricter 2025 targets.",
           "data_source_description": null,
+          "data_source": "EEA Monitoring of CO₂ from passenger cars (annual); Statbel / FEBIAC",
           "notes": "IMPORTANT – series break: 2008–2020 values are NEDC; 2021 onwards WLTP. These are NOT directly comparable. NEDC values approx. 20–25% lower than WLTP for same vehicle.",
-          "short_description": "Fleet-average CO₂ of new cars — falling fast thanks to electrification but still above 2030 targets."
+          "policy": "EU Regulation 2019/631 (CO2 standards); amended by 2023/851",
+          "short_description": "Fleet-average CO₂ of new cars — falling fast thanks to electrification but still above 2030 targets.",
+          "policy_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019R0631 | https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32023R0851",
+          "data_source_url": "https://www.eea.europa.eu/en/analysis/indicators/average-co2-emissions-from-new | https://statbel.fgov.be/en/themes/mobility/road-traffic",
+          "target_context": "EU fleet-average CO₂ target for new cars: 93.6 g/km by 2029 (Regulation 2019/631, amended by 2023/851). From 2035: 0 g/km for all new cars. ⚠️ Series break: pre-2021 values use NEDC test; 2021+ use WLTP (approx. 20–25% higher for same car).",
+          "consequences": "EU Regulation 2019/631 is binding. Manufacturers missing fleet targets pay €95 per g/km excess per vehicle sold — fines can reach hundreds of millions of euros. If Belgium's BEV surge stalls, the fleet average could rise above target, triggering manufacturer penalties passed on to consumers as higher prices. Failure to decarbonise the car fleet is the largest barrier to Belgium meeting its transport sector emission reduction obligations.",
+          "responsible": "Shared — Federal + EU. EU: sets mandatory fleet CO₂ standards (Regulation 2019/631; 2023/851) binding on manufacturers — not on Member States directly. Federal (Belgium): vehicle taxation incentives, fuel taxation, consumer information. Regions: company car policies, LEZ standards, mobility alternatives. Manufacturers are the primary compliance entity under EU law."
         },
         {
           "indicator": "Public Transport Share — Rail + Bus",
@@ -812,8 +833,15 @@
           "eu_average": 20.5,
           "belgium_vs_eu": "Belgium car share ~85%; EU average car share ~71% (2022). Belgium significantly more car-dependent than EU avg. No legally binding EU target for overall public transport share.",
           "data_source_description": null,
+          "data_source": "Eurostat tran_hv_psmod / EC DG MOVE",
           "notes": "Belgian data excludes tram & metro (Eurostat methodology). Car dominance unchanged since 2010. EU SSMS goal: double rail passengers by 2030 (not a binding % target).",
-          "short_description": "Share of travel by train and bus — Belgium remains one of the most car-dependent countries in the EU."
+          "policy": "EU Sustainable & Smart Mobility Strategy (COM/2020/789)",
+          "short_description": "Share of travel by train and bus — Belgium remains one of the most car-dependent countries in the EU.",
+          "policy_url": "https://transport.ec.europa.eu/transport-themes/clean-transport-urban-transport/sustainable-and-smart-mobility-strategy_en",
+          "data_source_url": "https://ec.europa.eu/eurostat/databrowser/view/tran_hv_psmod/default/table | https://transport.ec.europa.eu/document/download/b4bb5e90-44fc-4fd6-9913-a9fd53e06fc6_en",
+          "target_context": "No legally binding national target exists for passenger modal share in Belgium. The EU Sustainable & Smart Mobility Strategy (2020) sets a political objective to double rail passengers by 2030 vs 2015, but this is not an enforceable obligation. Belgium's 15% public transport share (rail + bus) has been effectively unchanged since 2010.",
+          "consequences": "Without modal shift, Belgium cannot meet its transport sector GHG reduction commitments. Car dominance perpetuates road congestion (costing Belgium an estimated €2 billion/year in productivity losses), high NOₓ and PM2.5 emissions in urban areas, and unequal access to mobility for non-drivers. The EU's revised TEN-T regulation and planned road pricing measures will increase pressure for a shift.",
+          "responsible": "Shared — Federal + 3 Regions. Federal: SNCB/NMBS funding and national rail infrastructure investment (Infrabel). Regions: bus networks (De Lijn in Flanders, TEC in Wallonia, STIB in Brussels), tram and metro, regional mobility plans, land-use planning (key driver of car dependency). Coordination: via the MORA mobility advisory council and the FNRS/FWO-funded mobility research programmes."
         },
         {
           "indicator": "Road Freight Modal Share — Inland",
@@ -830,8 +858,15 @@
           "eu_average": 75,
           "belgium_vs_eu": "Belgium broadly at EU average (~75%). Rail ~16.8%, Waterway ~8.2% (inland only, 2022). Road share increasing despite targets. Belgium is 1 of 3 EU MS that increased rail+waterway share 2010–2023.",
           "data_source_description": null,
+          "data_source": "EC DG MOVE / indicators.be / Eurostat tran_hv_frmod",
           "notes": "Target derived from Belgian Federal LT Vision 2013; linear interpolation 74% (2015) → target 63.7% by 2030. Maritime excluded from inland modal split. Note: Belgian rail freight data estimated by Eurostat 2012–2022.",
-          "short_description": "Share of freight moved by road — rising despite targets, with rail and waterway underused."
+          "policy": "Belgian Federal LT Strategic Vision for SD (2013); EU SSMS: +50% rail freight by 2030",
+          "short_description": "Share of freight moved by road — rising despite targets, with rail and waterway underused.",
+          "policy_url": "https://transport.ec.europa.eu/transport-themes/clean-transport-urban-transport/sustainable-and-smart-mobility-strategy_en | https://transport.ec.europa.eu/transport-themes/infrastructure-and-investment/trans-european-transport-network-ten-t_en",
+          "data_source_url": "https://ec.europa.eu/eurostat/databrowser/view/TRAN_HV_FRMOD/default/table | https://indicators.be/en/i/G11_FREIGHT/Road_freight_transport | https://www.infrabel.be/en",
+          "target_context": "Target of 63.7% road share by 2030 derived from Belgian Federal Long-Term Vision for Sustainable Development (2013). Road currently at 75% — 11.3 pp above target. The EU aims to shift 30% of road freight over 300 km to rail or waterways by 2030 (EU SSMS).",
+          "consequences": "Road freight dominance contributes to: (1) Belgium's chronic motorway congestion and associated economic costs (~€2 billion/year near Antwerp); (2) disproportionately high transport CO₂ from the freight sector; (3) road deterioration costs; (4) road safety risks (heavy trucks account for a disproportionate share of road fatalities). Missing the 2030 target risks delaying EU funding for TEN-T corridor projects and undermines Belgium's climate credibility.",
+          "responsible": "Shared — Federal + Regions + EU. Federal: railway freight policy, Infrabel funding, inland waterway policy coordination. Regions: road infrastructure investment, regional port policy, logistics park planning. Flanders: Antwerp Port Authority (rail freight target), De Vlaamse Waterweg (waterway management). Wallonia: SPW Mobilité (road + waterway), Port of Liège. EU: TEN-T regulation, Connecting Europe Facility (CEF) funding for modal shift projects."
         }
       ]
     }
