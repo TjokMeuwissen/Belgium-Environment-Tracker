@@ -30,7 +30,7 @@ interface Indicator {
 }
 
 interface TopicData { topic: string; indicators: Indicator[]; }
-interface EnvData   { topics: Record<string, TopicData>; historical: any; nature_supplementary: any; circularity_supplementary: any; water_supplementary: any; }
+interface EnvData   { topics: Record<string, TopicData>; historical: any; nature_supplementary: any; circularity_supplementary: any; water_supplementary: any; mobility_supplementary: any; air_supplementary: any; }
 
 const TOPIC_CONFIG: Record<string, { label: string; color: string; emoji: string }> = {
   climate_energy:      { label: 'Climate & Energy',     color: '#f97316', emoji: '🌡️' },
