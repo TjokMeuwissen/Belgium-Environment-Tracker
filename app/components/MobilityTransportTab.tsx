@@ -133,13 +133,14 @@ function BEVPanel({ history }: { history: any[] }) {
           <Tooltip
             contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 12 }}
             formatter={(v: any, n: any) => [`${v}%`, n]} />
-          <ReferenceLine y={100} stroke={TOPIC_COLOR} strokeDasharray="6 4" strokeWidth={1.8}
-            label={{ value: '🎯 2035: 100% ZEV', position: 'insideTopRight', fontSize: 10, fill: TOPIC_COLOR, fontWeight: 600 }} />
           <Line type="monotone" dataKey="BEV" stroke={TOPIC_COLOR} strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: TOPIC_COLOR }} />
           <Line type="monotone" dataKey="PHEV" stroke="#a78bfa" strokeWidth={2} dot={false} activeDot={{ r: 4, fill: '#a78bfa' }} strokeDasharray="5 3" />
           <Legend iconType="circle" iconSize={9} formatter={v => <span style={{ fontSize: '0.75rem', color: '#4b5563' }}>{v}</span>} />
         </LineChart>
       </ResponsiveContainer>
+      <div style={{ background: '#f0fdf4', borderRadius: 6, padding: '6px 10px', border: '1px solid #bbf7d0', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+        <span style={{ fontSize: '0.76rem', color: '#166534' }}>🎯 <strong>2035 target:</strong> 100% zero-emission new cars (EU regulation)</span>
+      </div>
       <p style={{ fontSize: '0.7rem', color: '#9ca3af', margin: 0 }}>
         Source: EAFO; EV Belgium; Statbel. The 2021 company car tax reform (100% BEV deductibility, ICE phasing to 0% by 2028) drove the surge from 2023. 89% of BEVs are company cars.
       </p>
@@ -178,8 +179,6 @@ function CO2Panel() {
           <Tooltip
             contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 12 }}
             formatter={(v: any, _n: any, props: any) => [`${v} g CO₂/km`, props.payload.note]} />
-          <ReferenceLine x={93.6} stroke={TOPIC_COLOR} strokeDasharray="5 3" strokeWidth={1.5}
-            label={{ value: '🎯 EU 2029', position: 'insideTopRight', fontSize: 9, fill: TOPIC_COLOR, fontWeight: 600 }} />
           <Bar dataKey="co2" radius={[0, 3, 3, 0]}>
             {CO2_BY_FUEL.map((d, i) => <Cell key={i} fill={d.color} />)}
           </Bar>
@@ -206,15 +205,10 @@ const MODAL_COLORS: Record<string, string> = {
 };
 
 function PublicTransportPanel({ modalSplit }: { modalSplit: any[] }) {
-  // Build pie data from modal split (exclude TOTAL non-car row, include tram/metro as N/A note)
-  const pieData = modalSplit
+  // Build pie data — modal_split already contains all modes including Passenger car
+  const allData = modalSplit
     .filter(m => m.mode !== 'TOTAL non-car' && m.share_2021 != null)
     .map(m => ({ name: m.mode, value: m.share_2021, color: MODAL_COLORS[m.mode] ?? '#94a3b8' }));
-
-  // Add car to fill to 100
-  const nonCarTotal = pieData.reduce((sum, d) => sum + d.value, 0);
-  const carShare = 100 - nonCarTotal;
-  const allData = [{ name: 'Passenger car', value: carShare, color: '#94a3b8' }, ...pieData.filter(d => d.name !== 'Passenger car')];
 
   return (
     <div style={{ padding: '14px 18px', display: 'flex', flexDirection: 'column', height: '100%', gap: 10 }}>
