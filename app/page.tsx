@@ -7,6 +7,7 @@ import NatureBiodiversityTab from './components/NatureBiodiversityTab';
 import CircularityWasteTab from './components/CircularityWasteTab';
 import WaterSoilTab from './components/WaterSoilTab';
 import AirQualityTab from './components/AirQualityTab';
+import MobilityTransportTab from './components/MobilityTransportTab';
 
 interface Indicator {
   indicator: string;
@@ -208,6 +209,8 @@ function HomeInner() {
   const landUse          = data.water_supplementary?.land_use ?? [];
   const nitrateSources   = data.water_supplementary?.nitrate_sources ?? [];
   const phosphateSources = data.water_supplementary?.phosphate_sources ?? [];
+  const modalSplit   = data.mobility_supplementary?.modal_split ?? [];
+  const bevHistory   = data.mobility_supplementary?.bev_history ?? [];
 
   return (
     <main>
@@ -283,6 +286,12 @@ function HomeInner() {
           />
         ) : activeTopic === 'air_quality' ? (
           <AirQualityTab indicators={activeIndicators} />
+        ) : activeTopic === 'mobility_transport' ? (
+          <MobilityTransportTab
+            indicators={activeIndicators}
+            modalSplit={modalSplit}
+            bevHistory={bevHistory}
+          />
         ) : (
           <>
             <div className="topic-header" style={{ borderColor: activeCfg.color }}>
