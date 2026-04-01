@@ -223,7 +223,8 @@ function HomeInner() {
             <div className="header-text">
               <p className="header-eyebrow">🇧🇪 Belgium</p>
               <h1>Environment Tracker</h1>
-              <p className="header-sub">Tracking Belgium's progress on climate &amp; environment objectives</p>
+              <p className="header-sub">Tracking Belgium&#39;s progress on a selected set of climate &amp; environment objectives</p>
+              <p className="header-indicator-count">{allIndicators.length} indicators assessed</p>
             </div>
             <div className="header-stats">
               <div className="stat-pill achieved">✅ {stats.achieved} Achieved</div>
@@ -240,8 +241,6 @@ function HomeInner() {
 
       <nav className="tabs" aria-label="Topics">
         {Object.entries(TOPIC_CONFIG).map(([key, cfg]) => {
-          const inds     = data.topics[key]?.indicators ?? [];
-          const offTrack = inds.filter(i => i.status === 'Off track').length;
           return (
             <button
               key={key}
@@ -251,7 +250,6 @@ function HomeInner() {
             >
               <span className="tab-emoji">{cfg.emoji}</span>
               <span className="tab-label">{cfg.label}</span>
-              {offTrack > 0 && <span className="tab-badge">{offTrack}</span>}
             </button>
           );
         })}

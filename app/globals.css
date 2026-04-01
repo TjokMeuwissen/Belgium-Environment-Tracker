@@ -56,7 +56,8 @@ header { position: relative; background: #1a1a1a; color: white; overflow: hidden
 
 header h1 { font-family: 'Roboto', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 10px; }
 
-.header-sub { color: #b0b0b0; font-size: 0.95rem; max-width: 420px; }
+.header-sub { color: #b0b0b0; font-size: 0.95rem; max-width: 480px; }
+.header-indicator-count { color: #9ca3af; font-size: 0.85rem; margin-top: 6px; }
 .header-stats { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
 .stat-pill { padding: 6px 14px; border-radius: 999px; font-size: 0.82rem; font-weight: 600; white-space: nowrap; }
