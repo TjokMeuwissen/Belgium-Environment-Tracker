@@ -1,1 +1,35 @@
+'use client';
 
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+const NAV_LINKS = [
+  { href: '/indicators', label: 'Indicators' },
+  { href: '/learn',      label: 'Learn'       },
+  { href: '/blog',       label: 'Blog'        },
+];
+
+export default function SiteNav() {
+  const pathname = usePathname();
+  return (
+    <nav className="site-nav" aria-label="Site navigation">
+      <div className="site-nav-inner">
+        <Link href="/" className="site-nav-logo">
+          <span className="site-nav-flag">🇧🇪</span>
+          <span className="site-nav-brand">Belgium Environment Tracker</span>
+        </Link>
+        <div className="site-nav-links">
+          {NAV_LINKS.map(l => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`site-nav-link${pathname?.startsWith(l.href) ? ' active' : ''}`}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </nav>
+  );
+}
