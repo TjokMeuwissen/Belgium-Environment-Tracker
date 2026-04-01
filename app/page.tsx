@@ -69,14 +69,16 @@ export default function Home() {
           <p className="landing-eyebrow">🇧🇪 Belgium</p>
           <h1 className="landing-title">Environment Tracker</h1>
           <p className="landing-desc">
-            An independent tracker monitoring Belgium&#39;s progress on a selected set of climate &amp; environment objectives — drawing on data from the EEA, Eurostat, VMM, ISSeP and other official sources.
+            An independent tracker monitoring Belgium&#39;s progress on a selected set of climate &amp; environment objectives.
           </p>
           {stats && (
-            <div className="landing-hero-stats">
-              <div className="stat-pill achieved">✅ {stats.achieved} Achieved</div>
-              <div className="stat-pill ontrack">🟢 {stats.onTrack} On track</div>
-              <div className="stat-pill offtrack">🔴 {stats.offTrack} Off track</div>
-              <div className="stat-pill nodata">📋 {stats.total} indicators total</div>
+            <div className="landing-hero-stats-wrap">
+              <p className="landing-hero-total">{stats.total} indicators assessed</p>
+              <div className="landing-hero-stats">
+                <div className="stat-pill achieved">✅ {stats.achieved} Achieved</div>
+                <div className="stat-pill ontrack">🟢 {stats.onTrack} On track</div>
+                <div className="stat-pill offtrack">🔴 {stats.offTrack} Off track</div>
+              </div>
             </div>
           )}
         </div>

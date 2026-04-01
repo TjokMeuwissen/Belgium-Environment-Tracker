@@ -438,9 +438,9 @@ footer { background: #1a1a1a; color: #666; text-align: center; padding: 24px 32p
 }
 
 .landing-hero-inner {
-  max-width: 1200px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 64px 48px 60px 80px;
+  padding: 64px 48px 60px;
 }
 
 .landing-eyebrow {
@@ -471,6 +471,20 @@ footer { background: #1a1a1a; color: #666; text-align: center; padding: 24px 32p
   margin-bottom: 28px;
 }
 
+.landing-hero-stats-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.landing-hero-total {
+  font-family: 'Epilogue', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 0.04em;
+}
+
 .landing-hero-stats {
   display: flex;
   flex-wrap: wrap;
@@ -478,9 +492,9 @@ footer { background: #1a1a1a; color: #666; text-align: center; padding: 24px 32p
 }
 
 .landing-sections {
-  max-width: 1100px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 52px 24px 80px;
+  padding: 52px 48px 80px;
 }
 
 .landing-sections-label {
@@ -640,7 +654,7 @@ footer { background: #1a1a1a; color: #666; text-align: center; padding: 24px 32p
 
 @media (max-width: 640px) {
   .site-nav-brand { display: none; }
-  .landing-hero-inner { padding: 48px 20px 44px 64px; }
+  .landing-hero-inner { padding: 48px 24px 44px; }
   .shell-header { padding: 40px 20px 36px 64px; }
   .landing-grid { grid-template-columns: 1fr; }
 }
