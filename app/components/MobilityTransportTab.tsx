@@ -141,18 +141,17 @@ function BEVPanel({ history }: { history: any[] }) {
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
           <XAxis dataKey="year" tick={{ fontSize: 11, fill: '#9ca3af' }} tickLine={false} />
           <YAxis tick={{ fontSize: 11, fill: '#9ca3af' }} tickLine={false} axisLine={false}
-            width={34} domain={[0, 50]} tickFormatter={v => `${v}%`} />
+            width={34} domain={[0, 100]} tickFormatter={v => `${v}%`} />
           <Tooltip
             contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 12 }}
             formatter={(v: any, n: any) => [`${v}%`, n]} />
+          <ReferenceLine y={100} stroke={TOPIC_COLOR} strokeDasharray="6 4" strokeWidth={1.8}
+            label={{ value: '🎯 2035: 100% ZEV', position: 'insideTopRight', fontSize: 10, fill: TOPIC_COLOR, fontWeight: 600 }} />
           <Line type="monotone" dataKey="BEV" stroke={TOPIC_COLOR} strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: TOPIC_COLOR }} />
           <Line type="monotone" dataKey="PHEV" stroke="#a78bfa" strokeWidth={2} dot={false} activeDot={{ r: 4, fill: '#a78bfa' }} strokeDasharray="5 3" />
           <Legend iconType="circle" iconSize={9} formatter={v => <span style={{ fontSize: '0.75rem', color: '#4b5563' }}>{v}</span>} />
         </LineChart>
       </ResponsiveContainer>
-      </div>
-      <div style={{ background: '#f0fdf4', borderRadius: 6, padding: '6px 10px', border: '1px solid #bbf7d0', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-        <span style={{ fontSize: '0.76rem', color: '#166534' }}>🎯 <strong>2035 target:</strong> 100% zero-emission new cars (EU regulation)</span>
       </div>
       <p style={{ fontSize: '0.7rem', color: '#9ca3af', margin: 0 }}>
         Source: EAFO; EV Belgium; Statbel. The 2021 company car tax reform (100% BEV deductibility, ICE phasing to 0% by 2028) drove the surge from 2023. 89% of BEVs are company cars.
