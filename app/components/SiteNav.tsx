@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: '/indicators', label: 'Indicators' },
   { href: '/learn',      label: 'Learn'       },
   { href: '/blog',       label: 'Blog'        },
+  { href: '/about',      label: 'About'       },
 ];
 
 export default function SiteNav() {
