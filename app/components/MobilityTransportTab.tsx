@@ -99,21 +99,22 @@ function IndicatorLeft({ ind, slug }: { ind: any; slug: string }) {
 
 // ── Panel: BEV + PHEV historical chart ───────────────────────────────────────
 const BEV_HISTORY_FALLBACK = [
-  { year: '2018', BEV: 1.1,  PHEV: 2.4  },
-  { year: '2019', BEV: 1.2,  PHEV: 3.5  },
-  { year: '2020', BEV: 2.8,  PHEV: 8.7  },
-  { year: '2021', BEV: 7.2,  PHEV: 19.8 },
-  { year: '2022', BEV: 9.1,  PHEV: 16.3 },
-  { year: '2023', BEV: 19.6, PHEV: 19.6 },
-  { year: '2024', BEV: 28.5, PHEV: 15.0 },
-  { year: '2025', BEV: 35.0, PHEV: 9.0  },
+  { year: '2018', BEV: 1.1,  PHEV: 2.4,  Combined: 3.5  },
+  { year: '2019', BEV: 1.2,  PHEV: 3.5,  Combined: 4.7  },
+  { year: '2020', BEV: 2.8,  PHEV: 8.7,  Combined: 11.5 },
+  { year: '2021', BEV: 7.2,  PHEV: 19.8, Combined: 27.0 },
+  { year: '2022', BEV: 9.1,  PHEV: 16.3, Combined: 25.4 },
+  { year: '2023', BEV: 19.6, PHEV: 19.6, Combined: 39.2 },
+  { year: '2024', BEV: 28.5, PHEV: 15.0, Combined: 43.5 },
+  { year: '2025', BEV: 35.0, PHEV: 9.0,  Combined: 44.0 },
 ];
 
 function BEVPanel({ history }: { history: any[] }) {
   const chartData = (history.length > 0 ? history : BEV_HISTORY_FALLBACK).map(h => ({
-    year: h.year ? String(h.year) : h.year,
-    BEV:  h.bev_share ?? h.BEV,
-    PHEV: h.phev_share ?? h.PHEV,
+    year:     h.year ? String(h.year) : h.year,
+    BEV:      h.bev_share ?? h.BEV,
+    PHEV:     h.phev_share ?? h.PHEV,
+    Combined: h.combined_share ?? h.Combined ?? ((h.bev_share ?? h.BEV ?? 0) + (h.phev_share ?? h.PHEV ?? 0)),
   }));
 
   return (
@@ -147,8 +148,9 @@ function BEVPanel({ history }: { history: any[] }) {
             formatter={(v: any, n: any) => [`${v}%`, n]} />
           <ReferenceLine y={100} stroke={TOPIC_COLOR} strokeDasharray="6 4" strokeWidth={1.8}
             label={{ value: '🎯 2035: 100% ZEV', position: 'insideTopRight', fontSize: 10, fill: TOPIC_COLOR, fontWeight: 600 }} />
-          <Line type="monotone" dataKey="BEV" stroke={TOPIC_COLOR} strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: TOPIC_COLOR }} />
-          <Line type="monotone" dataKey="PHEV" stroke="#a78bfa" strokeWidth={2} dot={false} activeDot={{ r: 4, fill: '#a78bfa' }} strokeDasharray="5 3" />
+          <Line type="monotone" dataKey="Combined" stroke="#1a1a1a" strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: '#1a1a1a' }} />
+          <Line type="monotone" dataKey="BEV" stroke={TOPIC_COLOR} strokeWidth={1.8} dot={false} activeDot={{ r: 4, fill: TOPIC_COLOR }} strokeDasharray="5 3" />
+          <Line type="monotone" dataKey="PHEV" stroke="#a78bfa" strokeWidth={1.8} dot={false} activeDot={{ r: 4, fill: '#a78bfa' }} strokeDasharray="5 3" />
           <Legend iconType="circle" iconSize={9} formatter={v => <span style={{ fontSize: '0.75rem', color: '#4b5563' }}>{v}</span>} />
         </LineChart>
       </ResponsiveContainer>
@@ -336,7 +338,7 @@ function FreightPanel() {
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" horizontal={false} />
             <XAxis type="number" tick={{ fontSize: 10, fill: '#9ca3af' }} tickLine={false} axisLine={false}
               domain={[0, 100]} tickFormatter={v => `${v}%`} />
-            <YAxis type="category" dataKey="country" tick={{ fontSize: 10, fill: '#374151' }} tickLine={false} axisLine={false} width={90} />
+            <YAxis type="category" dataKey="country" tick={{ fontSize: 10, fill: '#374151' }} tickLine={false} axisLine={false} width={90} interval={0} />
             <Tooltip contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 11 }}
               formatter={(v: any) => [`${v}%`, 'Road share']} />
             <ReferenceLine x={63.7} stroke={TOPIC_COLOR} strokeDasharray="5 3" strokeWidth={1.5}
