@@ -33,7 +33,7 @@
           "data_source_description": "Annual national GHG inventory totals 1990–2023, broken down by gas and sector",
           "notes": "WAM scenario projects 83.7 MtCO₂eq by 2030 — still well above 64.3 target. Court ruling Nov 2023 found targets legally insufficient.",
           "consequences": "ESR non-compliance: if Belgium misses annual emission allocations, it must purchase extra allowances from other MS or face tightened future targets (×1.08 penalty factor). Compliance checks every 5 years (2027, 2032). Continued shortfall can trigger EU infringement proceedings → referral to Court of Justice → financial fines. Belgium already faced infringement for late NECP submission (2024). Court ruling (Nov 2023) ordered accelerated action. No direct fine per tonne of CO2 missed, but political and financial pressure is significant.",
-          "responsible": "Shared — Federal + 3 Regions. Belgium as a whole is accountable to the EU (ESR). Internally, responsibility is split: Flanders, Wallonia and Brussels each have their own climate plans. A burden-sharing agreement divides the national ESR target. Brussels and Wallonia committed to -47%; Flanders only -40% (below national obligation). Federal government covers federal buildings, vehicles and makes up remaining gap. Coordinated via the Interministerial Conference on the Environment (ICE).",
+          "responsible": "Shared (primary). Belgium as a whole is accountable to the EU (ESR). Internally responsibility is split: Flanders, Wallonia and Brussels each have their own climate plans. A burden-sharing agreement between Federal and Regional governments is required to assign sub-national targets but has not been finalised.",
           "short_description": "Belgium's total greenhouse gas emissions — currently 97.9 MtCO₂eq, far above the 2030 target of 64.3 Mt."
         },
         {
@@ -55,7 +55,7 @@
           "data_source_description": "Annual renewable share of gross final energy consumption, EU harmonised methodology",
           "notes": "Belgium has one of the lowest RES shares in EU. Figure includes imported renewable electricity and statistical transfers — not purely domestic production. No separate domestic production target exists.",
           "consequences": "Under RED III, failure to meet the 2030 RES target can trigger EU infringement proceedings. Belgium already subject to infringement for incomplete RED transposition (INFR 2021/0145). If Belgium misses its national contribution, it must make 'statistical transfers' — paying other MS for their surplus renewable energy. This is costly but legal. Persistent non-compliance can lead to ECJ referral and financial penalties.",
-          "responsible": "Shared — Federal + 3 Regions. Offshore wind: Federal (North Sea EEZ). Onshore renewables, energy efficiency in buildings, regional grid: Regions. Heating & transport biofuels: mixed. Belgium used statistical transfers from other MS to meet 2020 target. The inter-federal Energy Pact sets the framework; regions implement under their own competences.",
+          "responsible": "Shared (primary). Offshore wind: Federal government (North Sea EEZ). Onshore renewables, energy efficiency in buildings and regional grid: Regions. Heating and transport biofuels: mixed. Belgium used statistical transfers to meet its 2020 target, reflecting governance fragmentation.",
           "short_description": "Share of renewables in total energy consumption — Belgium has one of the lowest rates in the EU."
         },
         {
@@ -77,7 +77,7 @@
           "data_source_description": "Annual primary energy consumption 2005–2022 in exajoules | Belgian macroeconomic and energy modelling data",
           "notes": "2022 value = 1.89 EJ (≈45.1 Mtoe). Target = 1.41 EJ (≈33.7 Mtoe). Current trajectory does not meet either EU or NECP target.",
           "consequences": "The EED target is indicative (not strictly binding for member states individually). However, failure to implement required energy efficiency measures can trigger infringement proceedings. No direct financial penalty per unit of energy over-consumed, but infringement → ECJ → lump sum / daily fines. Belgium already missed its 2020 indicative targets.",
-          "responsible": "Shared — Federal + 3 Regions. Energy efficiency in buildings, industry and transport: primarily Regional. Product standards, building codes at federal level. No single authority is solely responsible — requires coordination via ICE.",
+          "responsible": "Shared (primary). Energy efficiency in buildings, industry and transport: primarily Regional. Product standards and building codes: Federal. No single authority is solely responsible — the target is a national aggregate requiring coordinated action.",
           "short_description": "Total primary energy use before processing — Belgium is off track for both its EU and national targets."
         },
         {
@@ -99,7 +99,7 @@
           "data_source_description": "Final energy consumed by all end-use sectors 2022, climate-corrected | Commercial energy data by country | EU energy balance statistics",
           "notes": "EEA assessment suggests Belgium is broadly on track. Main challenges: buildings and transport sectors.",
           "consequences": "Same as Primary Energy Consumption — indicative target under EED. Infringement risk if Belgium fails to implement the required legislative and policy measures. EEA currently assesses Belgium as broadly on track, reducing immediate legal risk.",
-          "responsible": "Shared — Federal + 3 Regions. Same division as primary energy. Regions lead on buildings, industry efficiency and transport. Federal government on federal buildings and product policies.",
+          "responsible": "Shared (primary). Regions lead on buildings, industry efficiency and transport. Federal government on federal buildings and product policies.",
           "short_description": "Total energy consumed by industry, transport, households and services — currently near its 2030 target."
         },
         {
@@ -121,7 +121,7 @@
           "data_source_description": "Annual renewable electricity generation share by source (wind, solar, biomass, hydro) | EU renewable energy shares by technology",
           "notes": "Strong growth in offshore wind and solar PV. 2023 breakdown: wind 18%, solar 9%, biomass 5%, hydro <1%.",
           "consequences": "Sub-target under RED III. Covered by the same infringement risk as the overall RES target. No standalone fine mechanism for this sub-target specifically — enforced as part of overall RED compliance.",
-          "responsible": "Shared — Federal + 3 Regions. Offshore wind: Federal. Onshore wind, solar PV, biomass: Regional. Grid infrastructure and market regulation: partly Federal (transmission) and Regional (distribution). Belgium's nuclear policy (lifetime extension) is a Federal decision impacting the electricity mix.",
+          "responsible": "Shared (primary). Offshore wind: Federal. Onshore wind, solar PV and biomass: Regional. Grid infrastructure and market regulation: partly Federal (transmission) and Regional (distribution). Brussels depends almost entirely on imports.",
           "short_description": "Share of electricity generated from wind, solar, hydro and biomass — growing strongly since 2020."
         },
         {
@@ -143,7 +143,7 @@
           "data_source_description": "EU climate neutrality assessments and long-term strategy documents | Belgian macroeconomic and energy modelling",
           "notes": "Belgium's LTS2050 supports the pathway but lacks a binding national neutrality target. Court ruling Nov 2023 found current targets legally insufficient.",
           "consequences": "Under the European Climate Law, net-zero by 2050 is a binding EU-level obligation. The Commission can open infringement proceedings against member states that fail to adopt adequate policies. No direct financial fine specified, but ECJ referral is possible. Belgium's LTS2050 does not yet include a binding national 2050 target, leaving it exposed.",
-          "responsible": "Shared — Federal + 3 Regions. All levels must contribute. No binding national law currently assigns 2050 targets by level of government. The three regions each have 2050 visions in their own climate plans. Federal level adopted a Long-Term Strategy (LTS2050) but without binding national neutrality commitment.",
+          "responsible": "Shared (primary). All levels must contribute. No binding national law currently assigns 2050 targets by level of government. The three regions each have 2050 visions in their own climate plans.",
           "short_description": "Belgium's pathway to net-zero emissions by 2050 — no binding national target currently in place."
         },
         {
@@ -165,7 +165,7 @@
           "data_source_description": "Per-capita GHG derived from national GHG inventory | Carbon inequality and Paris fair-share budget research | Consumption-based emissions research",
           "notes": "Belgium (8.3 t) is 3.6× the 2030 Paris fair-share level (2.3 t). Consumption-based footprint (incl. imports) ~12–14 t/cap. Some equity frameworks argue wealthy nations should go further given historical emissions.",
           "consequences": "No direct financial penalty for missing a per-capita target — this is a derived indicator rather than a legally binding standalone obligation. Consequences flow through the underlying regulations (ESR, Climate Law) rather than this metric directly. Used for political accountability and public communication.",
-          "responsible": "Shared — Federal + 3 Regions. Same division as total GHG emissions — per-capita is a derived indicator from the national total, so responsibility mirrors the overall GHG governance structure.",
+          "responsible": "Shared (primary). Same division as total GHG emissions — per-capita is a derived indicator from the national total, so responsibility mirrors the overall GHG governance structure.",
           "short_description": "Average annual emissions per Belgian — at 8.3 t/cap, more than 3× the Paris Agreement fair-share level."
         }
       ]
@@ -192,7 +192,7 @@
           "data_source_description": null,
           "notes": "Natura 2000 covers 12.7% of land; nationally designated areas add 5.4% (most overlapping with Natura 2000). Share almost unchanged since 2012. EU average: 26.4% in 2023.",
           "consequences": "EU infringement proceedings if Belgium fails to designate sufficient protected areas or implement adequate management. The EU Biodiversity Strategy is not itself directly enforceable as a regulation, but the underlying Habitats and Birds Directives are binding. Belgium has previously faced infringement for inadequate Natura 2000 implementation. No direct financial fine per % of land unprotected, but ECJ referral and fines are possible for systematic non-compliance with the Habitats Directive.",
-          "responsible": "Primarily Regional (3 Regions). Nature conservation and protected area designation are core regional competences. Flanders: ANB (Agency for Nature and Forests). Wallonia: DNF (Department of Nature and Forests). Brussels: Bruxelles Environnement. Federal government: responsible for marine protected areas (North Sea) and Natura 2000 on federal domains (military, railway). All coordinated through ICE.",
+          "responsible": "Regional (primary). Nature conservation and protected area designation are core regional competences. Flanders: ANB (Agency for Nature and Forests). Wallonia: DNF (Department of Nature and Forests) and DEMNA. Brussels: Bruxelles Environnement. Federal role limited to marine areas and federal estates (military, railway).",
           "short_description": "Share of Belgium's land legally protected — at 14.7%, well below the EU 30% target for 2030."
         },
         {
@@ -214,7 +214,7 @@
           "data_source_description": null,
           "notes": "Belgium has not yet formally defined or mapped its strictly protected areas. Definition and criteria under development at EU level. Current value not reported.",
           "consequences": "Same infringement risk as protected land area overall. Currently low immediate legal risk as the definition and criteria for 'strictly protected' areas are still being developed at EU level. Enforcement likely to increase once criteria are formally agreed.",
-          "responsible": "Primarily Regional (3 Regions). Same as protected land area. Federal role limited to marine areas and federal estates.",
+          "responsible": "Regional (primary). Same as protected land area. Federal role limited to marine areas and federal estates.",
           "short_description": "Share of land under strict protection with minimal human intervention — definition still being finalised."
         },
         {
@@ -236,7 +236,7 @@
           "data_source_description": null,
           "notes": "Belgium's North Sea EEZ is relatively small (~3,600 km²). Marine protection coverage is high (37.8%) but effectiveness of management is debated — designation alone does not guarantee biodiversity recovery.",
           "consequences": "Target already achieved (37.8%). No current legal risk. However, OSPAR Convention and Habitats Directive require effective management of designated sites — designation alone is not sufficient. Infringement risk if sites are not effectively managed.",
-          "responsible": "Federal. The North Sea EEZ falls under federal competence. Managed by the Marine Environment Service (FPS Health). Offshore wind, marine Natura 2000 and OSPAR commitments are all federal responsibilities.",
+          "responsible": "Federal (primary). The North Sea EEZ falls under federal competence. Managed by the Marine Environment Service (FPS Health). Offshore wind, marine Natura 2000 and OSPAR commitments are all federal responsibilities.",
           "short_description": "Share of Belgium's North Sea waters legally protected — already exceeding the 30% EU target."
         },
         {
@@ -258,7 +258,7 @@
           "data_source_description": null,
           "notes": "Belgium had 7.9% organic area in 2022, up from ~4% in 2012. Growth is positive but far below the 25% target. EU average was 10.5% in 2022. Flanders lags Wallonia significantly.",
           "consequences": "No direct penalty for missing the 25% organic target — it is set in the Farm to Fork Strategy (a policy communication, not a binding regulation). However, CAP Strategic Plans must include organic farming support measures; failure to implement CAP correctly can trigger financial corrections (clawback of EU agricultural subsidies).",
-          "responsible": "Primarily Regional (3 Regions). Agricultural policy and CAP implementation are Regional competences. Each region has its own organic farming support scheme. Coordination via inter-federal agricultural bodies. Federal: product labelling and fraud control.",
+          "responsible": "Regional (primary). Agricultural policy and CAP implementation are regional competences. Each region has its own organic farming support scheme. Coordination via inter-federal agricultural bodies.",
           "short_description": "Share of agricultural land under certified organic farming — at 7.9%, far below the 25% EU target."
         },
         {
@@ -280,7 +280,7 @@
           "data_source_description": null,
           "notes": "Latest Habitats Directive assessment (Art. 17, 2019): only 4.3% of Belgian habitats of European importance in favourable conservation status. Situation is very poor — one of the worst in the EU for habitats. Reported every 6 years; next report due 2025.",
           "consequences": "Binding under the Habitats Directive (Art. 17). Belgium must report every 6 years. Failure to achieve or maintain favourable conservation status, or to take adequate conservation measures, can trigger infringement proceedings → ECJ → fines. Belgium has already received formal notices regarding inadequate Natura 2000 management. Conservation status in Belgium is among the worst in EU.",
-          "responsible": "Primarily Regional (3 Regions). Habitats Directive reporting and conservation management are regional. Flanders reports via INBO; Wallonia via DEMNA; Brussels via Bruxelles Environnement. Federal level coordinates the consolidated national submission to the EU every 6 years.",
+          "responsible": "Regional (primary). Habitats Directive reporting and conservation management are regional. Flanders: INBO. Wallonia: DEMNA. Brussels: Bruxelles Environnement. Federal level responsible for international treaty ratification (CBD).",
           "short_description": "Share of EU-protected species and habitats in good condition — Belgium is among the worst in Europe."
         },
         {
@@ -302,7 +302,7 @@
           "data_source_description": null,
           "notes": "Farmland bird index fell from 100 (1990) to 50.9 (2023) — a catastrophic 49% decline. No numeric recovery target set for Belgium specifically. NRR requires halt and reversal by 2030. EU standardised pollinator monitoring scheme to be deployed by 2026. The grassland butterfly index is an additional indicator (data less complete).",
           "consequences": "Legally binding under Nature Restoration Regulation (Art. 11) — Belgium must halt and reverse pollinator decline by 2030 and deploy the EU pollinator monitoring scheme by 2026. Non-compliance → infringement → ECJ → fines. The NRR is the first binding legal instrument on pollinators.",
-          "responsible": "Primarily Regional (3 Regions). Agricultural practices impacting pollinators: Regional (CAP, agri-environment). Urban green spaces: Regional/municipal. Pesticide authorisation: Federal. Monitoring coordination: Federal (via National Focal Points) + Regional (INBO, Natagora, SPARNE-DEMNA).",
+          "responsible": "Regional (primary). Agricultural practices impacting pollinators: Regional (CAP, agri-environment). Urban green spaces: Regional and municipal. Pesticide authorisation: Federal. Monitoring coordinated by INBO (Flanders) and DEMNA (Wallonia).",
           "short_description": "Index tracking farmland bird populations — a proxy for broader biodiversity health in agricultural areas."
         },
         {
@@ -324,7 +324,7 @@
           "data_source_description": null,
           "notes": "IAS are a growing pressure on Belgian biodiversity. The EU IAS Regulation lists species of Union concern requiring management. No Belgium-specific baseline percentage currently published. Trend is worsening as new IAS (e.g. Asian hornet, Fallopia japonica) continue to spread.",
           "consequences": "Binding under EU IAS Regulation (1143/2014) — member states must manage listed species of Union concern. Failure to implement required management measures can trigger infringement. No specific penalty for the -50% red-listed species target (part of Biodiversity Strategy, not IAS Regulation directly).",
-          "responsible": "Shared — Federal + 3 Regions. Federal: trade and import controls (CITES, customs), marine IAS. Regions: terrestrial management of IAS on regional territory. Coordination via the Interministerial Conference on the Environment. Belgium has a National IAS Committee.",
+          "responsible": "Shared (primary). Trade and import controls (CITES, customs) and marine IAS: Federal. Terrestrial management of IAS on regional territory: Regions. Coordination via the Interministerial Conference for the Environment.",
           "short_description": "Number of red-listed species threatened by invasive alien species — currently insufficient data."
         },
         {
@@ -346,7 +346,7 @@
           "data_source_description": null,
           "notes": "HOW THE INDICATOR WORKS:\nTwo metrics exist: (1) % of ecosystem area exceeding critical load [used for ZPAP target]; (2) Average Accumulated Exceedance (AAE) in eq N ha⁻¹ yr⁻¹ [measures intensity of exceedance].\n\nWHAT 'CRITICAL LOAD' MEANS: The maximum nitrogen deposition an ecosystem can absorb without long-term damage. When exceeded, eutrophication occurs — excess nitrogen favours aggressive plant species, reducing biodiversity.\n\nBELGIUM-SPECIFIC DATA AVAILABILITY: No Belgium country-level % figure is published in a national table. Data exists only in the EEA/CCE GIS raster dataset (grid-cell level). The EU-27 figure (14% reduction by 2023) is used as proxy. Belgium almost certainly performs below this average given its persistent hotspot status — the border area with the Netherlands remains among the most severely affected in all of Europe.\n\nPROXY — BELGIUM NH3 EMISSIONS: Belgium met its 2030 NEC commitment for NH3 already in 2020 (one of only 2 MS to do so). This is positive, but NH3 reduction alone does not translate immediately to critical load compliance, as accumulated nitrogen in soils persists for decades.\n\nEU-WIDE BASELINE SCENARIO: In 2005, ~86% of EU ecosystem area exceeded N critical loads. By 2023: ~75% (14% reduction). 2030 target: ~64% (25% reduction). The EC 4th Clean Air Outlook projects this is 'unlikely' to be achieved under current policies.",
           "consequences": "Indirect legal consequences via NEC Directive (binding NH3 and NOx ceilings) and potentially Water Framework Directive (if eutrophication leads to water quality failures). Belgium has previously missed NEC ceilings for NH3. Direct infringement possible for missing NEC ceilings → ECJ → fines. The 25% reduction target (ZPAP) is a policy target without standalone legal enforceability.",
-          "responsible": "Shared — Federal + 3 Regions. NH3 from agriculture: Regional (agricultural policy). NOx from transport: Regional (mobility policy) and Federal (product standards, fuel). Industrial emissions: Regional (permitting) and Federal (product policy). NEC Directive compliance is a national obligation coordinated federally but delivered by regions.",
+          "responsible": "Shared (primary). NH₃ from agriculture: Regional (agricultural policy). NOₓ from transport: Regional (mobility policy) and Federal (product standards, fuel). Industrial emissions: Regional (IED permits). NEC Directive compliance: national.",
           "short_description": "Share of ecosystems where nitrogen deposition exceeds safe limits — mainly driven by agriculture."
         }
       ]
@@ -395,7 +395,7 @@
           "data_source_description": null,
           "notes": "2023 breakdown by material: glass 93%, metals 97%, paper/cardboard 84%, plastic 60%, wood 66%. Paper/cardboard = 40% of total packaging weight. Belgium is one of 7 EU countries already meeting the 2030 target. The new PPWR (EU 2025/40) introduces binding waste prevention targets (−5% by 2030 vs 2018) applicable from August 2026.",
           "consequences": "Belgium already exceeds the 2030 target (70%). The PPWR introduces prevention and recycled content requirements. Non-compliance with the directly applicable Regulation from August 2026 → infringement risk if national law not updated in time.",
-          "responsible": "Shared — Federal framework (Interregional Cooperation Agreement; IVCIE). Regional implementation: OVAM (Flanders), SPW (Wallonia), Bruxelles-Environnement (Brussels). Fost Plus = household packaging EPR; Valipac = industrial/commercial packaging EPR.",
+          "responsible": "Shared (primary). Federal framework (Interregional Cooperation Agreement; IVCIE). Regional implementation: OVAM (Flanders), SPW (Wallonia), Bruxelles-Environnement (Brussels). Fost Plus manages household packaging EPR scheme.",
           "short_description": "Share of all packaging materials recycled — Belgium already exceeds the 2030 EU target of 70%."
         },
         {
@@ -417,7 +417,7 @@
           "data_source_description": null,
           "notes": "Belgium ranked #1 in the EU for plastic packaging recycling in 2023 (59.5%), up from 39% in 2013. EU average was 42.1% in 2023. Plastic packaging = 18% of total packaging weight in Belgium. PPWR (EU 2025/40) introduces recycled content targets (30% recycled plastic in all plastic bottles by 2030) and design-for-recycling requirements applicable from August 2026.",
           "consequences": "Target already exceeded. PPWR will introduce recycled content targets and stricter labelling requirements. Non-compliance with PPWR from August 2026 → infringement risk.",
-          "responsible": "Shared — Federal cooperation agreement (IVCIE). Regional implementation via OVAM (Flanders), SPW (Wallonia), Bruxelles-Environnement. EPR schemes (Fost Plus / Valipac) are the main operational vehicles.",
+          "responsible": "Shared (primary). Federal cooperation agreement (IVCIE). Regional implementation via OVAM (Flanders), SPW (Wallonia), Bruxelles-Environnement. EPR schemes (Fost Plus / Valipac) are the main operational vehicle.",
           "short_description": "Share of plastic packaging recycled — Belgium ranks first in the EU at 59.5%, above the 2030 target."
         },
         {
@@ -439,7 +439,7 @@
           "data_source_description": null,
           "notes": "Belgium generated 700 kg/cap in 2023, up from 683 kg in 2022 (but below 760 kg peak in 2021). The EU27 average was ~513 kg/cap in 2022. The 2020 series break (inclusion of commercial/office waste) inflated the figure. The PPWR introduces binding packaging waste prevention targets (−5% by 2030 vs 2018); no equivalent binding kg/cap target exists for total municipal waste. Target value in this row uses EU27 average as benchmark — not a legally binding number.",
           "consequences": "No direct financial penalty for per-capita generation — trend indicator, not a standalone binding target. Consequences flow through waste prevention programme obligations under WFD Art. 29: failure to implement adequate prevention programmes can trigger infringement.",
-          "responsible": "Regional (primary). Each region has its own Waste Prevention Programme: Flanders (Lokaal Materialenplan 2023–2030 / OVAM), Wallonia (Plan wallon des Déchets-Ressources / SPW), Brussels (Plan de Gestion des Ressources et des Déchets). Federal coordinates national reporting.",
+          "responsible": "Regional (primary). Each region has its own Waste Prevention Programme: Flanders (Lokaal Materialenplan 2023–2030 / OVAM), Wallonia (Plan wallon des Déchets-Ressources / SPW), Brussels (Plan de Gestion des Ressources et des Déchets).",
           "short_description": "Annual waste generated per person — at 700 kg, Belgium is 37% above the EU average."
         },
         {
@@ -461,7 +461,7 @@
           "data_source_description": null,
           "notes": "Belgium's 2023 landfill rate (0.1%) is among the lowest in the EU. Flanders has banned landfilling of separately collected waste (1998), combustible waste TOC>6% (2000) and biodegradable waste (2007). Landfill tax = EUR 107.87/tonne combustible in Flanders; EUR 119.59/tonne in Wallonia — among highest in EU. Brussels has no landfill facility. High incineration rate (~44% in 2023) is the main destination for non-recyclable waste — a policy tension with circular economy ambitions.",
           "consequences": "Target far exceeded. No compliance risk. Formal early warning report due in 2032. Note: EEA 2023 data not collected under the formal compliance methodology; official compliance assessments may differ slightly.",
-          "responsible": "Regional (primary). Landfill bans and taxes are set by regional governments: OVAM (Flanders), SPW/AWaP (Wallonia), Bruxelles-Environnement (Brussels). Brussels has no landfill in its territory.",
+          "responsible": "Regional (primary). Landfill bans and taxes are set by regional governments: OVAM (Flanders), SPW/AWaP (Wallonia), Bruxelles-Environnement (Brussels). Brussels has no landfill on its territory.",
           "short_description": "Share of waste sent to landfill — Belgium is a top EU performer at just 0.1%, well below the target."
         },
         {
@@ -483,7 +483,7 @@
           "data_source_description": null,
           "notes": "Belgium's CMUR rose from 13.6% in 2010 to 22.2% in 2022 (+8.6 pp). The EU27 CMUR was ~11.8% in 2023. The 24% CMUR target is an EU-level policy objective in the Clean Industrial Deal, not a binding legal obligation for individual member states. Data is updated annually but with a 2-year lag for actual waste statistics; odd years are Eurostat estimates.",
           "consequences": "No binding standalone legal obligation for Belgium to meet a specific CMUR figure. The underlying recycling and waste directives (which drive CMUR) are binding — failure to implement them can trigger infringement proceedings.",
-          "responsible": "Shared — Federal + 3 Regions. CMUR is a national-level aggregate indicator. Regional governments primarily responsible for waste management and recycling policies driving CMUR. Federal responsible for product standards, chemicals policy and EPR framework legislation.",
+          "responsible": "Shared (primary). CMUR is a national-level aggregate indicator. Regional governments are primarily responsible for waste management and recycling policies driving CMUR. Federal responsible for product design standards and cross-regional coordination.",
           "short_description": "Share of recycled materials in total economic inputs — Belgium is 2nd in the EU at 22.2%."
         }
       ]
@@ -510,7 +510,7 @@
           "data_source_description": null,
           "notes": "Belgium reported under its 3rd River Basin Management Plans (2022–2027). Ecological status based on biological, physicochemical and hydromorphological quality elements using the \"one out, all out\" principle — one failing parameter means the whole water body fails. Main pressures: nitrates and pesticides from agriculture (especially Flanders), wastewater discharges, and hydromorphological alterations. The 0% good chemical status is driven by ubiquitous substances (PFAS, mercury, brominated flame retardants); if these are excluded, significantly more water bodies would pass. Belgium has not invoked Art. 4(5) WFD to lower objectives, leaving it exposed to infringement. EU average: 39.5% good ecological status in 2021. Over 90% of surface waters in Belgium's river basin districts fall below good status.",
           "consequences": "WFD is a binding directive. Failure to achieve good status by 2027 triggers EU infringement proceedings. Belgium already faces European Commission scrutiny (EC country-specific report published Feb 2025). Infringement → ECJ referral → lump sum and/or periodic fines. EC Commissioner Roswall warned Belgium in February 2025 to \"move quickly.\" Belgium also risks financial sanctions under the EU Water Resilience Strategy.",
-          "responsible": "Regional (primary). Water policy is a regional competence. Flanders: VMM (Flemish Environment Agency) and Departement Omgeving. Wallonia: SPW / Direction des Eaux de Surface. Brussels: Bruxelles-Environnement. Federal: limited role (North Sea, international coordination). Coordination via the CIW (Coördinatiecommissie Integraal Waterbeleid) and its Walloon/Brussels equivalents.",
+          "responsible": "Regional (primary). Water policy is a regional competence. Flanders: VMM and Departement Omgeving. Wallonia: SPW / Direction des Eaux de Surface. Brussels: Bruxelles-Environnement. Cross-regional rivers (Scheldt, Meuse) are managed via CIW coordination.",
           "short_description": "Share of rivers and lakes in good ecological condition — Belgium at 27.4%, well below the EU target."
         },
         {
@@ -532,7 +532,7 @@
           "data_source_description": null,
           "notes": "Latest value (15%, amber) is a proxy: it represents the share of Belgian groundwater monitoring stations exceeding 50 mg NO₃/L during the 2016–2019 Nitrates Directive reporting period (the most recent consolidated EU-level data). The actual figure was reported as \">15%\" — the threshold Belgium crossed to be classified among the 7 worst EU countries in that period. The true figure is likely higher. 2020–2023 Nitrates Directive data are currently being compiled; no confirmed national figure published as of March 2026. \"Off track\" status is based on this 2016–2019 proxy and the structural nature of the problem: the entire Flemish territory remains a Nitrate Vulnerable Zone, Flanders' derogation was not renewed after Dec 2022, and no significant improvement in groundwater nitrate concentrations was recorded across the EU in the 2007–2023 period (EEA 8th EAP indicator). Zero Pollution Action Plan target: −50% nutrient losses to water by 2030 (EU-wide). Separate from the Nitrates Directive limit, WFD ecological thresholds for nitrates in surface water can be 5–25× lower than 50 mg/L for sensitive water types.",
           "consequences": "Nitrates Directive is binding (Directive 91/676/EEC). Belgium was subject to infringement for failing to designate sufficient NVZs and for inadequate action programmes. The non-renewal of Flanders' derogation significantly tightens obligations. Failure to meet nitrate standards → infringement → ECJ → fines. Ongoing pressure also from WFD (nitrates drive failure to achieve good ecological and chemical status).",
-          "responsible": "Regional (primary). Flanders: VITO/VMM (monitoring), VLM (manure policy, Mestbank). Wallonia: SPW / Direction des Eaux souterraines; action programmes under the Plan de Gestion Durable de l'Azote (PGDA). Brussels: Bruxelles-Environnement. Federal: Nitrates Directive reporting coordination, CAP co-financing.",
+          "responsible": "Regional (primary). Flanders: VITO/VMM (monitoring), VLM (manure policy, Mestbank). Wallonia: SPW / Direction des Eaux souterraines; action programmes under Plan de Gestion Durable de l'Azote (PGDA). Brussels: Bruxelles-Environnement. EU/international reporting via IRCEL.",
           "short_description": "Share of groundwater stations above the nitrate safety limit — Belgium is among the worst in the EU."
         },
         {
@@ -554,7 +554,7 @@
           "data_source_description": null,
           "notes": "Belgium's three regions each transpose the DWD independently. Overall drinking water compliance with traditional parameters (microbiological, nitrates, heavy metals) is very high (>99% population served). Key emerging concerns: (1) PFAS — new limit of 100 ng/L total PFAS applies from 1 Jan 2026; Belgian catchments show variable PFAS levels, particularly near industrial sites in Flanders (Zwijndrecht, Genk area). VIVAQUA (Brussels) reports levels below the 2026 standard as of early 2022. (2) Lead — old lead pipes remain in some homes; pipe replacement programmes ongoing but incomplete. Latest value (99.5%) is a proxy estimate based on published compliance data for traditional parameters — amber fill applied as the figure is not formally published as a single national compliance rate under the new DWD. The formal DWD compliance reporting cycle to the Commission runs every 3 years.",
           "consequences": "Binding under Directive (EU) 2020/2184. Failure to transpose or comply → infringement. If PFAS levels exceed 100 ng/L from January 2026, water suppliers must take remedial action or restrict supply. Non-compliance with DWD can trigger infringement proceedings against the Member State. The PFAS 2026 threshold is a particular risk for some Flemish catchments.",
-          "responsible": "Regional (primary). Drinking water supply is a regional competence. Flanders: De Watergroep, Farys, Water-link (regulated by VREG). Wallonia: SWDE, inter-communales (regulated by CWaPE-water). Brussels: Vivaqua / IBDE. Federal government: very limited role (some product standards). Each region has its own regulatory authority.",
+          "responsible": "Regional (primary). Drinking water supply is a regional competence. Flanders: De Watergroep, Farys, Water-link (regulated by VREG). Wallonia: SWDE and inter-communales (regulated by CWaPE-water). Brussels: VIVAQUA / HYDROBRU. EU Drinking Water Directive transposition: national.",
           "short_description": "Share of Belgians supplied with safe drinking water — compliance is high but PFAS poses new risks."
         },
         {
@@ -576,7 +576,7 @@
           "data_source_description": null,
           "notes": "Belgium's groundwater chemical status has improved substantially: from 41.3% (2015) to 53.1% (2021), a gain of ~12 percentage points. However, ~47% of groundwater body area still fails good chemical status — well below the EU average of ~75%. Main pollutants causing failure: nitrates (from agriculture), pesticides, and PFAS (industrial contamination, especially in Flanders). Quantitative status (groundwater level and flow): 87.7% of area in good status in 2021, a marginal decline of 0.3% vs 2015; most poor quantitative bodies are in Flanders, linked to overextraction. Note: groundwater chemical status is assessed using the \"one out, all out\" principle — one failing pollutant renders the whole body \"poor\". The next assessment cycle (4th RBMP) covers 2022–2027 and will be reported in 2028.",
           "consequences": "WFD is binding. Failure to achieve good groundwater status by 2027 → infringement. Belgium has already been cited in EU-level assessments as failing to meet WFD objectives for both surface and groundwater. PFAS contamination in Flemish groundwater is subject to ongoing enforcement actions nationally (particularly around 3M Zwijndrecht site). ECJ referral possible for persistent non-compliance.",
-          "responsible": "Regional (primary). Flanders: VMM (monitoring), VLM (agriculture/nitrates), OVAM (contaminated sites including PFAS). Wallonia: SPW / Direction des Eaux souterraines. Brussels: Bruxelles-Environnement. Federal: product legislation (pesticides, chemicals), PFAS phase-out under EU REACH.",
+          "responsible": "Regional (primary). Flanders: VMM (monitoring), VLM (agriculture/nitrates), OVAM (contaminated sites including PFAS). Wallonia: SPW / Direction des Eaux souterraines. Brussels: Bruxelles-Environnement.",
           "short_description": "Share of groundwater in good chemical condition — improving but still 47% of area below target."
         },
         {
@@ -598,7 +598,7 @@
           "data_source_description": null,
           "notes": "13.7% means approximately 13.7% of Belgium's total land surface (~4,200 km² out of 30,530 km²) is covered by roads, buildings, parking and other hard impervious infrastructure. This is one of the highest shares in the EU, where the average is ~2.7% (2018). The high rate reflects Belgium's high population density (376/km²) and decades of dispersed ribbon development along roads, particularly in Flanders. Note: the 2021 Copernicus figure (~13.7%) is not directly comparable to pre-2018 data due to the upgrade from 20m to 10m spatial resolution, which captures more fine-grained sealed surfaces. The 2006 harmonised figure (100m resolution) was ~10%. EU Soil Monitoring Law (proposed 2023, not yet adopted) will introduce binding soil health targets including sealing-related objectives. Flanders' bouwshift policy aims to reduce the rate of new land take to zero by 2040, which is more ambitious than the EU 2050 target.",
           "consequences": "Currently policy targets (Soil Strategy, Biodiversity Strategy) rather than binding legal obligations. The proposed EU Soil Monitoring Law (SML), once adopted, will introduce binding soil health objectives with potential infringement implications. Belgium's Flemish Spatial Planning Strategy (\"bouwshift\") has binding regional targets — failure to implement regional land use plans could trigger domestic legal challenges. No direct EU financial penalty currently for sealing rates.",
-          "responsible": "Regional (primary). Land use planning is an exclusive regional competence. Flanders: Departement Omgeving (bouwshift policy — aiming for net land take = 0 by 2040). Wallonia: SPW / DGO4 (Aménagement du territoire). Brussels: Perspective.Brussels. Federal: very limited role in land use planning.",
+          "responsible": "Regional (primary). Land use planning is an exclusive regional competence. Flanders: Departement Omgeving (bouwshift policy — net land take = 0 by 2040). Wallonia: SPW / DGO4 (Aménagement du territoire). Brussels: urban densification strategy.",
           "short_description": "Share of land covered by impervious surfaces — Belgium has one of the highest rates in the EU."
         },
         {
@@ -620,7 +620,7 @@
           "data_source_description": "% of stations exceeding ~0.05 mg P/L WFD good status threshold. 28 Belgian river stations in Eurostat sdg_06_50. Belgian average ~0.10-0.18 mg P/L (Scheldt basin, VMM/EEA 2022). EU average 0.074 mg/L. EU upward trend +10.4% since 2017.",
           "notes": "Continued high phosphate causes eutrophication, algal blooms, oxygen depletion and biodiversity loss. Scheldt estuary and North Sea coast directly affected. Failure triggers EU infringement proceedings. Elevated phosphate also increases drinking water treatment costs.",
           "consequences": "Continued high phosphate causes eutrophication, algal blooms, oxygen depletion and biodiversity loss in Belgian rivers and coastal waters. The Scheldt estuary and North Sea coast are directly affected, harming fisheries and coastal ecosystems. Failure to reach WFD good ecological status by 2027 triggers EU infringement proceedings. Belgium already faces water quality proceedings. Elevated phosphate also significantly increases drinking water treatment costs, passed on to consumers.",
-          "responsible": "Regional (primary). Flanders: VMM / OVAM (MAP 7 manure regulation). Wallonia: SPW-Direction des Eaux. Brussels: Bruxelles-Environnement. Shared: CIW coordination. Federal: EU reporting.",
+          "responsible": "Regional (primary). Flanders: VMM / OVAM (MAP 7 manure regulation). Wallonia: SPW-Direction des Eaux. Brussels: Bruxelles-Environnement. CIW coordinates cross-regional water policy. EU reporting: national.",
           "short_description": null
         }
       ]
@@ -647,7 +647,7 @@
           "data_source_description": null,
           "notes": "Population-weighted mean: 8.5 µg/m³ in 2023 (IRCEL, RIO 4×4 km grid). Regional breakdown 2023: Flanders 9.5, Brussels 8.7, Wallonia 5.0 µg/m³. Concentrations have declined significantly since 2006. New 2030 EU limit (10 µg/m³) appears achievable at urban background level; traffic hotspots may require additional effort. 88.7% of Belgian population lives above the WHO annual guideline of 5 µg/m³. Wood burning (residential) is the largest primary PM2.5 source in Belgium; agriculture (NH3) is the largest precursor source. PM2.5 was responsible for >8,000 premature deaths in Belgium in 2014 (EEA estimate).",
           "consequences": "Binding under Directive (EU) 2024/2881. If limit value of 10 µg/m³ is not met by 2030, Member States must draw up an air quality roadmap by 2028 at the latest. Failure to comply → infringement proceedings → ECJ → fines. Belgium is currently on track at urban background level but at-risk at busy traffic locations.",
-          "responsible": "Regional (primary). Air quality plans and monitoring: Flanders (VMM), Wallonia (ISSeP/AWAC), Brussels (Bruxelles-Environnement). IRCEL-CELINE coordinates national monitoring. Federal: emission standards for vehicles and products, industrial permitting (some). Zero Low Emission Zones (LEZ) are a regional instrument in Brussels, Antwerp, Ghent.",
+          "responsible": "Regional (primary). Air quality plans and monitoring: Flanders (VMM), Wallonia (ISSeP/AWAC), Brussels (Bruxelles-Environnement). IRCEL-CELINE coordinates national monitoring. Emission standards for products and vehicles: national (transposing EU law).",
           "short_description": "Concentration of fine particles in air — the biggest environmental health risk in Belgium."
         },
         {
@@ -669,7 +669,7 @@
           "data_source_description": null,
           "notes": "National spatial average 2023: ~9 µg/m³ (well below the 2030 limit). However, Belgium was one of 4 EU MS with at least one station exceeding the new 2030 hourly limit value (HLV of 200 µg/m³) in 2023. At urban background stations, the 20 µg/m³ limit is achievable by 2030; at the busiest traffic locations (30–40 µg/m³), additional measures are needed. 46.2% of Belgian population lives in areas exceeding the WHO annual guideline of 10 µg/m³. Long-term declining trend driven by stricter Euro emission standards and the decline of diesel cars. NO₂ linked to >1,800 premature deaths in Belgium annually (EEA). Low Emission Zones (LEZ) in Brussels, Antwerp and Ghent are showing measurable impact.",
           "consequences": "Binding under Directive (EU) 2024/2881. If 20 µg/m³ limit not met in 2026, Belgium must produce a roadmap by 2028. Failure to comply by 2030 → infringement → ECJ → fines. Belgium is broadly on track at background level but needs extra effort at traffic hotspots.",
-          "responsible": "Regional (primary). Monitoring: VMM (Flanders), ISSeP/AWAC (Wallonia), Bruxelles-Environnement (Brussels). LEZ implementation: regional. Federal: vehicle emission standards (Euro norms), product regulation. IRCEL-CELINE: national coordination.",
+          "responsible": "Regional (primary). Monitoring: VMM (Flanders), ISSeP/AWAC (Wallonia), Bruxelles-Environnement (Brussels). LEZ implementation: regional. Vehicle emission standards (Euro norms) and product regulation: national.",
           "short_description": "Concentration of nitrogen dioxide in air — mainly from traffic, on track to meet the 2030 EU limit."
         },
         {
@@ -691,7 +691,7 @@
           "data_source_description": null,
           "notes": "The EU 25-day target value (3-year average) was met at all Belgian stations in 2022–2024 (IRCEL confirmed). However, the long-term trend is worrying: since 2016, annual mean ozone concentrations have been increasing across all Belgian regions, with the highest relative increases (+>1%/year) in Flanders around Antwerp and Ghent. Ozone forms from NOₓ and VOC precursors in sunlight — partly a transboundary problem. Counter-intuitively, ozone is highest in rural areas (NO from traffic breaks down ozone in cities). The WHO daily guideline (100 µg/m³ max 8-hour mean) is not met anywhere in Belgium. Ozone damages crops and ecosystems (see Section 3). Status is \"On track\" vs the EU 25-day target, but worsening trend raises concern for the long-term objective.",
           "consequences": "Target value of 25 days (3-year average) is legally binding under Directive (EU) 2024/2881. Currently met in Belgium. Failure to meet → infringement. The long-term objective (0 days) is aspirational. Ozone precursor emissions (NOₓ, VOC) are regulated under the NEC Directive; failure to meet NEC commitments → separate infringement risk.",
-          "responsible": "Shared — Federal + 3 Regions. Ozone is primarily a transboundary pollutant — Belgium cannot solve it unilaterally. Precursor reductions (NOₓ from transport, VOC from industry and solvents): regional and federal action. Monitoring: IRCEL-CELINE. Alert protocols: regional activation, IRCEL coordination.",
+          "responsible": "Shared (primary). Ozone is primarily a transboundary pollutant — Belgium cannot solve it unilaterally. Precursor reductions (NOₓ from transport, VOC from industry and solvents): regional and federal. International: CLRTAP Convention coordination.",
           "short_description": "Days per year with unsafe ozone levels — currently within EU limits but the long-term trend is rising."
         },
         {
@@ -713,7 +713,7 @@
           "data_source_description": null,
           "notes": "Belgium is one of only 2 EU MS (alongside Finland) already meeting all five NEC 2030 commitments based on 2022 data (EEA 2024 NEC briefing). This is a significant achievement, especially for NH₃, which is the hardest pollutant for most EU countries. Agriculture generates ~95% of Belgian NH₃ emissions (livestock excreta + fertiliser). The Flemish Manure Action Programmes (MAP5, MAP6, MAP7) and related manure processing obligations have been the primary driver of reductions. Remaining challenge: ensuring Belgium stays below its ceiling as agricultural activity and derogation landscape evolve. NH₃ also directly links to ecosystem eutrophication (covered in Nature & Biodiversity sheet). The 2030 NEC target of −24% vs 2005 is expressed here as the % reduction that has been achieved; target value = 24 (= the required % reduction) and latest value = 24 (achieved).",
           "consequences": "NEC Directive is binding. Belgium is currently compliant for NH₃. Future risk: agricultural intensification or policy relaxation could push emissions back up. EEA compliance checks run annually; non-compliance → infringement → ECJ → fines. Belgium's compliance record has improved significantly after earlier issues with NOₓ ceilings.",
-          "responsible": "Regional (primary). Agriculture is a regional competence. Flanders: VLM (Vlaams Mestbank) manages manure policy (MAP programme). Wallonia: PGDA (Plan de Gestion Durable de l'Azote). Brussels: negligible NH₃ emissions. Federal: contributes to NEC reporting and international negotiations; coordinates the overall NAPCP.",
+          "responsible": "Regional (primary). Agriculture is a regional competence. Flanders: VLM (Vlaams Mestbank) manages manure policy (MAP programme). Wallonia: PGDA (Plan de Gestion Durable de l'Azote). Brussels: negligible agricultural emissions. International NEC Directive reporting via IRCEL: national.",
           "short_description": "Total ammonia emissions — Belgium is one of only 2 EU countries already meeting its 2030 target."
         },
         {
@@ -735,7 +735,7 @@
           "data_source_description": null,
           "notes": "NOₓ emissions in Belgium: ~132 kt NO₂ equivalent in 2022 (indicators.be), down from ~322 kt in 2005 — a ~59% reduction, meeting the 2030 NEC target early. Road transport is the dominant NOₓ source (~60% of total), followed by energy production and industry. The fleet transition from diesel to petrol and electric vehicles has been the main driver. Belgium still had historical non-compliance with the earlier 2010 NOₓ ceiling under the 2001 NEC Directive (exceeded 2010–2016), but has since come into full compliance. Target value (59) = the required % reduction vs 2005; latest value (51) = approximate % achieved in 2022 (132 kt vs 322 kt baseline ≈ −59% — note: the 51 here could reflect slight rounding; the 2030 target is met). Amber fill not applied as Belgium has officially met the 2030 commitment per EEA 2024 briefing.",
           "consequences": "NEC Directive is binding. Belgium currently compliant. Risk: if electrification stalls or energy production NOₓ increases, compliance could be jeopardised. Continued monitoring required.",
-          "responsible": "Shared — Federal + 3 Regions. Road transport emission standards: Federal (vehicle type approval). Regional: mobility policy, LEZ, public transport. Energy production (large combustion plants): industrial permitting (regional) + ETS (EU/federal). IRCEL-CELINE: national inventory compilation and reporting.",
+          "responsible": "Shared (primary). Road transport emission standards: national (vehicle type approval). Mobility policy, LEZ and public transport: Regional. Energy production (large combustion plants): industrial permits are regional. NEC Directive compliance: national aggregate.",
           "short_description": "Total nitrogen oxide emissions — Belgium has already met its 2030 reduction target ahead of schedule."
         }
       ]
@@ -791,7 +791,7 @@
           "data_source_url": "https://eafo.eu/vehicles-and-fleet/m1 | https://statbel.fgov.be/en/themes/mobility/road-traffic | https://www.indicators.be/en/i/G11_EV/Electric_vehicles",
           "target_context": "EU Regulation 2023/851 requires 100% zero-emission new car sales from 2035. Belgium (35%, 2025) leads the EU average (14%) driven by company car tax reform, not private buyers.",
           "consequences": "Failure to achieve the 2035 mandate would expose Belgian car manufacturers and importers to EU penalty payments (the fleet CO₂ standard carries fines of €95 per g/km excess per car sold). The company car tax reform cliff edge (ICE deductibility drops to 0% by 2028) creates risk of fleet disruption if infrastructure is insufficient. PFAS contamination at EV battery recycling sites is an emerging environmental risk.",
-          "responsible": "Shared — Federal + Regions. Federal: vehicle taxation (company car benefit-in-kind), type approval compliance with EU regulation. Regions: charging infrastructure deployment, mobility plans, LEZ enforcement. Flanders: discontinued purchase subsidies (late 2024). Brussels/Wallonia: maintaining incentive schemes."
+          "responsible": "Shared (primary). Federal: vehicle taxation (company car benefit-in-kind), type approval compliance with EU regulation. Regions: charging infrastructure deployment, mobility plans, LEZ enforcement. Flanders: discontinued purchase subsidies (late 2024). Brussels and Wallonia: maintaining incentive schemes."
         },
         {
           "indicator": "Average CO₂ — New Passenger Cars",
@@ -816,7 +816,7 @@
           "data_source_url": "https://www.eea.europa.eu/en/analysis/indicators/average-co2-emissions-from-new | https://statbel.fgov.be/en/themes/mobility/road-traffic",
           "target_context": "EU fleet-average CO₂ target for new cars: 93.6 g/km by 2029 (Regulation 2019/631, amended by 2023/851). From 2035: 0 g/km for all new cars. ⚠️ Series break: pre-2021 values use NEDC test; 2021+ use WLTP (approx. 20–25% higher for same car).",
           "consequences": "EU Regulation 2019/631 is binding. Manufacturers missing fleet targets pay €95 per g/km excess per vehicle sold — fines can reach hundreds of millions of euros. If Belgium's BEV surge stalls, the fleet average could rise above target, triggering manufacturer penalties passed on to consumers as higher prices. Failure to decarbonise the car fleet is the largest barrier to Belgium meeting its transport sector emission reduction obligations.",
-          "responsible": "Shared — Federal + EU. EU: sets mandatory fleet CO₂ standards (Regulation 2019/631; 2023/851) binding on manufacturers — not on Member States directly. Federal (Belgium): vehicle taxation incentives, fuel taxation, consumer information. Regions: company car policies, LEZ standards, mobility alternatives. Manufacturers are the primary compliance entity under EU law."
+          "responsible": "Shared (primary). EU sets mandatory fleet CO₂ standards (Regulation 2019/631; 2023/851) binding on manufacturers — not on Member States directly. Federal (Belgium): vehicle taxation incentives, fuel taxation, consumer information. Regions: company car policies, LEZ standards, mobility alternatives. Manufacturers are the primary compliance entity under EU law."
         },
         {
           "indicator": "Public Transport Share — Rail + Bus",
@@ -841,7 +841,7 @@
           "data_source_url": "https://ec.europa.eu/eurostat/databrowser/view/tran_hv_psmod/default/table | https://transport.ec.europa.eu/document/download/b4bb5e90-44fc-4fd6-9913-a9fd53e06fc6_en",
           "target_context": "No legally binding national target exists for passenger modal share in Belgium. The EU Sustainable & Smart Mobility Strategy (2020) sets a political objective to double rail passengers by 2030 vs 2015, but this is not an enforceable obligation. Belgium's 15% public transport share (rail + bus) has been effectively unchanged since 2010.",
           "consequences": "Without modal shift, Belgium cannot meet its transport sector GHG reduction commitments. Car dominance perpetuates road congestion (costing Belgium an estimated €2 billion/year in productivity losses), high NOₓ and PM2.5 emissions in urban areas, and unequal access to mobility for non-drivers. The EU's revised TEN-T regulation and planned road pricing measures will increase pressure for a shift.",
-          "responsible": "Shared — Federal + 3 Regions. Federal: SNCB/NMBS funding and national rail infrastructure investment (Infrabel). Regions: bus networks (De Lijn in Flanders, TEC in Wallonia, STIB in Brussels), tram and metro, regional mobility plans, land-use planning (key driver of car dependency). Coordination: via the MORA mobility advisory council and the FNRS/FWO-funded mobility research programmes."
+          "responsible": "Shared (primary). Federal: SNCB/NMBS funding and national rail infrastructure investment (Infrabel). Regions: bus networks (De Lijn in Flanders, TEC in Wallonia, STIB in Brussels), tram and metro, regional mobility plans, land-use planning. Coordination via the MORA mobility advisory council."
         },
         {
           "indicator": "Road Freight Modal Share — Inland",
@@ -866,7 +866,7 @@
           "data_source_url": "https://ec.europa.eu/eurostat/databrowser/view/TRAN_HV_FRMOD/default/table | https://indicators.be/en/i/G11_FREIGHT/Road_freight_transport | https://www.infrabel.be/en",
           "target_context": "Target of 63.7% road share by 2030 derived from Belgian Federal Long-Term Vision for Sustainable Development (2013). Road currently at 75% — 11.3 pp above target. The EU aims to shift 30% of road freight over 300 km to rail or waterways by 2030 (EU SSMS).",
           "consequences": "Road freight dominance contributes to: (1) Belgium's chronic motorway congestion and associated economic costs (~€2 billion/year near Antwerp); (2) disproportionately high transport CO₂ from the freight sector; (3) road deterioration costs; (4) road safety risks (heavy trucks account for a disproportionate share of road fatalities). Missing the 2030 target risks delaying EU funding for TEN-T corridor projects and undermines Belgium's climate credibility.",
-          "responsible": "Shared — Federal + Regions + EU. Federal: railway freight policy, Infrabel funding, inland waterway policy coordination. Regions: road infrastructure investment, regional port policy, logistics park planning. Flanders: Antwerp Port Authority (rail freight target), De Vlaamse Waterweg (waterway management). Wallonia: SPW Mobilité (road + waterway), Port of Liège. EU: TEN-T regulation, Connecting Europe Facility (CEF) funding for modal shift projects."
+          "responsible": "Shared (primary). Federal: railway freight policy, Infrabel funding, inland waterway policy coordination. Regions: road infrastructure investment, regional port policy, logistics park planning. Flanders: Antwerp Port Authority (rail freight target), De Vlaamse Waterweg (waterway management). Wallonia: SPW Mobilité, Port of Liège. EU: TEN-T regulation and Connecting Europe Facility (CEF) funding."
         }
       ]
     }
