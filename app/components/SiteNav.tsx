@@ -23,7 +23,6 @@ export default function SiteNav() {
     <nav className="site-nav" aria-label="Site navigation">
       <div className="site-nav-inner">
         <Link href="/" className="site-nav-logo">
-          <span className="site-nav-flag">🇧🇪</span>
           <span className="site-nav-brand">Home</span>
         </Link>
         <div className="site-nav-links">
