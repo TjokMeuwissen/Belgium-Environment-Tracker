@@ -5,10 +5,11 @@ import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 const NAV_LINKS = [
-  { href: '/indicators', label: 'Indicators' },
-  { href: '/learn',      label: 'Learn'       },
-  { href: '/blog',       label: 'Blog'        },
-  { href: '/about',      label: 'About'       },
+  { href: '/indicators', label: 'Indicators'     },
+  { href: '/learn',      label: 'Learn'           },
+  { href: '/calculator', label: 'CO₂ Calculator' },
+  { href: '/blog',       label: 'Blog'            },
+  { href: '/about',      label: 'About'           },
 ];
 
 export default function SiteNav() {
