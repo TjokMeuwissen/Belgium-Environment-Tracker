@@ -499,7 +499,7 @@ export default function WhatIsBiodiversityPage() {
             <div style={{ borderLeft: '4px solid #be185d', background: '#fce7f3', borderRadius: '0 10px 10px 0', marginBottom: 12, overflow: 'hidden' }}>
               <div style={{ display: 'flex', gap: 0 }}>
                 <div style={{ width: 120, height: 120, flexShrink: 0 }}>
-                  <img src="/images/learn/hondskruid.jpg" alt="Anacamptis morio — chalk grassland orchid" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  <img src="/images/learn/hondskruid.JPG" alt="Anacamptis morio — chalk grassland orchid" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                 </div>
                 <div style={{ padding: '16px 20px', flex: 1 }}>
                   <div style={{ fontWeight: 700, fontSize: 14, color: '#be185d', marginBottom: 6 }}>🌸 Vascular plants</div>
