@@ -25,7 +25,7 @@ const TILES: Record<string, Record<string, { title: string; image?: string }>> =
     'what-is-biodiversity':         { title: 'What is Biodiversity?',         image: '/images/learn/biodiversity.jpg'       },
     'why-are-species-disappearing': { title: 'Why Are Species Disappearing?', image: '/images/learn/biodiversity-loss.jpg'  },
     'ecosystem-services':           { title: 'Ecosystem Services',            image: '/images/learn/ecosystem-services.jpg' },
-    'protected-areas-in-belgium':   { title: 'Protected Areas in Belgium',   image: '/images/learn/natura2000.jpg'         },
+    'protected-areas-in-belgium':   { title: 'Protected Areas in Belgium',   image: '/images/learn/natura2000.png'         },
     'how-to-help-biodiversity':     { title: 'How to Help Biodiversity',      image: '/images/learn/tips.jpg'               },
   },
   'circularity-waste': {
