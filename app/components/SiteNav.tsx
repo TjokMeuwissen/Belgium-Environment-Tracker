@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 const NAV_LINKS = [
   { href: '/indicators', label: 'Indicators'     },
   { href: '/learn',      label: 'Learn'           },
-  { href: '/calculator', label: 'CO₂ Calculator' },
+  { href: '/calculator', label: 'Calculators'      },
   { href: '/blog',       label: 'Blog'            },
   { href: '/about',      label: 'About'           },
 ];
