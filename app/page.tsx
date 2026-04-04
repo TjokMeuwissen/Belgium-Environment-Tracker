@@ -24,7 +24,7 @@ const SECTIONS = [
     emoji: '🧮',
     title: 'Carbon Footprint Calculator',
     desc:  'Estimate your personal yearly CO₂ footprint in minutes. Visual, easy to use, and calibrated for Belgium.',
-    color: '#22c55e',
+    color: '#0ea5e9',
     soon:  false,
   },
   {
@@ -32,7 +32,7 @@ const SECTIONS = [
     emoji: '✍️',
     title: 'Blog',
     desc:  'Analysis, updates and commentary on Belgium\'s environmental policies and progress.',
-    color: '#ec4899',
+    color: '#22c55e',
     soon:  true,
   },
 ];
