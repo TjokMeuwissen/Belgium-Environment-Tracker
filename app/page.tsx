@@ -22,8 +22,8 @@ const SECTIONS = [
   {
     href:  '/calculator',
     emoji: '🧮',
-    title: 'Carbon Footprint Calculator',
-    desc:  'Estimate your personal yearly CO₂ footprint in minutes. Visual, easy to use, and calibrated for Belgium.',
+    title: 'Calculators',
+    desc:  'Two interactive tools: estimate your personal yearly CO₂ footprint, and discover which critical raw materials are embedded in your devices.',
     color: '#0ea5e9',
     soon:  false,
   },
