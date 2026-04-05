@@ -50,7 +50,7 @@ const TOPICS = [
     emoji: '💧',
     color: '#3b82f6',
     tiles: [
-      { slug: 'belgiums-water-challenge',   title: "Belgium's Water Challenge",                    image: '/images/learn/water-challenge.jpg'   },
+      { slug: 'belgiums-water-challenge',   title: "Belgium's Water Challenge",                    image: '/images/learn/water-challenge.png'   },
       { slug: 'nitrogen-and-phosphorus',    title: 'Nitrogen & Phosphorus: the Hidden Pollution',  image: '/images/learn/nitrate-pollution.jpg'  },
       { slug: 'what-is-soil-sealing',       title: 'What is Soil Sealing?',                        image: '/images/learn/soil-sealing.jpg'       },
       { slug: 'pfas-the-forever-chemicals', title: 'PFAS: The Forever Chemicals',                  image: '/images/learn/PFAS.jpg'               },
