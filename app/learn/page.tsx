@@ -63,7 +63,7 @@ const TOPICS = [
     color: '#8b5cf6',
     tiles: [
       { slug: 'air-pollution-and-human-health', title: 'Air Pollution and Human Health',  image: '/images/learn/air-pollution.jpg'    },
-      { slug: 'what-causes-air-pollution',      title: 'What Causes Air Pollution?',      image: '/images/learn/vehicle-exhaust.PNG'  },
+      { slug: 'what-causes-air-pollution',      title: 'What Causes Air Pollution?',      image: '/images/learn/vehicle-exhaust.jpg'  },
       { slug: 'indoor-air-quality',             title: 'Indoor Air Quality',              image: '/images/learn/indoor-air.PNG'       },
     ],
   },
