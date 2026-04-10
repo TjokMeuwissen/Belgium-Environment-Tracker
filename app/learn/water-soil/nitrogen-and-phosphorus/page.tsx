@@ -302,7 +302,7 @@ export default function NitrogenPhosphorusPage() {
             ]} />
 
             <FullWidthImage
-              src="/images/learn/algal-bloom.PNG"
+              src="/images/learn/algal-bloom.jpg"
               alt="Algal bloom on a lake with dead fish visible at the surface"
               caption="A cyanobacterial bloom causes oxygen depletion, killing fish. Such blooms are now common across Belgium\u2019s heavily eutrophied lakes, ponds and slow-moving rivers throughout summer."
             />
