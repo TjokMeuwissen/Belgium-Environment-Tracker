@@ -571,7 +571,7 @@ footer { background: #1a1a1a; color: #666; text-align: center; padding: 24px 32p
 }
 
 /* ── Coming-soon shell pages ──────────────────────────────────────────────── */
-.shell-page { min-height: 80vh; }
+.shell-page { min-height: 100vh; display: flex; flex-direction: column; }
 
 .shell-header {
   background: #1a1a1a;
@@ -609,6 +609,15 @@ footer { background: #1a1a1a; color: #666; text-align: center; padding: 24px 32p
   margin: 64px auto;
   padding: 0 24px;
   text-align: center;
+}
+
+/* ── Blog page body — wider, left-aligned, footer-pushing ─────────────────── */
+.blog-body {
+  max-width: 1200px;
+  margin: 48px auto;
+  padding: 0 48px 64px 80px;
+  text-align: left;
+  flex: 1;
 }
 
 .shell-coming-badge {
