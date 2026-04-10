@@ -268,31 +268,26 @@ const FREIGHT_MODAL = [
 function FreightPanel() {
   return (
     <div style={{ padding: '14px 18px', display: 'flex', flexDirection: 'column', height: '100%', gap: 12 }}>
-      {/* Inland modal split donut */}
       <div>
         <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#1a1a1a', marginBottom: 4 }}>
           Belgium inland freight modal split (tonne-km, 2022)
         </div>
-        <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-          <ResponsiveContainer width={160} height={140}>
-            <PieChart>
-              <Pie data={FREIGHT_MODAL} cx="50%" cy="50%" outerRadius={60} dataKey="value" labelLine={false}>
-                {FREIGHT_MODAL.map((e, i) => <Cell key={i} fill={e.color} stroke="white" strokeWidth={2} />)}
-              </Pie>
-              <Tooltip contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 11 }}
-                formatter={(v: any, n: any) => [`${v}%`, n]} />
-            </PieChart>
-          </ResponsiveContainer>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {FREIGHT_MODAL.map((m, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <div style={{ width: 10, height: 10, borderRadius: 2, background: m.color, flexShrink: 0 }} />
-                <span style={{ fontSize: '0.78rem', color: '#374151', fontWeight: 600 }}>{m.mode}</span>
-                <span style={{ fontFamily: 'Roboto, sans-serif', fontSize: '0.9rem', fontWeight: 900, color: m.color }}>{m.value}%</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <p style={{ fontSize: '0.76rem', color: '#6b7280', margin: '0 0 4px', lineHeight: 1.5 }}>
+          Measured in tonne-kilometres. Inland modes only (excludes maritime).
+        </p>
+      </div>
+
+      <div style={{ width: '100%', height: 200 }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart margin={{ top: 8, right: 0, bottom: 0, left: 0 }}>
+            <Pie data={FREIGHT_MODAL} cx="50%" cy="44%" outerRadius={72} dataKey="value" nameKey="mode" labelLine={false}>
+              {FREIGHT_MODAL.map((e, i) => <Cell key={i} fill={e.color} stroke="white" strokeWidth={2} />)}
+            </Pie>
+            <Tooltip contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 12 }}
+              formatter={(v: any, n: any) => [`${v}%`, n]} />
+            <Legend iconType="circle" iconSize={9} formatter={v => <span style={{ fontSize: '0.73rem', color: '#4b5563' }}>{v}</span>} />
+          </PieChart>
+        </ResponsiveContainer>
       </div>
 
       <p style={{ fontSize: '0.7rem', color: '#9ca3af', margin: 0 }}>
