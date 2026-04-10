@@ -31,7 +31,13 @@ function getProgress(latest: number | null, target: number | null, status?: stri
   if (status === 'Achieved') return 100;
   const l = +latest, t = +target;
   if (isNaN(l) || isNaN(t) || t === 0) return null;
-  if (l <= t) return 100;
+  // If status is Off track and latest < target → higher-is-better indicator (e.g. ZEV registrations)
+  // Progress = how far along toward the target we are: l/t
+  if ((status === 'Off track' || status === 'On track') && l < t) {
+    return Math.min(100, (l / t) * 100);
+  }
+  // Lower-is-better (e.g. CO₂, freight road share): progress = how close to target from above
+  if (l <= t) return 100; // already at or below target
   return Math.min(100, (t / l) * 100);
 }
 
@@ -122,18 +128,6 @@ function BEVPanel({ history }: { history: any[] }) {
       <div>
         <div style={{ fontWeight: 700, fontSize: '0.85rem', color: '#1a1a1a', marginBottom: 4 }}>
           BEV &amp; PHEV share of new car registrations — Belgium 2018–2025
-        </div>
-        {/* BEV vs PHEV explanation pills */}
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
-          {[
-            { abbr: 'BEV', color: TOPIC_COLOR, full: 'Battery Electric Vehicle', desc: 'Runs entirely on electricity. Zero tailpipe emissions. Charges from the grid.' },
-            { abbr: 'PHEV', color: '#a78bfa', full: 'Plug-in Hybrid Electric Vehicle', desc: 'Has both an electric motor and a combustion engine. Can charge from the grid for short electric-only trips; the petrol/diesel engine kicks in for longer distances.' },
-          ].map((item, i) => (
-            <div key={i} style={{ flex: 1, minWidth: 180, background: '#f8fafc', borderRadius: 8, padding: '8px 12px', borderLeft: `4px solid ${item.color}` }}>
-              <div style={{ fontWeight: 700, fontSize: '0.82rem', color: item.color }}>{item.abbr} — {item.full}</div>
-              <p style={{ fontSize: '0.76rem', color: '#4b5563', margin: '3px 0 0', lineHeight: 1.5 }}>{item.desc}</p>
-            </div>
-          ))}
         </div>
       </div>
       <div style={{ width: '100%', height: 190 }}>
@@ -257,20 +251,6 @@ function PublicTransportPanel({ modalSplit }: { modalSplit: any[] }) {
       </ResponsiveContainer>
       </div>
 
-      {/* Tram/metro note */}
-      <div style={{ background: '#f0f9ff', borderRadius: 6, padding: '8px 12px', border: '1px solid #bae6fd' }}>
-        <p style={{ fontSize: '0.76rem', color: '#0c4a6e', margin: 0, lineHeight: 1.5 }}>
-          <strong>🚋 Tram &amp; metro not included:</strong> Brussels (STIB/MIVB), Antwerp, Ghent and Liège operate trams and/or metro lines but their passenger-kilometres are not harmonised into Eurostat&#39;s inland modal split methodology. Including them would raise the public transport share by an estimated 1–2 pp.
-        </p>
-      </div>
-
-      {/* No target explanation */}
-      <div style={{ background: '#fafafa', borderRadius: 6, padding: '8px 12px', border: '1px solid #e5e3da' }}>
-        <p style={{ fontSize: '0.76rem', color: '#4b5563', margin: 0, lineHeight: 1.5 }}>
-          <strong>Why no binding target?</strong> Belgium has no national legally binding modal shift target for passenger transport. The EU&#39;s Sustainable &amp; Smart Mobility Strategy (2020) calls for doubling rail passenger traffic by 2030 (vs 2015), but this is a political commitment, not an enforceable obligation. Belgium&#39;s 85% car share has been effectively unchanged since 2010.
-        </p>
-      </div>
-
       <p style={{ fontSize: '0.7rem', color: '#9ca3af', margin: 0 }}>
         Source: Eurostat tran_hv_psmod; EC DG MOVE European Transport in Figures 2024. EU avg car share: ~71%.
       </p>
@@ -283,18 +263,6 @@ const FREIGHT_MODAL = [
   { mode: 'Road', value: 75, color: '#f97316' },
   { mode: 'Rail', value: 16.8, color: TOPIC_COLOR },
   { mode: 'Inland waterway', value: 8.2, color: '#38bdf8' },
-];
-
-// EU comparison for freight road share (2022)
-const FREIGHT_EU_COMPARE = [
-  { country: 'Switzerland',  road: 39, color: '#bfdbfe' },
-  { country: 'Austria',      road: 57, color: '#bfdbfe' },
-  { country: 'Germany',      road: 70, color: '#bfdbfe' },
-  { country: 'Netherlands',  road: 65, color: '#bfdbfe' },
-  { country: 'EU average',   road: 75, color: '#94a3b8' },
-  { country: 'Belgium',      road: 75, color: TOPIC_COLOR },
-  { country: 'France',       road: 80, color: '#bfdbfe' },
-  { country: 'Spain',        road: 91, color: '#bfdbfe' },
 ];
 
 function FreightPanel() {
@@ -325,33 +293,6 @@ function FreightPanel() {
             ))}
           </div>
         </div>
-      </div>
-
-      {/* EU comparison bar chart */}
-      <div>
-        <div style={{ fontWeight: 700, fontSize: '0.82rem', color: '#1a1a1a', marginBottom: 4 }}>
-          Road freight share — EU country comparison (2022, %)
-        </div>
-        <div style={{ width: '100%', height: 170 }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={FREIGHT_EU_COMPARE} layout="vertical" margin={{ top: 2, right: 40, left: 10, bottom: 2 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" horizontal={false} />
-            <XAxis type="number" tick={{ fontSize: 10, fill: '#9ca3af' }} tickLine={false} axisLine={false}
-              domain={[0, 100]} tickFormatter={v => `${v}%`} />
-            <YAxis type="category" dataKey="country" tick={{ fontSize: 10, fill: '#374151' }} tickLine={false} axisLine={false} width={90} interval={0} />
-            <Tooltip contentStyle={{ background: '#fff', border: '1px solid #e5e3da', borderRadius: 8, fontSize: 11 }}
-              formatter={(v: any) => [`${v}%`, 'Road share']} />
-            <ReferenceLine x={63.7} stroke={TOPIC_COLOR} strokeDasharray="5 3" strokeWidth={1.5}
-              label={{ value: '🎯 2030: 63.7%', position: 'insideTopRight', fontSize: 9, fill: TOPIC_COLOR, fontWeight: 600 }} />
-            <Bar dataKey="road" radius={[0, 3, 3, 0]}>
-              {FREIGHT_EU_COMPARE.map((d, i) => <Cell key={i} fill={d.color} />)}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-        </div>
-        <p style={{ fontSize: '0.7rem', color: '#9ca3af', margin: '4px 0 0' }}>
-          Switzerland and Austria achieve lower road shares via dense rail networks and Alpine transit policy. Belgium&#39;s inland waterway network (Scheldt, Meuse, Albert Canal) gives it structural potential to shift freight — largely untapped.
-        </p>
       </div>
 
       <p style={{ fontSize: '0.7rem', color: '#9ca3af', margin: 0 }}>
