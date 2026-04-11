@@ -429,7 +429,7 @@ export default function WhatCausesAirPollution() {
             <h1 className="detail-title">What Causes Air Pollution?</h1>
           </div>
           <div style={{ width: 160, height: 160, flexShrink: 0, borderRadius: 8, overflow: 'hidden', alignSelf: 'center' }}>
-            <img src="/images/learn/vehicle-exhaust.PNG" alt="Vehicle exhaust" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            <img src="/images/learn/vehicle-exhaust.jpg" alt="Vehicle exhaust" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           </div>
         </div>
       </div>
