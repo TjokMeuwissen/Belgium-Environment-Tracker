@@ -7,75 +7,169 @@ const SECTIONS = [
     href:  '/indicators',
     emoji: '📊',
     title: 'Indicators',
-    desc:  'Track Belgium\'s progress on environmental objectives — national and regional data across 6 topics.',
+    desc:  'Track Belgium\'s progress on environmental objectives — national and regional data across 6 topics including climate, air quality, biodiversity and mobility.',
     color: '#f97316',
-    soon:  false,
+    tag:   'Data & tracking',
   },
   {
     href:  '/learn',
     emoji: '📚',
     title: 'Learn',
-    desc:  'Deep dives into the environmental challenges Belgium faces, organised by topic.',
+    desc:  'Deep dives into the environmental challenges Belgium faces — from plastic pollution and air quality to biodiversity loss and the energy transition.',
     color: '#8b5cf6',
-    soon:  true,
+    tag:   'Articles & explainers',
   },
   {
     href:  '/calculator',
     emoji: '🧮',
     title: 'Calculators',
-    desc:  'Two interactive tools: estimate your personal yearly CO₂ footprint, and discover which critical raw materials are embedded in your devices.',
+    desc:  'Two interactive tools: estimate your personal yearly CO₂ footprint, and discover which critical raw materials are embedded in your everyday devices.',
     color: '#0ea5e9',
-    soon:  false,
+    tag:   'Interactive tools',
   },
   {
     href:  '/blog',
     emoji: '✍️',
     title: 'Blog',
-    desc:  'Analysis, updates and commentary on Belgium\'s environmental policies and progress.',
+    desc:  'Analysis, updates and commentary on Belgium\'s environmental policies, data releases and progress against targets.',
     color: '#22c55e',
-    soon:  true,
+    tag:   'Analysis & updates',
   },
+];
+
+const STATS = [
+  { value: '6',    label: 'environmental topics' },
+  { value: '30+',  label: 'tracked indicators'   },
+  { value: '3',    label: 'Belgian regions'       },
+  { value: '2026', label: 'latest data'           },
 ];
 
 export default function Home() {
   return (
-    <main>
+    <main style={{ minHeight: '100vh', background: 'var(--bg, #f4f4f2)' }}>
+
       {/* ── Hero ── */}
-      <div className="landing-hero">
+      <div className="landing-hero" style={{ position: 'relative', overflow: 'hidden' }}>
         <div className="flag-stripe black" />
         <div className="flag-stripe yellow" />
         <div className="flag-stripe red" />
-        <div className="landing-hero-inner">
-          <p className="landing-eyebrow">🇧🇪 Belgium</p>
-          <h1 className="landing-title">Environment Tracker</h1>
-          <p className="landing-desc">
-            An independent tracker monitoring Belgium&#39;s progress on a selected set of climate &amp; environment objectives.
+
+        {/* Decorative background pattern */}
+        <div style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0,
+          backgroundImage: 'radial-gradient(circle at 80% 50%, rgba(249,115,22,0.08) 0%, transparent 60%), radial-gradient(circle at 20% 80%, rgba(139,92,246,0.06) 0%, transparent 50%)',
+        }} />
+
+        <div className="landing-hero-inner" style={{ position: 'relative', zIndex: 1, paddingBottom: 48 }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: 20, padding: '4px 14px', marginBottom: 20,
+          }}>
+            <span style={{ fontSize: '0.95rem' }}>🇧🇪</span>
+            <span style={{ fontSize: '0.78rem', fontWeight: 600, color: '#d1d5db', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Belgium</span>
+          </div>
+
+          <h1 className="landing-title" style={{ marginBottom: 16 }}>Environment Tracker</h1>
+
+          <p className="landing-desc" style={{ maxWidth: 560, marginBottom: 36 }}>
+            An independent tracker monitoring Belgium&apos;s progress on climate &amp; environment objectives —
+            verified data, clear context, no spin.
           </p>
+
+          {/* Stat strip */}
+          <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap' }}>
+            {STATS.map(s => (
+              <div key={s.label}>
+                <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#f59e0b', lineHeight: 1, fontFamily: 'Georgia, serif' }}>{s.value}</div>
+                <div style={{ fontSize: '0.72rem', color: '#9ca3af', marginTop: 2, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* ── Section cards ── */}
-      <div className="landing-sections">
-        <p className="landing-sections-label">Explore the tracker</p>
-        <div className="landing-grid">
+      <div style={{ maxWidth: 860, margin: '0 auto', padding: '40px 24px 80px' }}>
+
+        <p style={{
+          fontSize: '0.7rem', fontWeight: 700, color: '#9ca3af',
+          textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 20,
+        }}>
+          Explore the tracker
+        </p>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {SECTIONS.map(s => (
             <Link
               key={s.href}
               href={s.href}
-              className="landing-card"
-              style={{ '--lcard-color': s.color } as React.CSSProperties}
+              style={{ textDecoration: 'none' }}
             >
-              {s.soon && <span className="landing-card-coming">Coming soon</span>}
-              <span className="landing-card-emoji">{s.emoji}</span>
-              <span className="landing-card-title">{s.title}</span>
-              <span className="landing-card-desc">{s.desc}</span>
+              <div style={{
+                background: '#fff',
+                borderRadius: 14,
+                padding: '22px 28px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 24,
+                boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
+                borderLeft: `4px solid ${s.color}`,
+                transition: 'box-shadow 0.2s, transform 0.15s',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 20px rgba(0,0,0,0.12)';
+                (e.currentTarget as HTMLDivElement).style.transform = 'translateX(3px)';
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLDivElement).style.boxShadow = '0 1px 4px rgba(0,0,0,0.07)';
+                (e.currentTarget as HTMLDivElement).style.transform = 'translateX(0)';
+              }}
+              >
+                {/* Emoji icon */}
+                <div style={{
+                  width: 48, height: 48, borderRadius: 12, flexShrink: 0,
+                  background: `${s.color}15`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '1.5rem',
+                }}>
+                  {s.emoji}
+                </div>
+
+                {/* Text */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
+                    <span style={{ fontSize: '1.05rem', fontWeight: 800, color: '#1a1a1a' }}>{s.title}</span>
+                    <span style={{
+                      fontSize: '0.65rem', fontWeight: 700, color: s.color,
+                      background: `${s.color}15`, borderRadius: 20,
+                      padding: '2px 8px', textTransform: 'uppercase', letterSpacing: '0.06em',
+                    }}>
+                      {s.tag}
+                    </span>
+                  </div>
+                  <p style={{ fontSize: '0.87rem', color: '#4b5563', lineHeight: 1.6, margin: 0 }}>{s.desc}</p>
+                </div>
+
+                {/* Arrow */}
+                <div style={{
+                  flexShrink: 0, width: 32, height: 32, borderRadius: '50%',
+                  border: `1.5px solid ${s.color}40`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: s.color, fontSize: '0.9rem', fontWeight: 700,
+                }}>
+                  →
+                </div>
+              </div>
             </Link>
           ))}
         </div>
       </div>
 
-      <footer>
-        <p>Data sourced from EEA, Eurostat, VMM, ISSeP and other official sources. Last updated March 2026.</p>
+      <footer style={{ borderTop: '1px solid #e5e7eb', padding: '20px 24px', textAlign: 'center' }}>
+        <p style={{ fontSize: '0.78rem', color: '#9ca3af', margin: 0 }}>
+          Data sourced from EEA, Eurostat, VMM, ISSeP and other official sources. Last updated April 2026.
+        </p>
       </footer>
     </main>
   );
