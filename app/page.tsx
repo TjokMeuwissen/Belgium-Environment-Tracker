@@ -54,7 +54,7 @@ export default function Home() {
         }} />
 
         <div className="landing-hero-inner" style={{ position: 'relative', zIndex: 1, paddingBottom: 48 }}>
-          <p className="landing-eyebrow">🇧🇪 Belgium</p>
+          <p style={{ fontSize: '0.78rem', fontWeight: 700, color: '#f59e0b', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 12 }}>🇧🇪 Belgium</p>
 
           <h1 className="landing-title" style={{ marginBottom: 16 }}>Environment Tracker</h1>
 
