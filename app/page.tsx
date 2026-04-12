@@ -37,13 +37,6 @@ const SECTIONS = [
   },
 ];
 
-const STATS = [
-  { value: '6',    label: 'environmental topics' },
-  { value: '30+',  label: 'tracked indicators'   },
-  { value: '3',    label: 'Belgian regions'       },
-  { value: '2026', label: 'latest data'           },
-];
-
 export default function Home() {
   return (
     <main style={{ minHeight: '100vh', background: 'var(--bg, #f4f4f2)' }}>
@@ -61,31 +54,14 @@ export default function Home() {
         }} />
 
         <div className="landing-hero-inner" style={{ position: 'relative', zIndex: 1, paddingBottom: 48 }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)',
-            borderRadius: 20, padding: '4px 14px', marginBottom: 20,
-          }}>
-            <span style={{ fontSize: '0.95rem' }}>🇧🇪</span>
-            <span style={{ fontSize: '0.78rem', fontWeight: 600, color: '#d1d5db', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Belgium</span>
-          </div>
+          <p className="landing-eyebrow">🇧🇪 Belgium</p>
 
           <h1 className="landing-title" style={{ marginBottom: 16 }}>Environment Tracker</h1>
 
-          <p className="landing-desc" style={{ maxWidth: 560, marginBottom: 36 }}>
+          <p className="landing-desc" style={{ maxWidth: 560, marginBottom: 0 }}>
             An independent tracker monitoring Belgium&apos;s progress on climate &amp; environment objectives —
             verified data, clear context, no spin.
           </p>
-
-          {/* Stat strip */}
-          <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap' }}>
-            {STATS.map(s => (
-              <div key={s.label}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#f59e0b', lineHeight: 1, fontFamily: 'Georgia, serif' }}>{s.value}</div>
-                <div style={{ fontSize: '0.72rem', color: '#9ca3af', marginTop: 2, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 
