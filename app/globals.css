@@ -61,7 +61,7 @@ header { position: relative; background: #1a1a1a; color: white; overflow: hidden
 header h1 { font-family: 'Roboto', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 10px; }
 
 .header-sub { color: #b0b0b0; font-size: 0.95rem; max-width: 480px; }
-.header-indicator-count { color: #9ca3af; font-size: 0.85rem; margin-top: 6px; }
+.header-indicator-count { color: #6b7280; font-size: 0.85rem; margin-top: 6px; }
 .header-stats { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
 .stat-pill { padding: 6px 14px; border-radius: 999px; font-size: 0.82rem; font-weight: 600; white-space: nowrap; }
@@ -483,7 +483,7 @@ footer { background: #1a1a1a; color: #666; text-align: center; padding: 24px 32p
   font-family: 'Epilogue', sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
-  color: #9ca3af;
+  color: #6b7280;
   letter-spacing: 0.04em;
 }
 
@@ -499,6 +499,14 @@ footer { background: #1a1a1a; color: #666; text-align: center; padding: 24px 32p
   padding: 36px 48px 80px;
   flex: 1;
   width: 100%;
+}
+
+/* Landing page wrapper — ensures footer sticks to bottom of viewport */
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  flex: 1;
 }
 
 .landing-sections-label {
