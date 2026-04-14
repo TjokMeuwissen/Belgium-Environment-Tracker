@@ -385,7 +385,7 @@ function MarineReservesMap() {
     <div style={{ margin: '8px 0' }}>
       <div style={{ position: 'relative', borderRadius: 8, overflow: 'hidden' }}>
         <img
-          src="/images/indicators/marine-reserves.JPG"
+          src="/images/indicators/marine-reserves.jpg"
           alt="Belgian North Sea zones including marine protected areas, renewable energy zones, shipping lanes and other designated areas"
           style={{ width: '100%', display: 'block', borderRadius: 8 }}
         />
