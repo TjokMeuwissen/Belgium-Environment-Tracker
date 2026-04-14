@@ -4,8 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine,
-  LineChart, Line, ResponsiveContainer, Cell, LabelList,
+  XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine,
+  LineChart, Line, ResponsiveContainer,
 } from 'recharts';
 
 export interface Indicator {
@@ -49,61 +49,6 @@ interface Props {
   invasiveSpecies: InvasiveSpecies[];
 }
 
-// ── EU protected land data (EEA 2025) sorted descending ───────────────────
-const EU_COMPARISON = [
-  { country: 'Luxembourg',  total: 40.6, status: 'Achieved'  },
-  { country: 'Slovenia',    total: 40.6, status: 'Achieved'  },
-  { country: 'Poland',      total: 39.6, status: 'Achieved'  },
-  { country: 'Germany',     total: 38.5, status: 'Achieved'  },
-  { country: 'Bulgaria',    total: 38.4, status: 'Achieved'  },
-  { country: 'Croatia',     total: 37.2, status: 'Achieved'  },
-  { country: 'Slovakia',    total: 35.7, status: 'Achieved'  },
-  { country: 'Greece',      total: 33.8, status: 'Achieved'  },
-  { country: 'Cyprus',      total: 31.2, status: 'Achieved'  },
-  { country: 'Romania',     total: 27.9, status: 'Close'     },
-  { country: 'Spain',       total: 27.6, status: 'Close'     },
-  { country: 'Hungary',     total: 26.9, status: 'Close'     },
-  { country: 'Italy',       total: 27.0, status: 'Close'     },
-  { country: 'Austria',     total: 26.5, status: 'Close'     },
-  { country: 'EU-27 avg',   total: 26.4, status: 'Close'     },
-  { country: 'France',      total: 25.5, status: 'Close'     },
-  { country: 'Portugal',    total: 24.8, status: 'Close'     },
-  { country: 'Lithuania',   total: 22.2, status: 'Close'     },
-  { country: 'Czechia',     total: 21.8, status: 'Close'     },
-  { country: 'Estonia',     total: 21.8, status: 'Close'     },
-  { country: 'Ireland',     total: 20.4, status: 'Close'     },
-  { country: 'Netherlands', total: 19.8, status: 'Off track' },
-  { country: 'Latvia',      total: 19.0, status: 'Off track' },
-  { country: 'Malta',       total: 17.8, status: 'Off track' },
-  { country: 'Sweden',      total: 15.0, status: 'Off track' },
-  { country: 'Belgium',     total: 14.7, status: 'Belgium'   },
-  { country: 'Finland',     total: 13.4, status: 'Off track' },
-  { country: 'Denmark',     total:  8.7, status: 'Off track' },
-].sort((a, b) => b.total - a.total);
-
-const BAR_COLOR: Record<string, string> = {
-  Achieved:  '#bbf7d0',
-  Close:     '#fef08a',
-  'Off track': '#fecaca',
-  Belgium:   '#b91c1c',
-};
-
-// Custom Y-axis tick — Belgium in bold
-const BoldTick = (props: any) => {
-  const { x, y, payload } = props;
-  const isBE = payload.value === 'Belgium';
-  return (
-    <text
-      x={x} y={y} dy={4}
-      textAnchor="end"
-      fontSize={isBE ? 12 : 11}
-      fontWeight={isBE ? 700 : 400}
-      fill={isBE ? '#b91c1c' : '#4b5563'}
-    >
-      {payload.value}
-    </text>
-  );
-};
 
 // ── Habitat examples ───────────────────────────────────────────────────────
 const HABITAT_EXAMPLES = [
@@ -282,49 +227,90 @@ function WideCard({
 
 // ── Charts ─────────────────────────────────────────────────────────────────
 
-function EUBarChart() {
-  // Height calculated to fit all 28 rows at ~20px each
+function ProtectedLandGapChart() {
+  // Belgium land area: 30,689 km²
+  // Current protected: 14.7% = 4,511 km²
+  // Target (EU Biodiversity Strategy 2030): 30% = 9,207 km²
+  // Gap: 4,696 km²  ≈  657,700 FIFA football pitches (105m × 68m = 0.00714 km²)
+  const LAND_KM2   = 30689;
+  const CURRENT_PCT = 14.7;
+  const TARGET_PCT  = 30;
+  const STRICT_PCT  = 10;   // EU sub-target: strictly protected
+  const CURRENT_KM2 = Math.round(LAND_KM2 * CURRENT_PCT / 100);
+  const TARGET_KM2  = Math.round(LAND_KM2 * TARGET_PCT  / 100);
+  const GAP_KM2     = TARGET_KM2 - CURRENT_KM2;
+  const PITCH_KM2   = 0.00714;   // FIFA standard 105 × 68 m
+  const PITCHES     = Math.round(GAP_KM2 / PITCH_KM2 / 1000) * 1000; // rounded to nearest 1,000
+
+  const bars = [
+    { label: 'Currently protected', pct: CURRENT_PCT, km2: CURRENT_KM2, color: '#22c55e' },
+    { label: 'Still needed to reach target', pct: TARGET_PCT - CURRENT_PCT, km2: GAP_KM2, color: '#fde68a', pattern: true },
+    { label: 'Strictly protected (sub-target)', pct: STRICT_PCT, km2: Math.round(LAND_KM2 * STRICT_PCT / 100), color: '#16a34a' },
+  ];
+
   return (
-    <ResponsiveContainer width="100%" height={620}>
-      <BarChart
-        data={EU_COMPARISON}
-        layout="vertical"
-        margin={{ top: 4, right: 48, left: 90, bottom: 4 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" horizontal={false} />
-        <XAxis
-          type="number" domain={[0, 50]}
-          tick={{ fontSize: 11, fill: '#6b6b6b' }} tickLine={false}
-          label={{ value: '% of land area', position: 'insideBottomRight', offset: -4, fontSize: 11, fill: '#9ca3af' }}
-        />
-        <YAxis
-          type="category" dataKey="country" width={88}
-          tick={<BoldTick />} tickLine={false} axisLine={false}
-          interval={0}
-        />
-        <Tooltip
-          contentStyle={TOOLTIP_STYLE}
-          formatter={(v: any) => [`${v}%`, '']}
-          cursor={{ fill: 'rgba(0,0,0,0.04)' }}
-        />
-        <ReferenceLine
-          x={30} stroke="#f97316" strokeDasharray="4 2" strokeWidth={1.5}
-          label={{ value: '30% target', position: 'insideTopRight', fontSize: 10, fill: '#f97316' }}
-        />
-        <Bar dataKey="total" radius={[0, 3, 3, 0]}>
-          {EU_COMPARISON.map((e, i) => (
-            <Cell key={i} fill={BAR_COLOR[e.status] ?? '#e5e7eb'} />
-          ))}
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
+    <div style={{ padding: '4px 0 0' }}>
+      {/* Visual gauge */}
+      <div style={{ marginBottom: 20 }}>
+        <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>
+          Share of Belgian territory under protection
+        </div>
+        {/* Full bar representing 100% land */}
+        <div style={{ position: 'relative', height: 36, borderRadius: 8, background: '#f3f4f6', overflow: 'visible', marginBottom: 6 }}>
+          {/* Protected portion */}
+          <div style={{ position: 'absolute', left: 0, top: 0, height: '100%', width: `${CURRENT_PCT}%`, background: '#22c55e', borderRadius: '8px 0 0 8px', transition: 'width 0.5s' }} />
+          {/* Gap portion */}
+          <div style={{ position: 'absolute', left: `${CURRENT_PCT}%`, top: 0, height: '100%', width: `${TARGET_PCT - CURRENT_PCT}%`, background: 'repeating-linear-gradient(45deg, #fef08a, #fef08a 4px, #fde68a 4px, #fde68a 10px)', borderRadius: 0 }} />
+          {/* Target tick */}
+          <div style={{ position: 'absolute', left: `${TARGET_PCT}%`, top: -6, bottom: -6, width: 2, background: COLOR, borderRadius: 2 }} />
+          {/* Current value label */}
+          <div style={{ position: 'absolute', left: `${CURRENT_PCT / 2}%`, top: '50%', transform: 'translate(-50%, -50%)', fontSize: 12, fontWeight: 800, color: '#fff' }}>
+            {CURRENT_PCT}%
+          </div>
+        </div>
+        {/* Scale labels */}
+        <div style={{ position: 'relative', height: 16 }}>
+          <span style={{ position: 'absolute', left: 0, fontSize: 10, color: '#9ca3af' }}>0%</span>
+          <span style={{ position: 'absolute', left: `${TARGET_PCT}%`, transform: 'translateX(-50%)', fontSize: 10, fontWeight: 700, color: COLOR }}>30% target</span>
+          <span style={{ position: 'absolute', right: 0, fontSize: 10, color: '#9ca3af' }}>100%</span>
+        </div>
+      </div>
+
+      {/* Key figures */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 14 }}>
+        <div style={{ background: '#f0fdf4', borderRadius: 8, padding: '12px 14px', borderLeft: '3px solid #22c55e' }}>
+          <div style={{ fontSize: 18, fontWeight: 800, color: '#166534' }}>{CURRENT_KM2.toLocaleString('en-BE')} km²</div>
+          <div style={{ fontSize: 11, color: '#4b5563', marginTop: 2 }}>Currently protected ({CURRENT_PCT}%)</div>
+        </div>
+        <div style={{ background: '#fefce8', borderRadius: 8, padding: '12px 14px', borderLeft: '3px solid #eab308' }}>
+          <div style={{ fontSize: 18, fontWeight: 800, color: '#854d0e' }}>{GAP_KM2.toLocaleString('en-BE')} km²</div>
+          <div style={{ fontSize: 11, color: '#4b5563', marginTop: 2 }}>Still needed to reach 30% by 2030</div>
+        </div>
+      </div>
+
+      {/* Soccer fields equivalence */}
+      <div style={{ background: '#f9fafb', borderRadius: 8, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <span style={{ fontSize: '1.4rem' }}>⚽</span>
+        <span style={{ fontSize: 12, color: '#374151', lineHeight: 1.5 }}>
+          The missing {GAP_KM2.toLocaleString('en-BE')} km² is equivalent to about{' '}
+          <strong style={{ color: '#166534' }}>{(PITCHES / 1000).toFixed(0)},000 football pitches</strong>
+          {' '}(FIFA standard 105 × 68 m) that still need protection.
+        </span>
+      </div>
+
+      {/* Sub-target note */}
+      <div style={{ marginTop: 10, fontSize: 11, color: '#6b7280', lineHeight: 1.5 }}>
+        The EU Biodiversity Strategy 2030 also requires that <strong>10% of land</strong> be under <em>strict protection</em> (no human use). Belgium is estimated to have less than 1% under strict protection.
+        {' '}Source: EEA — Designated terrestrial protected areas in Europe (2025).
+      </div>
+    </div>
   );
 }
 
-function NatureLineChart({ data, color, unit }: { data: HistoricalPoint[]; color: string; unit: string; }) {
+function NatureLineChart({ data, color, unit, target, targetLabel }: { data: HistoricalPoint[]; color: string; unit: string; target?: number; targetLabel?: string; }) {
   return (
     <ResponsiveContainer width="100%" height={240}>
-      <LineChart data={data} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
+      <LineChart data={data} margin={{ top: 8, right: 24, left: 0, bottom: 0 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
         <XAxis dataKey="year" tick={{ fontSize: 12, fill: '#6b6b6b' }} tickLine={false} interval={4} />
         <YAxis tick={{ fontSize: 12, fill: '#6b6b6b' }} tickLine={false} axisLine={false} width={40} />
@@ -334,6 +320,21 @@ function NatureLineChart({ data, color, unit }: { data: HistoricalPoint[]; color
           labelStyle={{ fontWeight: 700 }}
         />
         <Line type="monotone" dataKey="value" stroke={color} strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: color }} />
+        {target != null && (
+          <ReferenceLine
+            y={target}
+            stroke={color}
+            strokeDasharray="6 4"
+            strokeWidth={1.8}
+            label={{
+              value: targetLabel ?? `🎯 Target: ${target}${unit ? ' ' + unit : ''}`,
+              position: 'insideTopRight',
+              fontSize: 11,
+              fill: color,
+              fontWeight: 600,
+            }}
+          />
+        )}
       </LineChart>
     </ResponsiveContainer>
   );
@@ -379,10 +380,20 @@ function InvasivePanel({ species }: { species: InvasiveSpecies[] }) {
   );
 }
 
-function MarinePlaceholder() {
+function MarineReservesMap() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 200, color: '#9ca3af', fontSize: 13, fontStyle: 'italic', border: '2px dashed #e5e3da', borderRadius: 8, margin: '8px 0' }}>
-      Additional data visualisation coming soon
+    <div style={{ margin: '8px 0' }}>
+      <div style={{ position: 'relative', borderRadius: 8, overflow: 'hidden' }}>
+        <img
+          src="/images/indicators/marine-reserves.JPG"
+          alt="Belgian North Sea zones including marine protected areas, renewable energy zones, shipping lanes and other designated areas"
+          style={{ width: '100%', display: 'block', borderRadius: 8 }}
+        />
+      </div>
+      <p style={{ fontSize: 11, color: '#6b7280', marginTop: 6, lineHeight: 1.5 }}>
+        Belgian North Sea spatial planning zones — marine protected areas (green) alongside renewable energy zones, shipping lanes, extraction areas and anchorage zones.
+        Source: <a href="https://www.health.belgium.be/nl/nieuws/2026-3-nieuw-marien-ruimtelijk-plan-treedt-werking" target="_blank" rel="noopener noreferrer" style={{ color: '#0369a1' }}>FPS Public Health Belgium — Marine Spatial Plan 2026</a>
+      </p>
     </div>
   );
 }
@@ -450,9 +461,9 @@ export default function NatureBiodiversityTab({ indicators, historicalOrganic, h
             id="protected-land-area-terrestrial"
             ind={byName['Protected Land Area — terrestrial']}
             accentColor={COLOR}
-            chartTitle="Protected land area — all EU member states (% of land area, 2023)"
+            chartTitle="Protected land area — Belgium's gap to the 2030 target"
             chartSource="Source: EEA — Designated terrestrial protected areas in Europe (2025)"
-            chart={<EUBarChart />}
+            chart={<ProtectedLandGapChart />}
             slug="protected-land-area-terrestrial"
           />
         )}
@@ -462,8 +473,9 @@ export default function NatureBiodiversityTab({ indicators, historicalOrganic, h
             id="marine-protected-areas"
             ind={byName['Marine Protected Areas']}
             accentColor={COLOR}
-            chartTitle="Marine protected areas"
-            chart={<MarinePlaceholder />}
+            chartTitle="Belgian North Sea — designated zones"
+            chartSource="Source: FPS Public Health Belgium — Marine Spatial Plan 2026"
+            chart={<MarineReservesMap />}
             slug="marine-protected-areas"
           />
         )}
@@ -489,7 +501,7 @@ export default function NatureBiodiversityTab({ indicators, historicalOrganic, h
             accentColor={COLOR}
             chartTitle="Organic farming share — Belgium 2000–2023 (% of utilised agricultural area)"
             chartSource="Source: Eurostat / Statbel"
-            chart={<NatureLineChart data={historicalOrganic} color={COLOR} unit="%" />}
+            chart={<NatureLineChart data={historicalOrganic} color={COLOR} unit="%" target={25} targetLabel="🎯 2030 target: 25%" />}
             slug="organic-farming-share"
           />
         )}
