@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import {
   LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -343,6 +343,24 @@ export default function CircularityWasteTab({
     window.scrollTo({ top, behavior: 'smooth' });
   };
 
+  const [activeId, setActiveId] = React.useState('msw-recycling');
+
+  useEffect(() => {
+    const ids = ['msw-recycling', 'packaging', 'waste-per-capita', 'cmur'];
+    const observers: IntersectionObserver[] = [];
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([e]) => { if (e.isIntersecting) setActiveId(id); },
+        { threshold: 0.25 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach(o => o.disconnect());
+  }, []);
+
   return (
     <div className="climate-tab" style={{ '--topic-color': TOPIC_COLOR } as React.CSSProperties}>
       {/* Sidebar */}
@@ -355,8 +373,8 @@ export default function CircularityWasteTab({
             </div>
             {group.items.map(item => (
               <button key={item.id} onClick={() => scrollTo(item.id)}
-                className="sidebar-link"
-                style={{ background: 'none', border: 'none', cursor: 'pointer', width: '100%', textAlign: 'left', fontFamily: 'Epilogue, sans-serif' }}
+                className={`sidebar-link ${activeId === item.id ? 'active' : ''}`}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', width: '100%', textAlign: 'left', fontFamily: 'Epilogue, sans-serif', '--topic-color': TOPIC_COLOR } as React.CSSProperties}
               >
                 {item.label}
               </button>

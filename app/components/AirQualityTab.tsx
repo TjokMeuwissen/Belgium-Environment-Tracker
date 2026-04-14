@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import {
   PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer,
@@ -325,6 +325,24 @@ export default function AirQualityTab({ indicators }: Props) {
     window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' });
   };
 
+  const [activeId, setActiveId] = React.useState('pm25');
+
+  useEffect(() => {
+    const ids = ['pm25', 'nox', 'nh3', 'ozone'];
+    const observers: IntersectionObserver[] = [];
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([e]) => { if (e.isIntersecting) setActiveId(id); },
+        { threshold: 0.25 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach(o => o.disconnect());
+  }, []);
+
   return (
     <div className="climate-tab" style={{ '--topic-color': TOPIC_COLOR } as React.CSSProperties}>
 
@@ -338,8 +356,8 @@ export default function AirQualityTab({ indicators }: Props) {
             </div>
             {group.items.map(item => (
               <button key={item.id} onClick={() => scrollTo(item.id)}
-                className="sidebar-link"
-                style={{ background: 'none', border: 'none', cursor: 'pointer', width: '100%', textAlign: 'left', fontFamily: 'Epilogue, sans-serif' }}>
+                className={`sidebar-link ${activeId === item.id ? 'active' : ''}`}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', width: '100%', textAlign: 'left', fontFamily: 'Epilogue, sans-serif', '--topic-color': TOPIC_COLOR } as React.CSSProperties}>
                 {item.label}
               </button>
             ))}
