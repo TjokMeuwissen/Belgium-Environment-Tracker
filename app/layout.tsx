@@ -18,9 +18,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}>
         <SiteNav />
-        {children}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          {children}
+        </div>
+        <footer
+          style={{
+            padding: '20px 24px',
+            background: '#1a1a1a',
+            color: '#d1d5db',
+            textAlign: 'center',
+            fontSize: '14px',
+            fontFamily: 'Epilogue, sans-serif',
+            lineHeight: 1.5,
+            borderTop: '1px solid #2a2a2a',
+          }}
+        >
+          Independent website / data sourced from official sources such as Eurostat, EEA, Our World In Data and others
+        </footer>
       </body>
     </html>
   )

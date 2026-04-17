@@ -141,12 +141,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-
-      <footer style={{ borderTop: '1px solid #e5e7eb', padding: '20px 24px', textAlign: 'center' }}>
-        <p style={{ fontSize: '0.78rem', color: '#9ca3af', margin: 0 }}>
-          Data sourced from EEA, Eurostat, VMM, ISSeP and other official sources. Last updated April 2026.
-        </p>
-      </footer>
     </main>
   );
 }
